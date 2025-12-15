@@ -1,0 +1,5 @@
+{
+  "name": "LinkSnap",
+  "description": "AI-powered screenshot bookmark manager that extracts URLs and categorizes web tools using Gemini Vision.",
+  "requestFramePermissions": []
+}

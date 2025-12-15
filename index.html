@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>LinkSnap - AI Bookmark Registry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'ls-navy': '#213448',
+              'ls-blue': '#547792',
+              'ls-muted': '#94B4C1',
+              'ls-beige': '#EAE0CF',
+              'ios-bg': 'rgba(33, 52, 72, 0.94)',
+            },
+            fontFamily: {
+              sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+        :root {
+            --ios-blur: 25px;
+            --ios-border: rgba(148, 180, 193, 0.12);
+        }
+
+        body {
+            background-color: #213448;
+            color: #EAE0CF;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* iOS-style Glassmorphism */
+        .glass-ios {
+            background: rgba(43, 62, 82, 0.65);
+            backdrop-filter: blur(var(--ios-blur)) saturate(190%);
+            -webkit-backdrop-filter: blur(var(--ios-blur)) saturate(190%);
+            border: 0.5px solid var(--ios-border);
+        }
+
+        .glass-ios-dark {
+            background: rgba(20, 30, 45, 0.8);
+            backdrop-filter: blur(var(--ios-blur));
+            -webkit-backdrop-filter: blur(var(--ios-blur));
+            border: 0.5px solid var(--ios-border);
+        }
+
+        /* iOS Squircle Borders */
+        .squircle {
+            border-radius: 38px;
+        }
+        
+        .squircle-inner {
+            border-radius: 28px;
+        }
+
+        /* Segmented Control Styling */
+        .segmented-bg {
+            background: rgba(20, 30, 45, 0.4);
+            border-radius: 10px;
+            padding: 2px;
+        }
+
+        /* Spring Animations */
+        @keyframes ios-reveal {
+            from { opacity: 0; transform: scale(0.96) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .animate-ios {
+            animation: ios-reveal 0.6s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+        }
+
+        /* Custom Scrollbar for Registry */
+        .registry-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .registry-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 180, 193, 0.2);
+            border-radius: 10px;
+        }
+
+        /* Hide Default Focus */
+        *:focus {
+            outline: none;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
+    "jspdf": "https://esm.sh/jspdf@^3.0.4"
+  }
+}
+</script>
+</head>
+<body class="selection:bg-ls-muted/20">
+    <div id="root"></div>
+</body>
+</html>
