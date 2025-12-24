@@ -1,11 +1,13 @@
+
 import { GoogleGenAI, Type } from "@google/genai";
 import { GeminiResponse } from "../types";
 
 export const analyzeScreenshot = async (base64Data: string): Promise<GeminiResponse> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+  // Fix: Initialized with named parameters and process.env.API_KEY as per guidelines.
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   
-  // Use gemini-2.5-flash for vision tasks as per guidelines
-  const model = "gemini-2.5-flash";
+  // Fix: Using gemini-3-flash-preview for general vision-to-text extraction tasks.
+  const model = "gemini-3-flash-preview";
   
   const systemInstruction = `You are a specialized AI Vision agent for LinkSnap. Your job is to extract the PRIMARY website or tool featured in a screenshot.
 
@@ -71,6 +73,7 @@ CATEGORIES:
       },
     });
 
+    // Fix: Access response text via the .text property (not a method).
     const text = response.text;
     if (!text) {
       throw new Error("Empty response from AI");
