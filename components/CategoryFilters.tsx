@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface CategoryFiltersProps {
@@ -9,16 +8,16 @@ interface CategoryFiltersProps {
 
 const CategoryFilters: React.FC<CategoryFiltersProps> = ({ categories, selectedCategory, onSelectCategory }) => {
   return (
-    <div className="overflow-x-auto no-scrollbar py-1">
-      <div className="flex gap-2 min-w-max">
-        {categories.map(cat => (
+    <div className="overflow-x-auto no-scrollbar py-4">
+      <div className="flex gap-4 min-w-max">
+        {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => onSelectCategory(cat)}
-            className={`px-5 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest transition-all ${
-              selectedCategory === cat 
-                ? 'bg-ls-muted text-ls-navy shadow-lg shadow-ls-muted/10 translate-y-[-1px]' 
-                : 'bg-ls-beige/5 text-ls-muted hover:bg-ls-muted/5 border border-white/5'
+            className={`px-8 py-3 rounded-full text-[10px] font-dot uppercase tracking-[0.3em] transition-all border-2 ${
+              selectedCategory === cat
+                ? 'bg-nt-red border-nt-red text-nt-white'
+                : 'border-white/10 text-white/40 hover:border-white/30 hover:text-nt-white'
             }`}
           >
             {cat}

@@ -11,47 +11,50 @@ interface RegistryHeaderProps {
   onExport: () => void;
 }
 
-const RegistryHeader: React.FC<RegistryHeaderProps> = ({ 
-  searchQuery, 
-  onSearchChange, 
-  viewMode, 
-  onViewModeChange, 
-  onExport 
+const RegistryHeader: React.FC<RegistryHeaderProps> = ({
+  searchQuery,
+  onSearchChange,
+  viewMode,
+  onViewModeChange,
+  onExport,
 }) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-center">
-      <div className="relative flex-1 w-full">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-ls-muted/50" strokeWidth={2.5} />
-        <input 
-          type="text" 
-          placeholder="Filter by site, category, or summary..."
+    <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-center">
+      <div className="relative flex-1 w-full group">
+        <Search className="absolute left-5 md:left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20 group-focus-within:text-nt-red transition-colors" />
+        <input
+          type="text"
+          placeholder="FILTER REGISTRY..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full glass-ios rounded-xl py-3.5 pl-11 pr-5 focus:outline-none ring-offset-2 focus:ring-2 ring-ls-muted/20 transition-all text-sm font-medium text-ls-beige placeholder:text-ls-muted/30 shadow-sm"
+          className="w-full bg-transparent border-2 border-white/10 rounded-full py-3.5 md:py-4.5 pl-12 md:pl-14 pr-6 md:pr-8 focus:outline-none focus:border-nt-red transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-14 md:h-16 tracking-widest"
         />
       </div>
 
-      <div className="flex items-center gap-2">
-        <div className="segmented-bg flex p-1 shadow-inner">
-          <button 
+      <div className="flex items-center gap-3 md:gap-4 w-full md:w-auto">
+        <div className="flex flex-1 md:flex-none p-1 border-2 border-white/10 rounded-full h-14 md:h-16 bg-nt-black">
+          <button
             onClick={() => onViewModeChange('grid')}
-            className={`p-2.5 rounded-lg transition-all ${viewMode === 'grid' ? 'bg-ls-muted text-ls-navy shadow-lg scale-100' : 'text-ls-muted hover:text-ls-beige scale-95 opacity-60'}`}
+            className={`flex-1 md:w-12 md:h-12 flex items-center justify-center rounded-full transition-all ${
+              viewMode === 'grid' ? 'bg-nt-white text-nt-black' : 'text-white/20 hover:text-nt-white'
+            }`}
           >
-            <LayoutGrid className="w-4 h-4" />
+            <LayoutGrid className="w-4 h-4 md:w-5 md:h-5" />
           </button>
-          <button 
+          <button
             onClick={() => onViewModeChange('list')}
-            className={`p-2.5 rounded-lg transition-all ${viewMode === 'list' ? 'bg-ls-muted text-ls-navy shadow-lg scale-100' : 'text-ls-muted hover:text-ls-beige scale-95 opacity-60'}`}
+            className={`flex-1 md:w-12 md:h-12 flex items-center justify-center rounded-full transition-all ${
+              viewMode === 'list' ? 'bg-nt-white text-nt-black' : 'text-white/20 hover:text-nt-white'
+            }`}
           >
-            <List className="w-4 h-4" />
+            <List className="w-4 h-4 md:w-5 md:h-5" />
           </button>
         </div>
-        <button 
+        <button
           onClick={onExport}
-          className="p-3 bg-ls-muted/10 rounded-xl text-ls-muted hover:bg-ls-muted/20 transition-all border border-white/5 active:scale-95"
-          title="Export Catalog as PDF"
+          className="w-14 h-14 md:w-16 md:h-16 border-2 border-white/10 rounded-full flex items-center justify-center text-white/20 hover:text-nt-red hover:border-nt-red transition-all active:scale-90 bg-nt-black"
         >
-          <FileDown className="w-4 h-4" />
+          <FileDown className="w-5 h-5 md:w-6 md:h-6" />
         </button>
       </div>
     </div>

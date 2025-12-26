@@ -1,24 +1,33 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>LinkSnap - AI Bookmark Registry</title>
+    
+    <!-- PWA & Mobile Optimization -->
+    <link rel="manifest" href="public/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/564/564445.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              'ls-navy': '#213448',
-              'ls-blue': '#547792',
-              'ls-muted': '#94B4C1',
-              'ls-beige': '#EAE0CF',
-              'ios-bg': 'rgba(33, 52, 72, 0.94)',
+              'nt-red': '#D71921',
+              'nt-black': '#000000',
+              'nt-white': '#FFFFFF',
+              'nt-gray': '#1C1C1C',
             },
             fontFamily: {
-              sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+              dot: ['DotGothic16', 'monospace'],
+              sans: ['Inter', '-apple-system', 'sans-serif'],
             },
           }
         }
@@ -26,72 +35,88 @@
     </script>
     <style>
         :root {
-            --ios-blur: 25px;
-            --ios-border: rgba(148, 180, 193, 0.12);
+            --nt-blur: 28px;
         }
 
         body {
-            background-color: #213448;
-            color: #EAE0CF;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
+            background-color: #000000;
+            color: #FFFFFF;
             -webkit-font-smoothing: antialiased;
+            letter-spacing: -0.01em;
             overflow-x: hidden;
+            overscroll-behavior-y: none; /* Prevent rubber-banding on mobile */
+            user-select: none; /* Make it feel like a native app */
         }
 
-        /* iOS-style Glassmorphism */
-        .glass-ios {
-            background: rgba(43, 62, 82, 0.65);
-            backdrop-filter: blur(var(--ios-blur)) saturate(190%);
-            -webkit-backdrop-filter: blur(var(--ios-blur)) saturate(190%);
-            border: 0.5px solid var(--ios-border);
+        .glass-nothing {
+            background: rgba(10, 10, 10, 0.75);
+            backdrop-filter: blur(var(--nt-blur)) saturate(150%);
+            -webkit-backdrop-filter: blur(var(--nt-blur)) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        .glass-ios-dark {
-            background: rgba(20, 30, 45, 0.8);
-            backdrop-filter: blur(var(--ios-blur));
-            -webkit-backdrop-filter: blur(var(--ios-blur));
-            border: 0.5px solid var(--ios-border);
+        .squircle { border-radius: 32px; }
+        .squircle-inner { border-radius: 24px; }
+
+        .nothing-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* iOS Squircle Borders */
-        .squircle {
-            border-radius: 38px;
+        .glitch-btn {
+            transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
+            position: relative;
+            z-index: 10;
+            touch-action: manipulation;
         }
-        
-        .squircle-inner {
-            border-radius: 28px;
+        .glitch-btn:hover {
+            filter: invert(1);
+            transform: scale(0.98);
         }
-
-        /* Segmented Control Styling */
-        .segmented-bg {
-            background: rgba(20, 30, 45, 0.4);
-            border-radius: 10px;
-            padding: 2px;
+        .glitch-btn:active {
+            transform: scale(0.95);
         }
 
-        /* Spring Animations */
-        @keyframes ios-reveal {
-            from { opacity: 0; transform: scale(0.96) translateY(10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes scan-nothing {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(480px); }
+        }
+
+        .scan-line {
+            height: 1px;
+            background: #D71921;
+            box-shadow: 0 0 20px 2px #D71921;
+            animation: scan-nothing 2.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        @keyframes ios-fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .animate-ios {
-            animation: ios-reveal 0.6s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+            animation: ios-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Custom Scrollbar for Registry */
-        .registry-scroll::-webkit-scrollbar {
-            width: 4px;
-        }
-        .registry-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148, 180, 193, 0.2);
-            border-radius: 10px;
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        .dot-pulse {
+            width: 8px;
+            height: 8px;
+            background: #D71921;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #D71921;
         }
 
-        /* Hide Default Focus */
-        *:focus {
-            outline: none;
+        /* Safe area support */
+        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        .pt-safe { padding-top: env(safe-area-inset-top); }
+
+        /* Smooth inputs for mobile */
+        input, textarea {
+            font-size: 16px !important; /* Prevents auto-zoom on iOS */
         }
     </style>
 <script type="importmap">
@@ -102,12 +127,23 @@
     "react": "https://esm.sh/react@^19.2.3",
     "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
     "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
-    "jspdf": "https://esm.sh/jspdf@^3.0.4"
+    "jspdf": "https://esm.sh/jspdf@^3.0.4",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@^3.8.2"
   }
 }
 </script>
+<link rel="stylesheet" href="/index.css">
 </head>
-<body class="selection:bg-ls-muted/20">
+<body class="nothing-grid min-h-screen">
     <div id="root"></div>
+    <script>
+        // Basic Service Worker registration for PWA functionality
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed:', err));
+          });
+        }
+    </script>
+<script type="module" src="/index.tsx"></script>
 </body>
 </html>

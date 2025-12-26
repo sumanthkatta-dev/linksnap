@@ -1,87 +1,51 @@
 
-import { GoogleGenAI, Type } from "@google/genai";
-import { GeminiResponse } from "../types";
+import { AnalysisResult, GroundingSource } from "../types";
+import { getFromStorage } from "./storageService";
 
-export const analyzeScreenshot = async (base64Data: string): Promise<GeminiResponse> => {
-  // Fix: Initialized with named parameters and process.env.API_KEY as per guidelines.
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+export const AVAILABLE_MODELS = [
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Latest ultra-fast model, best for speed" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Advanced reasoning with enhanced quality" },
+  { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", tier: "free", description: "Balanced performance and speed" },
+  { id: "gemini-2.0-flash-lite", name: "Gemini 2.0 Flash Lite", tier: "free", description: "Lightweight version for simple tasks" },
+  { id: "gemini-1.5-flash", name: "Gemini 1.5 Flash", tier: "free", description: "Fast and efficient for most tasks" },
+  { id: "gemini-1.5-flash-8b", name: "Gemini 1.5 Flash 8B", tier: "free", description: "Compact model with lower latency" },
+  { id: "gemini-1.5-pro", name: "Gemini 1.5 Pro", tier: "paid", description: "Advanced model with higher quality" },
+  { id: "gemini-3-flash-preview", name: "Gemini 3 Flash Preview", tier: "free", description: "Preview of next generation (default)" },
+];
+
+/**
+ * Use Netlify Function backend proxy for better rate limits
+ * This prevents hitting strict browser-based API limits
+ */
+export const analyzeResource = async (input: { base64Data?: string, url?: string }): Promise<AnalysisResult> => {
+  // Check if running on Netlify (production)
+  const isNetlify = typeof window !== 'undefined' && window.location.hostname.includes('netlify');
+  const backendUrl = isNetlify ? '/.netlify/functions/analyze' : 'http://localhost:8888/.netlify/functions/analyze';
   
-  // Fix: Using gemini-3-flash-preview for general vision-to-text extraction tasks.
-  const model = "gemini-3-flash-preview";
-  
-  const systemInstruction = `You are a specialized AI Vision agent for LinkSnap. Your job is to extract the PRIMARY website or tool featured in a screenshot.
-
-CRITICAL RULE: IGNORE THE CONTAINER
-- If the screenshot is a YouTube video, Instagram post, or TikTok, DO NOT return "youtube.com" or "instagram.com". 
-- These platforms are just the "delivery vehicle". You must look INSIDE the content area (the video frame or the posted image).
-- Identify the software, tool, or website being discussed, demonstrated, or showcased.
-- Look for logos in the corner of video frames, URLs written in video captions, or "Link in Bio" references.
-
-EXTRACTION HIERARCHY:
-1. A website URL visible inside a video/image (e.g., a browser tab shown within a screen recording).
-2. A brand name/logo visible in the content (e.g., the Framer logo in a design tutorial).
-3. The specific tool being reviewed or mentioned in the title/captions.
-
-CATEGORIES:
-- "Music", "Design", "Development", "Entertainment", "Social", "Productivity", "Content".`;
-
-  const userPrompt = "Analyze this screenshot. Extract the actual tool/website being shown. Ignore the social media platform (YouTube/Instagram/etc) if it is just the host.";
+  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-2.5-flash" };
+  const model = modelConfig.model;
 
   try {
-    const response = await ai.models.generateContent({
-      model,
-      contents: {
-        parts: [
-          { text: userPrompt },
-          {
-            inlineData: {
-              mimeType: "image/png",
-              data: base64Data.split(",")[1] || base64Data,
-            },
-          },
-        ],
-      },
-      config: {
-        systemInstruction,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            url: { 
-              type: Type.STRING,
-              description: "The actual tool/website URL or name. NEVER youtube.com or instagram.com unless the site itself is the subject."
-            },
-            category: { 
-              type: Type.STRING,
-              description: "One of the provided categories."
-            },
-            suggestedCategories: { 
-              type: Type.ARRAY, 
-              items: { type: Type.STRING } 
-            },
-            subCategory: { 
-              type: Type.STRING,
-              description: "A specific niche, e.g. 'AI Video Generator'."
-            },
-            description: { 
-              type: Type.STRING,
-              description: "A 5-word summary of the tool/website."
-            },
-          },
-          required: ["url", "category", "suggestedCategories", "subCategory", "description"],
-        },
-      },
+    // Send request to backend proxy instead of calling API directly
+    const response = await fetch(backendUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        base64Data: input.base64Data,
+        url: input.url,
+        model: model,
+      }),
     });
 
-    // Fix: Access response text via the .text property (not a method).
-    const text = response.text;
-    if (!text) {
-      throw new Error("Empty response from AI");
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.error || `Backend error: ${response.status}`);
     }
 
-    return JSON.parse(text) as GeminiResponse;
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error("Gemini Vision Error:", error);
+    console.error("Analysis Error:", error);
     throw error;
   }
 };

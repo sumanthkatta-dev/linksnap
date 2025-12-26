@@ -1,13 +1,20 @@
+export interface GroundingSource {
+  title: string;
+  uri: string;
+}
 
 export interface ScanResult {
   id: string;
   url: string;
   category: string;
-  suggestedCategories?: string[]; // New: alternatives for user to pick from
+  suggestedCategories?: string[];
   subCategory: string;
   description: string;
+  pricing?: string; 
+  platform?: string;
   timestamp: number;
-  imageData?: string; // Base64 of the screenshot
+  imageData?: string;
+  sources?: GroundingSource[];
 }
 
 export type ViewMode = 'grid' | 'list';
@@ -18,4 +25,10 @@ export interface GeminiResponse {
   suggestedCategories: string[];
   subCategory: string;
   description: string;
+  pricing: string;
+  platform: string;
+}
+
+export interface AnalysisResult extends GeminiResponse {
+  sources: GroundingSource[];
 }
