@@ -357,18 +357,12 @@ const App: React.FC = () => {
             {/* Right Side */}
             <div className="flex items-center gap-4 md:gap-6">
               <a
-                href="https://github.com/sumanthkatta7075-crypto"
+                href="https://github.com/sumanthkatta-dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] border border-white/30 px-3 md:px-4 py-2 hover:border-nt-red hover:text-nt-red transition-colors"
               >
                 [GITHUB]
-              </a>
-              <a
-                href="#"
-                className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] border border-white/30 px-3 md:px-4 py-2 hover:border-nt-red hover:text-nt-red transition-colors"
-              >
-                [LINKEDIN]
               </a>
             </div>
           </div>
