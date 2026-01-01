@@ -6,13 +6,10 @@
 [![GitHub Stars](https://img.shields.io/github/stars/sumanthkatta-dev/linksnap?style=for-the-badge&color=D71921)](https://github.com/sumanthkatta-dev/linksnap)
 [![License](https://img.shields.io/badge/License-MIT-D71921?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-D71921?style=for-the-badge)](CONTRIBUTING.md)
-
-
-# LinkSnap 🔗📸
-
 ![Privacy](https://img.shields.io/badge/Privacy-No_Sign--In_Required-green?style=for-the-badge)
 ![Platform](https://img.shields.io/badge/App-Works_Offline_(PWA)-purple?style=for-the-badge)
 ![AI](https://img.shields.io/badge/Intelligence-Gemini_Vision_AI-blue?style=for-the-badge)
+
 
 > **The "Second Brain" for your screenshots.**
 > Turn dead pixels into live, searchable links instantly using AI.
