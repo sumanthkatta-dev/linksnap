@@ -1,5 +1,6 @@
 import { Handler } from '@netlify/functions';
-import { GoogleGenerativeAI, Type } from '@google/generative-ai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import type { Type } from '@google/generative-ai';
 
 // Initialize Gemini with API key from environment (server-side only)
 const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY || '');
