@@ -38,14 +38,27 @@
             --nt-blur: 28px;
         }
 
+        html, body {
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+            display: none;
+        }
+
         body {
             background-color: #000000;
             color: #FFFFFF;
             -webkit-font-smoothing: antialiased;
             letter-spacing: -0.01em;
             overflow-x: hidden;
+            overflow-y: hidden;
             overscroll-behavior-y: none; /* Prevent rubber-banding on mobile */
             user-select: none; /* Make it feel like a native app */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         .glass-nothing {
