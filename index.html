@@ -39,9 +39,9 @@
         }
 
         html, body {
-            overflow: hidden;
             height: 100%;
             width: 100%;
+            overflow-x: hidden;
         }
 
         html::-webkit-scrollbar, body::-webkit-scrollbar {
@@ -54,7 +54,6 @@
             -webkit-font-smoothing: antialiased;
             letter-spacing: -0.01em;
             overflow-x: hidden;
-            overflow-y: hidden;
             overscroll-behavior-y: none; /* Prevent rubber-banding on mobile */
             user-select: none; /* Make it feel like a native app */
             -ms-overflow-style: none;
