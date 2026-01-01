@@ -65,6 +65,56 @@ Traditional bookmarks are messy, uncategorized, and forgotten. **LinkSnap transf
 - ✅ **GitGuardian Protected** - Automated secret scanning with ggshield
 - ✅ **Open Source** - Fully transparent codebase
 
+### ⚠️ Important Security Warnings
+
+> **🚨 READ BEFORE USING IN PRODUCTION**
+
+#### Current Status: **Development/Personal Use Only**
+
+**✅ Safe for:**
+- Personal projects
+- Local development
+- Learning and experimentation
+- Portfolio demonstrations
+
+**❌ NOT SAFE for:**
+- Production deployments without backend
+- Public-facing websites with user traffic
+- Applications handling sensitive data
+- Multi-user environments
+
+#### Critical Security Concerns
+
+**1. Exposed API Keys** 🔑
+- API keys are stored in **localStorage** (visible to anyone with browser access)
+- Keys are sent directly from browser to Google (visible in network tab)
+- **Risk:** Anyone can inspect, copy, or abuse your API key
+- **Impact:** Unauthorized usage, quota exhaustion, unexpected bills
+
+**2. No Rate Limiting** 🚦
+- Zero protection against API abuse
+- Users can spam unlimited requests
+- **Risk:** Rapid quota depletion, service disruption
+- **Impact:** Your Gemini API limits get exhausted quickly
+
+**3. No Authentication** 👤
+- Anyone can use the app
+- No user accounts or permissions
+- **Risk:** Public abuse of your resources
+- **Impact:** Cannot track or control who uses your API quota
+
+**4. Client-Side Validation Only** ✋
+- All security checks happen in browser
+- Easy to bypass with DevTools
+- **Risk:** Malicious users can manipulate requests
+- **Impact:** Unvalidated data sent to Gemini API
+
+**5. CORS Limitations** 🌐
+- Direct API calls from browser face CORS issues
+- Some Gemini features may not work
+- **Risk:** Functionality breaks on different domains
+- **Impact:** Limited deployment options
+
 ---
 
 ## 🚀 Quick Start
@@ -204,6 +254,136 @@ Your analyzed tool is saved to a beautiful, searchable registry with:
 
 ---
 
+## ⚠️ Known Limitations & Issues
+
+### Security Limitations
+| Issue | Severity | Impact | Solution |
+|-------|----------|--------|----------|
+| API keys in localStorage | 🔴 Critical | Keys can be stolen from browser | Implement backend proxy |
+| No rate limiting | 🔴 Critical | Quota abuse possible | Add server-side throttling |
+| No authentication | 🟠 High | Anyone can use your app | Add user login system |
+| Client-side validation only | 🟠 High | Easy to bypass security checks | Server-side validation needed |
+| No audit logging | 🟡 Medium | Cannot track abuse | Implement logging system |
+
+### Technical Limitations
+- **Storage:** localStorage limited to ~5-10MB per domain
+- **Offline:** Images not cached (requires online connection)
+- **File Size:** Large screenshots (>10MB) may fail to upload
+- **Browser:** IE11 not supported (modern browsers only)
+- **API Quota:** Free Gemini tier has daily limits
+- **Performance:** Analyzing 100+ items may slow down the UI
+
+### Functional Limitations
+- **No Sync:** Data stays on one device only (no cloud backup)
+- **No Collaboration:** Cannot share registries with team members
+- **No Search Filters:** Basic text search only (no advanced filters)
+- **No Tags:** Category system is limited (no custom tags)
+- **No Bulk Operations:** Cannot edit/delete multiple items at once
+- **No History:** Cannot undo analysis or restore deleted items
+
+### Cost Considerations
+| Usage Pattern | Est. Cost | Risk Level |
+|---------------|-----------|------------|
+| Personal use (10-50 analyses/day) | $0-5/month | ✅ Low |
+| Small team (100-500 analyses/day) | $10-50/month | 🟡 Medium |
+| Public website (unlimited) | $100-1000+/month | 🔴 High |
+
+> **💡 Tip:** Monitor your [Gemini API usage](https://makersuite.google.com/app/apikey) regularly to avoid surprise bills.
+
+---
+
+## 🛡️ Security Best Practices
+
+### ✅ DO These Things
+
+1. **Use Your Own API Key**
+   - Never share your API key publicly
+   - Keep it secure in your browser only
+   - Rotate keys regularly
+
+2. **Monitor API Usage**
+   - Check Gemini dashboard weekly
+   - Set up usage alerts
+   - Track spending limits
+
+3. **Use on Trusted Devices**
+   - Don't use on public/shared computers
+   - Clear browser data when done
+   - Use private/incognito mode if needed
+
+4. **Backup Your Data**
+   - Export registry regularly
+   - Keep JSON backups safe
+   - Don't lose your catalogs
+
+5. **Keep Software Updated**
+   - Pull latest changes from GitHub
+   - Update dependencies monthly
+   - Watch for security patches
+
+### ❌ DON'T Do These Things
+
+1. **❌ Deploy as Public Website**
+   - Without backend API proxy
+   - Without authentication
+   - Without rate limiting
+
+2. **❌ Share Your API Key**
+   - In code repositories
+   - With other people
+   - On public forums
+
+3. **❌ Use in Production**
+   - For business-critical apps
+   - With customer data
+   - Without proper security setup
+
+4. **❌ Ignore Costs**
+   - High-traffic sites can be expensive
+   - Monitor usage limits
+   - Set budget alerts
+
+5. **❌ Trust User Input Blindly**
+   - Always validate data
+   - Sanitize before display
+   - Check file types/sizes
+
+---
+
+## 🚨 What Could Go Wrong?
+
+### Scenario 1: API Key Theft
+**What happens:** Someone copies your API key from browser DevTools  
+**Impact:** They use your quota, you get charged  
+**Prevention:** Use backend proxy (see DEPLOYMENT.md)  
+**Recovery:** Revoke compromised key, create new one
+
+### Scenario 2: Quota Exhaustion
+**What happens:** Too many analyses hit daily limit  
+**Impact:** App stops working, errors appear  
+**Prevention:** Implement rate limiting  
+**Recovery:** Wait 24 hours or upgrade Gemini plan
+
+### Scenario 3: localStorage Full
+**What happens:** Browser storage limit reached  
+**Impact:** Cannot save new analyses  
+**Prevention:** Export and clear old data regularly  
+**Recovery:** Delete old items or clear all data
+
+### Scenario 4: Malicious Image Upload
+**What happens:** User uploads harmful/inappropriate content  
+**Impact:** Gemini may refuse to analyze or flag account  
+**Prevention:** Client-side file validation  
+**Recovery:** Remove offending content, contact Google support
+
+### Scenario 5: CORS Blocking
+**What happens:** Gemini API rejects cross-origin requests  
+**Impact:** Analysis fails with network error  
+**Prevention:** Use backend proxy or proper CORS config  
+**Recovery:** Deploy backend or use Netlify functions
+
+---
+
 ## 📊 Data Structure
 
 Each analyzed item contains:
@@ -258,6 +438,185 @@ Custom configuration for:
 - **Image Optimization:** WebP support
 - **Code Splitting:** Dynamic imports
 - **Caching Strategy:** Service Worker with Cache-First
+
+---
+
+## ✅ Production Readiness Checklist
+
+### 🔴 Critical (Must Fix Before Production)
+
+- [ ] **Backend API Proxy** - Move Gemini calls to server-side
+  - [ ] Create Node.js/Netlify Functions backend
+  - [ ] Store API keys server-side only
+  - [ ] Add request validation
+  - [ ] Implement rate limiting per IP/user
+  
+- [ ] **Authentication System** - Protect your app
+  - [ ] Add user registration/login
+  - [ ] OAuth integration (Google, GitHub)
+  - [ ] Session management
+  - [ ] User-specific data isolation
+  
+- [ ] **Database Setup** - Replace localStorage
+  - [ ] PostgreSQL/MongoDB setup
+  - [ ] User data encryption at rest
+  - [ ] Backup strategy
+  - [ ] Data retention policy
+
+### 🟠 High Priority (Strongly Recommended)
+
+- [ ] **Security Headers** - Protect against attacks
+  - [ ] Content Security Policy (CSP)
+  - [ ] X-Frame-Options
+  - [ ] HTTPS enforcement
+  - [ ] CORS configuration
+  
+- [ ] **Monitoring & Logging** - Track issues
+  - [ ] Error tracking (Sentry)
+  - [ ] Analytics (Plausible/Fathom)
+  - [ ] API usage monitoring
+  - [ ] Performance monitoring
+  
+- [ ] **Input Validation** - Server-side checks
+  - [ ] File type validation
+  - [ ] File size limits
+  - [ ] URL sanitization
+  - [ ] XSS prevention
+
+### 🟡 Medium Priority (Important)
+
+- [ ] **Cost Controls** - Manage expenses
+  - [ ] Usage quotas per user
+  - [ ] Billing alerts
+  - [ ] Pricing tiers
+  - [ ] Free tier limitations
+  
+- [ ] **Testing** - Ensure quality
+  - [ ] Unit tests
+  - [ ] Integration tests
+  - [ ] E2E tests
+  - [ ] Security testing
+  
+- [ ] **Documentation** - Help users
+  - [ ] API documentation
+  - [ ] User guide
+  - [ ] FAQ section
+  - [ ] Troubleshooting guide
+
+### 🟢 Low Priority (Nice to Have)
+
+- [ ] **Advanced Features**
+  - [ ] Team collaboration
+  - [ ] Cloud sync
+  - [ ] Mobile apps
+  - [ ] Browser extension
+  
+- [ ] **Optimization**
+  - [ ] Image CDN
+  - [ ] Edge caching
+  - [ ] Load balancing
+  - [ ] Auto-scaling
+
+---
+
+## 🔒 How to Secure for Production
+
+### Step 1: Set Up Backend (Critical)
+
+```bash
+# Example using Netlify Functions
+netlify/functions/analyze.ts
+```
+
+```typescript
+import { Handler } from '@netlify/functions';
+import { GoogleGenerativeAI } from '@google/generative-ai';
+
+export const handler: Handler = async (event) => {
+  // Verify auth token
+  const token = event.headers.authorization;
+  if (!token || !verifyToken(token)) {
+    return { statusCode: 401, body: 'Unauthorized' };
+  }
+  
+  // Rate limiting check
+  const userId = getUserFromToken(token);
+  if (await isRateLimited(userId)) {
+    return { statusCode: 429, body: 'Rate limit exceeded' };
+  }
+  
+  // Use server-side API key (from environment)
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+  
+  try {
+    const result = await genAI.generateContent({
+      // ... analysis logic
+    });
+    
+    await logUsage(userId, 'analysis');
+    
+    return {
+      statusCode: 200,
+      body: JSON.stringify(result)
+    };
+  } catch (error) {
+    await logError(userId, error);
+    return { statusCode: 500, body: 'Analysis failed' };
+  }
+};
+```
+
+### Step 2: Add Authentication
+
+```typescript
+// Use Firebase Auth, Auth0, or Supabase
+import { getAuth, signInWithPopup } from 'firebase/auth';
+
+const handleLogin = async () => {
+  const auth = getAuth();
+  const result = await signInWithPopup(auth, provider);
+  // Store user token
+  localStorage.setItem('authToken', result.user.getIdToken());
+};
+```
+
+### Step 3: Implement Rate Limiting
+
+```typescript
+// Server-side rate limiting
+import rateLimit from 'express-rate-limit';
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 requests per window
+  message: 'Too many requests, please try again later'
+});
+
+app.use('/api/analyze', limiter);
+```
+
+### Step 4: Environment Variables
+
+```env
+# .env.production (NEVER commit this!)
+DATABASE_URL=postgresql://...
+GEMINI_API_KEY=your_key_here
+JWT_SECRET=your_secret_here
+RATE_LIMIT_MAX=100
+RATE_LIMIT_WINDOW=900000
+```
+
+### Step 5: Deploy Securely
+
+```bash
+# Build and deploy
+npm run build
+netlify deploy --prod
+
+# Set environment variables in Netlify dashboard
+# Enable HTTPS (automatic with Netlify)
+# Configure custom domain
+```
 
 ---
 
