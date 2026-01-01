@@ -1,6 +1,5 @@
 import { Handler } from '@netlify/functions';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import type { Type } from '@google/generative-ai';
 
 // Initialize Gemini with API key from environment (server-side only)
 const genAI = new GoogleGenerativeAI(process.env.VITE_GEMINI_API_KEY || '');
@@ -90,18 +89,18 @@ Use Google Search to verify details. Keep response concise.`;
       generationConfig: {
         responseMimeType: 'application/json',
         responseSchema: {
-          type: Type.OBJECT,
+          type: 'OBJECT',
           properties: {
-            url: { type: Type.STRING },
-            category: { type: Type.STRING },
+            url: { type: 'STRING' },
+            category: { type: 'STRING' },
             suggestedCategories: {
-              type: Type.ARRAY,
-              items: { type: Type.STRING },
+              type: 'ARRAY',
+              items: { type: 'STRING' },
             },
-            subCategory: { type: Type.STRING },
-            description: { type: Type.STRING },
-            pricing: { type: Type.STRING },
-            platform: { type: Type.STRING },
+            subCategory: { type: 'STRING' },
+            description: { type: 'STRING' },
+            pricing: { type: 'STRING' },
+            platform: { type: 'STRING' },
           },
           required: ['url', 'category', 'description', 'pricing', 'platform'],
         },
