@@ -17,11 +17,8 @@ export const AVAILABLE_MODELS = [
  * Use Vercel API route backend proxy for better limits and security
  */
 export const analyzeResource = async (input: { base64Data?: string, url?: string }): Promise<AnalysisResult> => {
-  // Use Vercel API route; in Vite dev (localhost:5173) proxy to local API server on 3000
-  const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-  const backendUrl = isLocal && window.location.port === '5173'
-    ? 'http://localhost:3000/api/analyze'
-    : '/api/analyze';
+  // Always use /api/analyze - works in both dev (with user key) and production (with env key)
+  const backendUrl = '/api/analyze';
   
   const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-2.5-flash" };
   const model = modelConfig.model;
