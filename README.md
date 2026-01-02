@@ -15,7 +15,7 @@
 > Turn dead pixels into live, searchable links instantly using AI.
 
 ## 🚀 Try It Now
-### [**🔗 Click Here to Launch LinkSnap**](https://sumanthkatta-dev.github.io/linksnap/)
+### [**🔗 Click Here to Launch LinkSnap**](https://linksnapai.vercel.app/)
 *(No Account Needed. No Login. Just instant productivity.)*
 
 ---
