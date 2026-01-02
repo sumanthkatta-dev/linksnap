@@ -14,19 +14,21 @@ export const AVAILABLE_MODELS = [
 ];
 
 /**
- * Use Netlify Function backend proxy for better rate limits
- * This prevents hitting strict browser-based API limits
+ * Use Vercel API route backend proxy for better limits and security
  */
 export const analyzeResource = async (input: { base64Data?: string, url?: string }): Promise<AnalysisResult> => {
-  // Check if running on Netlify (production)
-  const isNetlify = typeof window !== 'undefined' && window.location.hostname.includes('netlify');
-  const backendUrl = isNetlify ? '/.netlify/functions/analyze' : 'http://localhost:8888/.netlify/functions/analyze';
+  // Use Vercel API route; in Vite dev (localhost:5173) proxy to local API server on 3000
+  const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+  const backendUrl = isLocal && window.location.port === '5173'
+    ? 'http://localhost:3000/api/analyze'
+    : '/api/analyze';
   
   const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-2.5-flash" };
   const model = modelConfig.model;
 
+  const userKey = getFromStorage<{ key: string }>("user_api_key")?.key;
+
   try {
-    // Send request to backend proxy instead of calling API directly
     const response = await fetch(backendUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -34,16 +36,29 @@ export const analyzeResource = async (input: { base64Data?: string, url?: string
         base64Data: input.base64Data,
         url: input.url,
         model: model,
+        apiKey: userKey,
       }),
     });
 
+    const text = await response.text();
+
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || `Backend error: ${response.status}`);
+      let message = `Backend error: ${response.status}`;
+      try {
+        const parsed = text ? JSON.parse(text) : null;
+        if (parsed?.error) message = parsed.error;
+      } catch {
+        /* ignore parse errors */
+      }
+      throw new Error(message);
     }
 
-    const data = await response.json();
-    return data;
+    try {
+      return JSON.parse(text) as AnalysisResult;
+    } catch (err) {
+      console.error('Analysis Error: invalid JSON response', text);
+      throw new Error('Invalid JSON from backend');
+    }
   } catch (error) {
     console.error("Analysis Error:", error);
     throw error;

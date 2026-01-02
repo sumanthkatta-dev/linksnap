@@ -6,7 +6,6 @@
 import { saveToStorage, getFromStorage, removeFromStorage } from './storageService';
 
 const API_KEY_STORAGE_KEY = 'api_key_hash';
-const API_KEY_VALIDATION_ENDPOINT = '/.netlify/functions/validate-api-key';
 
 /**
  * Get the API key from environment variables
