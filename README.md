@@ -2,7 +2,7 @@
 
 ### *The Smartest Way to Save Links - Powered by Visual Intelligence*
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-linksnap.netlify.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-linksnap.vercel.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/sumanthkatta-dev/linksnap?style=for-the-badge&color=D71921)](https://github.com/sumanthkatta-dev/linksnap)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-D71921?style=for-the-badge)](CONTRIBUTING.md)
 ![Privacy](https://img.shields.io/badge/Privacy-No_Sign--In_Required-green?style=for-the-badge)
