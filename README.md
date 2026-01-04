@@ -2,12 +2,10 @@
 
 ### *The Smartest Way to Save Links - Powered by Visual Intelligence*
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-linksnap.netlify.app-D71921?style=for-the-badge)](https://linksnap.netlify.app)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-linksnap.vercel.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/sumanthkatta-dev/linksnap?style=for-the-badge&color=D71921)](https://github.com/sumanthkatta-dev/linksnap)
-[![License](https://img.shields.io/badge/License-MIT-D71921?style=for-the-badge)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-D71921?style=for-the-badge)](CONTRIBUTING.md)
 ![Privacy](https://img.shields.io/badge/Privacy-No_Sign--In_Required-green?style=for-the-badge)
-![Platform](https://img.shields.io/badge/App-Works_Offline_(PWA)-purple?style=for-the-badge)
 ![AI](https://img.shields.io/badge/Intelligence-Gemini_Vision_AI-blue?style=for-the-badge)
 
 
@@ -15,7 +13,7 @@
 > Turn dead pixels into live, searchable links instantly using AI.
 
 ## 🚀 Try It Now
-### [**🔗 Click Here to Launch LinkSnap**](https://sumanthkatta-dev.github.io/linksnap/)
+### [**🔗 Click Here to Launch LinkSnap**](https://linksnapai.vercel.app/)
 *(No Account Needed. No Login. Just instant productivity.)*
 
 ---
