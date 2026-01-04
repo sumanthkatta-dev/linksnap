@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { Trash2, X, AlertCircle, Loader2 } from 'lucide-react';
+import { Analytics } from '@vercel/analytics/react';
 import { ScanResult, ViewMode } from './types';
 import { analyzeResource } from './services/geminiService';
 import { saveToStorage, getFromStorage, clearAllStorage, initializeStorage } from './services/storageService';
@@ -368,6 +369,7 @@ const App: React.FC = () => {
           </div>
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 };
