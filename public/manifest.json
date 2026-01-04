@@ -4,7 +4,13 @@
   "name": "LinkSnap AI Registry",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/564/564445.png",
+      "src": "/linksnap-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/linksnap-logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
