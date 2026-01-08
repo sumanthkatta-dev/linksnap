@@ -61,16 +61,7 @@
     </script>
 </body>
 </html>
-    <script>
-        // PWA service worker registration with scope and version check
-        const CLIENT_SW_VERSION = '2026-01-08-1';
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
-              .then((registration) => {
-                const sendVersionCheck = (worker) => {
-                  worker?.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
-                };
+
 
                 if (registration.installing) {
                   registration.installing.addEventListener('statechange', (event) => {
