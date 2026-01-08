@@ -47,9 +47,9 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
   };
 
   return (
-    <div className="space-y-6 w-full">
+    <div className="space-y-6">
       <div
-        className={`relative h-[320px] md:h-[400px] squircle transition-all duration-500 flex flex-col items-center justify-center glass-nothing overflow-hidden group border-2 w-full ${
+        className={`relative h-[320px] md:h-[400px] squircle transition-all duration-500 flex flex-col items-center justify-center glass-nothing overflow-hidden group border-2 ${
           dragActive ? 'border-nt-red bg-nt-red/5' : 'border-white/10'
         } hover:border-white/30`}
         onDragEnter={handleDrag}
