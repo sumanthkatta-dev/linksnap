@@ -300,7 +300,7 @@ const App: React.FC = () => {
         )}
 
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-stretch">
-          <div className={`lg:col-span-${isProcessing || lastAnalyzed ? '6' : '12'} transition-all duration-700`}>
+          <div className={isProcessing || lastAnalyzed ? 'lg:col-span-6 transition-all duration-700' : 'lg:col-span-12 transition-all duration-700'}>
             <Uploader
               onUpload={handleFileUpload}
               onUrlSubmit={handleUrlSubmit}
