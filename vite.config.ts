@@ -122,6 +122,15 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react(), devApiPlugin()],
+      build: {
+        target: 'esnext',
+        minify: 'terser',
+        rollupOptions: {
+          output: {
+            manualChunks: undefined, // Let Vite handle code splitting
+          },
+        },
+      },
       // SECURITY: API keys should NOT be exposed in client-side code
       // Use environment variables on the server side instead
       define: {
@@ -134,6 +143,9 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      optimizeDeps: {
+        include: ['react', 'react-dom', 'lucide-react', '@google/generative-ai', 'jspdf', 'jspdf-autotable'],
+      },
     };
 });
