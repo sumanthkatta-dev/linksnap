@@ -13,155 +13,54 @@
     <meta name="theme-color" content="#000000">
     <link rel="icon" type="image/png" href="/linksnap-logo.png">
     <link rel="apple-touch-icon" href="/linksnap-logo.png">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'nt-red': '#D71921',
-              'nt-black': '#000000',
-              'nt-white': '#FFFFFF',
-              'nt-gray': '#1C1C1C',
-            },
-            fontFamily: {
-              dot: ['DotGothic16', 'monospace'],
-              sans: ['Inter', '-apple-system', 'sans-serif'],
-            },
-          }
-        }
-      }
-    </script>
-    <style>
-        :root {
-            --nt-blur: 28px;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        html::-webkit-scrollbar, body::-webkit-scrollbar {
-            display: none;
-        }
-
-        body {
-            background-color: #000000;
-            color: #FFFFFF;
-            -webkit-font-smoothing: antialiased;
-            letter-spacing: -0.01em;
-            overflow-x: hidden;
-            overscroll-behavior-y: none; /* Prevent rubber-banding on mobile */
-            user-select: none; /* Make it feel like a native app */
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .glass-nothing {
-            background: rgba(10, 10, 10, 0.75);
-            backdrop-filter: blur(var(--nt-blur)) saturate(150%);
-            -webkit-backdrop-filter: blur(var(--nt-blur)) saturate(150%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .squircle { border-radius: 32px; }
-        .squircle-inner { border-radius: 24px; }
-
-        .nothing-grid {
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
-        }
-
-        .glitch-btn {
-            transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease;
-            position: relative;
-            z-index: 10;
-            touch-action: manipulation;
-          will-change: transform;
-        }
-        .glitch-btn:hover {
-          transform: scale(0.98);
-          color: #D71921; /* brand red accent */
-          box-shadow: 0 0 18px rgba(215, 25, 33, 0.25), 0 0 2px rgba(215, 25, 33, 0.6) inset;
-          outline: 0px solid transparent;
-        }
-        .glitch-btn:active {
-            transform: scale(0.95);
-        }
-
-        @keyframes scan-nothing {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(480px); }
-        }
-
-        .scan-line {
-            height: 1px;
-            background: #D71921;
-            box-shadow: 0 0 20px 2px #D71921;
-            animation: scan-nothing 2.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-        }
-
-        @keyframes ios-fade-in-up {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-ios {
-            animation: ios-fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        .dot-pulse {
-            width: 8px;
-            height: 8px;
-            background: #D71921;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #D71921;
-        }
-
-        /* Safe area support */
-        .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        .pt-safe { padding-top: env(safe-area-inset-top); }
-
-        /* Smooth inputs for mobile */
-        input, textarea {
-            font-size: 16px !important; /* Prevents auto-zoom on iOS */
-        }
-
-        /* Respect reduced motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-          *, *::before, *::after {
-            animation-duration: 0.001ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.001ms !important;
-          }
-        }
-    </style>
-<script type="importmap">
-{
-  "imports": {
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "lucide-react": "https://esm.sh/lucide-react@^0.475.0",
-    "@google/genai": "https://esm.sh/@google/genai@^1.33.0",
-    "jspdf": "https://esm.sh/jspdf@^3.0.4",
-    "jspdf-autotable": "https://esm.sh/jspdf-autotable@^3.8.2"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
 </head>
 <body class="nothing-grid min-h-screen">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
+    <script>
+        // PWA service worker registration with scope and version check
+        const CLIENT_SW_VERSION = '2026-01-08-1';
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+              .then((registration) => {
+                const sendVersionCheck = (worker) => {
+                  worker?.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
+                };
+
+                if (registration.installing) {
+                  registration.installing.addEventListener('statechange', (event) => {
+                    if (event.target?.state === 'installed') {
+                      sendVersionCheck(registration.installing);
+                    }
+                  });
+                }
+
+                if (registration.active) {
+                  sendVersionCheck(registration.active);
+                }
+
+                registration.addEventListener('updatefound', () => {
+                  const newWorker = registration.installing;
+                  if (newWorker) {
+                    newWorker.addEventListener('statechange', () => {
+                      if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                      }
+                    });
+                  }
+                });
+              })
+              .catch(err => console.log('SW registration failed:', err));
+
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              window.location.reload();
+            });
+          });
+        }
+    </script>
+</body>
+</html>
     <script>
         // PWA service worker registration with scope and version check
         const CLIENT_SW_VERSION = '2026-01-08-1';
