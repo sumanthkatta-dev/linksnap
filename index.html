@@ -150,10 +150,44 @@
 <body class="nothing-grid min-h-screen">
     <div id="root"></div>
     <script>
-        // Basic Service Worker registration for PWA functionality
+        // PWA service worker registration with scope and version check
+        const CLIENT_SW_VERSION = '2026-01-08-1';
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW registration failed:', err));
+            navigator.serviceWorker.register('/sw.js', { scope: '/' })
+              .then((registration) => {
+                const sendVersionCheck = (worker) => {
+                  worker?.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
+                };
+
+                if (registration.installing) {
+                  registration.installing.addEventListener('statechange', (event) => {
+                    if (event.target?.state === 'installed') {
+                      sendVersionCheck(registration.installing);
+                    }
+                  });
+                }
+
+                if (registration.active) {
+                  sendVersionCheck(registration.active);
+                }
+
+                registration.addEventListener('updatefound', () => {
+                  const newWorker = registration.installing;
+                  if (newWorker) {
+                    newWorker.addEventListener('statechange', () => {
+                      if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                        newWorker.postMessage({ type: 'SKIP_WAITING' });
+                      }
+                    });
+                  }
+                });
+              })
+              .catch(err => console.log('SW registration failed:', err));
+
+            navigator.serviceWorker.addEventListener('controllerchange', () => {
+              window.location.reload();
+            });
           });
         }
     </script>

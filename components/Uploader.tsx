@@ -15,6 +15,17 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
   const [dragActive, setDragActive] = useState(false);
   const [url, setUrl] = useState('');
 
+  const sanitizeUrlInput = (value: string): string => {
+    const cleaned = value.replace(/<[^>]*>/g, '').replace(/[\u0000-\u001F\u007F]/g, '').trim();
+    try {
+      const parsed = new URL(cleaned);
+      if (!['http:', 'https:'].includes(parsed.protocol)) return '';
+      return parsed.toString();
+    } catch {
+      return '';
+    }
+  };
+
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     setDragActive(e.type === "dragenter" || e.type === "dragover");
@@ -28,8 +39,9 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
 
   const handleSubmitUrl = (e: React.FormEvent) => {
     e.preventDefault();
-    if (url.trim()) {
-      onUrlSubmit(url.trim());
+    const sanitized = sanitizeUrlInput(url);
+    if (sanitized) {
+      onUrlSubmit(sanitized);
       setUrl('');
     }
   };

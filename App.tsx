@@ -155,9 +155,57 @@ const App: React.FC = () => {
   const exportPDF = async () => {
     try {
       const { jsPDF } = (window as any).jspdf;
+      const autoTable = (window as any).AutoTable;
+      
+      if (!autoTable) {
+        alert('PDF library not ready. Please try again.');
+        return;
+      }
+      
       const doc = new jsPDF();
       doc.setFontSize(22);
-      doc.text('LinkSnap Registry Export', 14, 22);
+      doc.setFont(undefined, 'bold');
+      doc.text('LinkSnap Registry Export', 14, 20);
+      
+      doc.setFontSize(10);
+      doc.setFont(undefined, 'normal');
+      doc.setTextColor(100);
+      doc.text(`Generated: ${new Date().toLocaleString()}`, 14, 28);
+      doc.text(`Total Items: ${filteredHistory.length}`, 14, 34);
+      
+      if (filteredHistory.length === 0) {
+        doc.setTextColor(0);
+        doc.text('No bookmarks to export.', 14, 50);
+        doc.save(`LinkSnap_Registry_${Date.now()}.pdf`);
+        return;
+      }
+      
+      const tableData = filteredHistory.map(item => [
+        item.url || 'N/A',
+        item.category || 'Uncategorized',
+        item.subCategory || '–',
+        item.description ? item.description.substring(0, 40) + '...' : '–',
+        item.pricing || 'N/A',
+        new Date(item.timestamp).toLocaleDateString(),
+      ]);
+      
+      autoTable(doc, {
+        head: [['URL', 'Category', 'Sub-Category', 'Description', 'Pricing', 'Date Added']],
+        body: tableData,
+        margin: { top: 45, right: 14, bottom: 14, left: 14 },
+        didDrawPage: (data: any) => {
+          const pageCount = doc.getNumberOfPages();
+          if (pageCount > 1) {
+            doc.setFontSize(9);
+            doc.setTextColor(150);
+            doc.text(`Page ${data.pageNumber}`, 200, 280, { align: 'right' });
+          }
+        },
+        styles: { fontSize: 9, cellPadding: 3 },
+        headStyles: { fillColor: [215, 25, 33], textColor: 255, fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [245, 245, 245] },
+      });
+      
       doc.save(`LinkSnap_Registry_${Date.now()}.pdf`);
     } catch (err) { alert("EXPORT_FAILED"); }
   };

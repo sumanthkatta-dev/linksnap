@@ -8,6 +8,27 @@ interface AnalysisRequest {
   apiKey?: string;
 }
 
+const sanitizeText = (value: string | undefined, maxLen = 2000): string => {
+  if (!value) return '';
+  const cleaned = value
+    .replace(/<[^>]*>/g, '')
+    .replace(/[\u0000-\u001F\u007F]/g, '')
+    .trim();
+  return cleaned.slice(0, maxLen);
+};
+
+const sanitizeUrl = (value: string | undefined): string | null => {
+  const cleaned = sanitizeText(value, 2048);
+  if (!cleaned) return null;
+  try {
+    const parsed = new URL(cleaned);
+    if (!['http:', 'https:'].includes(parsed.protocol)) return null;
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+};
+
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   // Only allow POST
   if (req.method !== 'POST') {
@@ -22,7 +43,9 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
       return res.status(401).json({ error: 'API key required' });
     }
 
-    if (!base64Data && !url) {
+    const safeUrl = sanitizeUrl(url);
+
+    if (!base64Data && !safeUrl) {
       return res.status(400).json({ error: 'base64Data or url required' });
     }
 
@@ -30,8 +53,8 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
 Extract: tool name, official URL, category, description, pricing, and platform.
 Use Google Search to verify details. Keep response concise.`;
 
-    const userPrompt = url
-      ? `Analyze URL: ${url}. Extract: name, category, description, pricing, platforms.`
+    const userPrompt = safeUrl
+      ? `Analyze URL: ${safeUrl}. Extract: name, category, description, pricing, platforms.`
       : 'Identify this product from image. Extract: name, category, description, pricing, platforms.';
 
     const genAI = new GoogleGenerativeAI(apiKey);
@@ -62,10 +85,11 @@ Use Google Search to verify details. Keep response concise.`;
     const content: any[] = [{ text: userPrompt }];
 
     if (base64Data) {
+      const safeImage = sanitizeText(base64Data, 1_000_000);
       content.push({
         inlineData: {
           mimeType: 'image/png',
-          data: base64Data.includes(',') ? base64Data.split(',')[1] : base64Data,
+          data: safeImage.includes(',') ? safeImage.split(',')[1] : safeImage,
         },
       });
     }

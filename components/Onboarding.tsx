@@ -95,7 +95,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
 
                 <button 
                   onClick={() => setShowSteps(true)}
-                  className="w-full h-12 bg-nt-red text-white rounded-xl font-dot uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-2 glitch-btn shadow-xl shadow-nt-red/20 active:bg-nt-red/80 mt-4"
+                  className="w-full h-12 bg-nt-red text-white rounded-xl font-dot uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-2 shadow-xl shadow-nt-red/20 mt-4 hover:bg-white hover:text-nt-black active:bg-white active:text-nt-black transition-colors"
                 >
                   INITIALIZE APP <ArrowRight className="w-3 h-3" />
                 </button>
@@ -135,7 +135,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
                 <div className="space-y-2 w-full flex-shrink-0 mt-2">
                   <button 
                     onClick={onComplete}
-                    className="w-full h-11 bg-nt-red text-white rounded-lg font-dot uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-2 shadow-lg shadow-nt-red/20 active:bg-nt-red/80"
+                    className="w-full h-11 bg-nt-red text-white rounded-lg font-dot uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-2 shadow-lg shadow-nt-red/20 hover:bg-white hover:text-nt-black active:bg-white active:text-nt-black transition-colors"
                   >
                     START ARCHIVING <ArrowRight className="w-3 h-3" />
                   </button>
