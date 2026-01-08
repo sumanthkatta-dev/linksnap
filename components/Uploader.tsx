@@ -131,7 +131,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
           <button
             type="submit"
             disabled={isProcessing || !url.trim()}
-            className="absolute right-3 top-1/2 -translate-y-1/2 h-10 px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-widest disabled:opacity-0 flex items-center gap-2 group/btn instant-glitch-btn"
+            className="absolute right-3 top-1/2 -translate-y-1/2 h-10 px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-widest disabled:opacity-0 flex items-center gap-2 group/btn transition-transform hover:scale-[0.98] active:scale-95"
           >
             Map <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
           </button>
@@ -146,21 +146,6 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
         @keyframes loading-bar {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(400%); }
-        }
-
-        .instant-glitch-btn {
-          transition: transform 0.05s cubic-bezier(0.16, 1, 0.3, 1);
-          filter: invert(0);
-        }
-
-        .instant-glitch-btn:hover:not(:disabled) {
-          filter: invert(1);
-          transform: scale(0.96) skewX(-1deg);
-        }
-
-        .instant-glitch-btn:active:not(:disabled) {
-          transform: scale(0.92) skewX(1deg);
-          filter: invert(1) brightness(1.1);
         }
       `}</style>
     </div>

@@ -83,10 +83,10 @@
             position: relative;
             z-index: 10;
             touch-action: manipulation;
+          will-change: transform;
         }
         .glitch-btn:hover {
-            filter: invert(1);
-            transform: scale(0.98);
+          transform: scale(0.98);
         }
         .glitch-btn:active {
             transform: scale(0.95);
@@ -130,6 +130,15 @@
         /* Smooth inputs for mobile */
         input, textarea {
             font-size: 16px !important; /* Prevents auto-zoom on iOS */
+        }
+
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+          *, *::before, *::after {
+            animation-duration: 0.001ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.001ms !important;
+          }
         }
     </style>
 <script type="importmap">
