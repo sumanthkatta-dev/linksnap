@@ -19,47 +19,32 @@
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     <script>
-        // PWA service worker registration with scope and version check
-        const CLIENT_SW_VERSION = '2026-01-08-1';
+        // PWA service worker registration - simplified
         if ('serviceWorker' in navigator) {
-          window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js', { scope: '/' })
-              .then((registration) => {
-                const sendVersionCheck = (worker) => {
-                  if (worker) {
-                    worker.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
-                  }
-                };
-
-                // Only attach listeners if the worker exists
-                if (registration.installing) {
-                  registration.installing.addEventListener('statechange', (event) => {
-                    if (event.target?.state === 'installed') {
-                      sendVersionCheck(registration.installing);
+          window.addEventListener('load', async () => {
+            try {
+              const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
+              console.log('Service Worker registered');
+              
+              // Handle updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                if (newWorker) {
+                  newWorker.addEventListener('statechange', () => {
+                    if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      newWorker.postMessage({ type: 'SKIP_WAITING' });
                     }
                   });
                 }
-
-                if (registration.active) {
-                  sendVersionCheck(registration.active);
-                }
-
-                registration.addEventListener('updatefound', () => {
-                  const newWorker = registration.installing;
-                  if (newWorker) {
-                    newWorker.addEventListener('statechange', () => {
-                      if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                        newWorker.postMessage({ type: 'SKIP_WAITING' });
-                      }
-                    });
-                  }
-                });
-              })
-              .catch(err => console.log('SW registration failed:', err));
-
-            navigator.serviceWorker.addEventListener('controllerchange', () => {
-              window.location.reload();
-            });
+              });
+              
+              navigator.serviceWorker.addEventListener('controllerchange', () => {
+                window.location.reload();
+              });
+              
+            } catch (error) {
+              console.log('SW registration error:', error);
+            }
           });
         }
     </script>
