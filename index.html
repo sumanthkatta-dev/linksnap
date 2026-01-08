@@ -26,9 +26,12 @@
             navigator.serviceWorker.register('/sw.js', { scope: '/' })
               .then((registration) => {
                 const sendVersionCheck = (worker) => {
-                  worker?.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
+                  if (worker) {
+                    worker.postMessage({ type: 'CHECK_VERSION', version: CLIENT_SW_VERSION });
+                  }
                 };
 
+                // Only attach listeners if the worker exists
                 if (registration.installing) {
                   registration.installing.addEventListener('statechange', (event) => {
                     if (event.target?.state === 'installed') {
