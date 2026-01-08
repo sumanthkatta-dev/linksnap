@@ -75,13 +75,4 @@ npm run dev
 
 Built with ❤️ by Sumanth Katta
 
-### 💻 Push the Update
-Run these commands to update your GitHub repo with this new, user-friendly README:
-
-```powershell
-git add README.md
-git commit -m "Updated README: Added Live Link, Problem/Solution, and No Sign-In highlight"
-git push
-
-Now your project looks like a real product: It solves a problem, it's easy to access, and it respects the user's privacy! 🟢
 
