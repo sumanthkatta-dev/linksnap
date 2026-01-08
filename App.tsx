@@ -45,6 +45,15 @@ const App: React.FC = () => {
     setShowOnboarding(!onboarded);
   }, []);
 
+  // Lock body scroll when onboarding is visible
+  useEffect(() => {
+    if (showOnboarding) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev; };
+    }
+  }, [showOnboarding]);
+
   // Save history to storage whenever it changes
   useEffect(() => {
     saveToStorage('history', history);
@@ -154,13 +163,9 @@ const App: React.FC = () => {
 
   const exportPDF = async () => {
     try {
-      const { jsPDF } = (window as any).jspdf;
-      const autoTable = (window as any).AutoTable;
-      
-      if (!autoTable) {
-        alert('PDF library not ready. Please try again.');
-        return;
-      }
+      // Dynamically import jsPDF and AutoTable from the import map
+      const { jsPDF } = await import('jspdf');
+      const autoTable = (await import('jspdf-autotable')).default;
       
       const doc = new jsPDF();
       doc.setFontSize(22);
@@ -207,7 +212,10 @@ const App: React.FC = () => {
       });
       
       doc.save(`LinkSnap_Registry_${Date.now()}.pdf`);
-    } catch (err) { alert("EXPORT_FAILED"); }
+    } catch (err) { 
+      console.error("PDF export error:", err);
+      alert("EXPORT_FAILED");
+    }
   };
 
   const handleOnboardingComplete = () => {
@@ -217,9 +225,18 @@ const App: React.FC = () => {
 
   if (showOnboarding === null) return null;
 
+  // Render onboarding screen exclusively to avoid layout interference
+  if (showOnboarding) {
+    return (
+      <div className="min-h-screen pt-safe">
+        <Onboarding onComplete={handleOnboardingComplete} />
+        <Analytics />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen pb-48 pt-safe">
-      {showOnboarding && <Onboarding onComplete={handleOnboardingComplete} />}
       
       <Navbar onOpenSettings={() => setIsSettingsOpen(true)} />
       <SettingsDrawer 
