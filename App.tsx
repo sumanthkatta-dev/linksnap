@@ -209,6 +209,15 @@ const App: React.FC = () => {
         styles: { fontSize: 9, cellPadding: 3 },
         headStyles: { fillColor: [215, 25, 33], textColor: 255, fontStyle: 'bold' },
         alternateRowStyles: { fillColor: [245, 245, 245] },
+        didParseCell: (data: any) => {
+          // Make URLs in the first column (index 0) clickable
+          if (data.column.index === 0 && data.row.section === 'body') {
+            const url = data.cell.text?.[0];
+            if (url && url !== 'N/A' && (url.startsWith('http://') || url.startsWith('https://'))) {
+              data.cell.link = { pageNumber: url };
+            }
+          }
+        },
       });
       
       doc.save(`LinkSnap_Registry_${Date.now()}.pdf`);
