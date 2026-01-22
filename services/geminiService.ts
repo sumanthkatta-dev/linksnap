@@ -3,14 +3,13 @@ import { AnalysisResult, GroundingSource } from "../types";
 import { getFromStorage } from "./storageService";
 
 export const AVAILABLE_MODELS = [
-  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Latest ultra-fast model, best for speed" },
+  { id: "gemini-3-flash-preview", name: "Gemini 3 Flash Preview", tier: "free", description: "Latest generation with advanced reasoning (default)" },
+  { id: "gemini-3-pro-preview", name: "Gemini 3 Pro Preview", tier: "paid", description: "Enhanced reasoning with thought signatures" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Ultra-fast model, best for speed" },
   { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Advanced reasoning with enhanced quality" },
   { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", tier: "free", description: "Balanced performance and speed" },
-  { id: "gemini-2.0-flash-lite", name: "Gemini 2.0 Flash Lite", tier: "free", description: "Lightweight version for simple tasks" },
   { id: "gemini-1.5-flash", name: "Gemini 1.5 Flash", tier: "free", description: "Fast and efficient for most tasks" },
-  { id: "gemini-1.5-flash-8b", name: "Gemini 1.5 Flash 8B", tier: "free", description: "Compact model with lower latency" },
   { id: "gemini-1.5-pro", name: "Gemini 1.5 Pro", tier: "paid", description: "Advanced model with higher quality" },
-  { id: "gemini-3-flash-preview", name: "Gemini 3 Flash Preview", tier: "free", description: "Preview of next generation (default)" },
 ];
 
 /**
@@ -20,7 +19,7 @@ export const analyzeResource = async (input: { base64Data?: string, url?: string
   // Always use /api/analyze - works in both dev (with user key) and production (with env key)
   const backendUrl = '/api/analyze';
   
-  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-2.5-flash" };
+  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-3-flash-preview" };
   const model = modelConfig.model;
 
   const userKey = getFromStorage<{ key: string }>("user_api_key")?.key;

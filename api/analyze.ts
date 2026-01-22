@@ -6,6 +6,7 @@ interface AnalysisRequest {
   url?: string;
   model?: string;
   apiKey?: string;
+  thoughtSignature?: string; // For Gemini 3 reasoning chain continuity
 }
 
 const sanitizeText = (value: string | undefined, maxLen = 2000): string => {
@@ -37,7 +38,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const { base64Data, url, model = 'gemini-2.5-flash', apiKey }: AnalysisRequest = req.body || {};
+    const { base64Data, url, model = 'gemini-3-flash-preview', apiKey, thoughtSignature }: AnalysisRequest = req.body || {};
 
     if (!apiKey || apiKey.length < 20 || !apiKey.startsWith('AI')) {
       return res.status(401).json({ error: 'API key required' });
@@ -97,7 +98,14 @@ Use Google Search to verify details. Keep response concise.`;
     const response = await geminiModel.generateContent(content);
     const result = JSON.parse(response.response.text());
 
-    return res.status(200).json(result);
+    // Extract thought signature for Gemini 3 reasoning chain (if available)
+    const responseData: any = { ...result };
+    const candidates = (response as any).candidates;
+    if (candidates?.[0]?.thoughtSignature) {
+      responseData.thoughtSignature = candidates[0].thoughtSignature;
+    }
+
+    return res.status(200).json(responseData);
   } catch (error: any) {
     console.error('Vercel analyze error:', error);
     return res.status(500).json({ error: error?.message || 'Analysis failed' });
