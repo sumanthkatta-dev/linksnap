@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI, SchemaType } from '@google/generative-ai';
 
 interface AnalysisRequest {
   base64Data?: string;
@@ -64,18 +64,18 @@ Use Google Search to verify details. Keep response concise.`;
       generationConfig: {
         responseMimeType: 'application/json',
         responseSchema: {
-          type: 'OBJECT',
+          type: SchemaType.OBJECT,
           properties: {
-            url: { type: 'STRING' },
-            category: { type: 'STRING' },
+            url: { type: SchemaType.STRING },
+            category: { type: SchemaType.STRING },
             suggestedCategories: {
-              type: 'ARRAY',
-              items: { type: 'STRING' },
+              type: SchemaType.ARRAY,
+              items: { type: SchemaType.STRING },
             },
-            subCategory: { type: 'STRING' },
-            description: { type: 'STRING' },
-            pricing: { type: 'STRING' },
-            platform: { type: 'STRING' },
+            subCategory: { type: SchemaType.STRING },
+            description: { type: SchemaType.STRING },
+            pricing: { type: SchemaType.STRING },
+            platform: { type: SchemaType.STRING },
           },
           required: ['url', 'category', 'description', 'pricing', 'platform'],
         },

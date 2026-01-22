@@ -5,7 +5,7 @@
 
 import { saveToStorage, getFromStorage, removeFromStorage } from './storageService';
 
-const API_KEY_STORAGE_KEY = 'api_key_hash';
+const API_KEY_STORAGE_KEY = 'user_api_key';
 
 /**
  * Get the API key from environment variables
@@ -30,25 +30,29 @@ export const validateApiKeyFormat = (key: string): boolean => {
 };
 
 /**
- * Store user-provided API key (hashed for security)
+ * Store user-provided API key
  * WARNING: Only use this for development. In production, use backend proxy.
  */
-export const storeApiKeyHash = (key: string): boolean => {
+export const storeApiKey = (key: string): boolean => {
   if (!validateApiKeyFormat(key)) {
     console.error('Invalid API key format');
     return false;
   }
   
-  // Create a simple hash (in production, use a proper hashing library)
-  const hash = btoa(key).substring(0, 20); // Simple obfuscation
-  return saveToStorage(API_KEY_STORAGE_KEY, { hash, timestamp: Date.now() });
+  return saveToStorage(API_KEY_STORAGE_KEY, { key, timestamp: Date.now() });
 };
+
+/**
+ * Legacy function for backward compatibility
+ */
+export const storeApiKeyHash = storeApiKey;
 
 /**
  * Check if a user API key is stored
  */
 export const hasStoredApiKey = (): boolean => {
-  return getFromStorage(API_KEY_STORAGE_KEY) !== null;
+  const stored = getFromStorage<{ key: string }>(API_KEY_STORAGE_KEY);
+  return stored !== null && !!stored?.key;
 };
 
 /**
@@ -69,13 +73,14 @@ export const getEffectiveApiKey = (): string | null => {
   
   // Priority 2: Stored key from user (development only)
   // This is NOT SECURE - keys should never be stored client-side in production
-  const stored = getFromStorage<{ hash: string }>(API_KEY_STORAGE_KEY);
+  const stored = getFromStorage<{ key: string }>(API_KEY_STORAGE_KEY);
   
-  if (stored) {
+  if (stored?.key) {
     console.warn('Using client-stored API key. This is NOT RECOMMENDED for production.');
+    return stored.key;
   }
   
-  return envKey || null;
+  return null;
 };
 
 /**
