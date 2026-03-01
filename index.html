@@ -5,34 +5,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="description" content="AI-powered bookmark registry for digital tools">
+    <meta name="title" content="LinkSnap - AI Bookmark Registry">
     <title>LinkSnap - AI Bookmark Registry</title>
     
     <!-- PWA & Mobile Optimization -->
     <link rel="manifest" href="/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="LinkSnap">
     <meta name="theme-color" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
     <link rel="icon" type="image/png" href="/linksnap-logo.png">
     <link rel="apple-touch-icon" href="/linksnap-logo.png">
     <meta name="google-site-verification" content="vDQezvc-kwejQhJI8q6QKTPT3Ebmaa8cGQPBi7pZXOM" />
+    
+    <!-- Additional PWA Declarations -->
+    <link rel="shortcut icon" href="/linksnap-logo.png">
+    <meta name="application-name" content="LinkSnap">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body class="nothing-grid min-h-screen">
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
     <script>
-        // PWA service worker registration - simplified and clean
+        // PWA service worker registration
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', async () => {
             try {
               const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-              console.log('Service Worker registered');
+              console.log('✓ Service Worker registered successfully');
               
-              // Handle updates
+              // Handle updates - auto-refresh on new version
               registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
                 if (newWorker) {
                   newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                      console.log('📦 New version available');
                       newWorker.postMessage({ type: 'SKIP_WAITING' });
                     }
                   });
@@ -40,14 +50,40 @@
               });
               
               navigator.serviceWorker.addEventListener('controllerchange', () => {
+                console.log('🔄 Reloading app with new service worker...');
                 window.location.reload();
               });
               
             } catch (error) {
-              console.log('SW registration error:', error);
+              console.error('SW registration failed:', error);
             }
           });
         }
+        
+        // PWA install prompt handling
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          console.log('📱 Install prompt ready');
+          // You can now show a custom install button
+          window.dispatchEvent(new CustomEvent('pwa:installable', { detail: true }));
+        });
+        
+        window.addEventListener('appinstalled', () => {
+          console.log('✅ PWA installed');
+          deferredPrompt = null;
+        });
+        
+        // Expose install function for UI to use
+        window.installPWA = async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`User response to install prompt: ${outcome}`);
+            deferredPrompt = null;
+          }
+        };
     </script>
 </body>
 </html>

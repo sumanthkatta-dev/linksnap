@@ -3,13 +3,11 @@ import { AnalysisResult, GroundingSource } from "../types";
 import { getFromStorage } from "./storageService";
 
 export const AVAILABLE_MODELS = [
-  { id: "gemini-3-flash-preview", name: "Gemini 3 Flash Preview", tier: "free", description: "Latest generation with advanced reasoning (default)" },
-  { id: "gemini-3-pro-preview", name: "Gemini 3 Pro Preview", tier: "paid", description: "Enhanced reasoning with thought signatures" },
-  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Ultra-fast model, best for speed" },
-  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Advanced reasoning with enhanced quality" },
-  { id: "gemini-2.0-flash", name: "Gemini 2.0 Flash", tier: "free", description: "Balanced performance and speed" },
-  { id: "gemini-1.5-flash", name: "Gemini 1.5 Flash", tier: "free", description: "Fast and efficient for most tasks" },
-  { id: "gemini-1.5-pro", name: "Gemini 1.5 Pro", tier: "paid", description: "Advanced model with higher quality" },
+  { id: "gemini-3.1-pro", name: "Gemini 3.1 Pro", tier: "paid", description: "🚀 NEW Flagship model with enhanced coding & long-context analysis – Default" },
+  { id: "gemini-3-flash", name: "Gemini 3 Flash", tier: "free", description: "Fast, latest generation with advanced reasoning" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Highly capable with 2M token context window" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Ultra-fast workhorse (10 RPM / 250 RPD free)" },
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", tier: "free", description: "High-volume efficiency (15 RPM / 1K RPD free) – Best for high-frequency tasks" },
 ];
 
 /**
@@ -19,7 +17,7 @@ export const analyzeResource = async (input: { base64Data?: string, url?: string
   // Always use /api/analyze - works in both dev (with user key) and production (with env key)
   const backendUrl = '/api/analyze';
   
-  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-3-flash-preview" };
+  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-3.1-pro" };
   const model = modelConfig.model;
 
   const userKey = getFromStorage<{ key: string }>("user_api_key")?.key;

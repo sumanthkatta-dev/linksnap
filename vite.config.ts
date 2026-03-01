@@ -1,6 +1,7 @@
 import path from 'path';
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
+import { VitePWA } from 'vite-plugin-pwa';
 import type { Plugin } from 'vite';
 
 // Dev-only API middleware to avoid 404 on /api/analyze during Vite dev
@@ -121,7 +122,71 @@ export default defineConfig(({ mode }) => {
         port: 5173,
         host: '0.0.0.0',
       },
-      plugins: [react(), devApiPlugin()],
+      plugins: [
+        react(), 
+        devApiPlugin(),
+        VitePWA({
+          registerType: 'autoUpdate',
+          includeAssets: ['logo.png', 'linksnap-logo.png'],
+          manifest: {
+            name: 'LinkSnap AI Registry',
+            short_name: 'LinkSnap',
+            description: 'AI-powered screenshot and link archivist.',
+            theme_color: '#000000',
+            background_color: '#000000',
+            display: 'standalone',
+            scope: '/',
+            start_url: '/',
+            orientation: 'portrait-primary',
+            icons: [
+              {
+                src: '/linksnap-logo.png',
+                sizes: '192x192 512x512',
+                type: 'image/png',
+                purpose: 'any',
+              },
+              {
+                src: '/linksnap-logo.png',
+                sizes: '192x192',
+                type: 'image/png',
+                purpose: 'maskable',
+              },
+            ],
+          },
+          workbox: {
+            navigateFallback: '/index.html',
+            globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,ttf}'],
+            globIgnores: ['**/node_modules/**/*', '**/sw.js'],
+            runtimeCaching: [
+              {
+                urlPattern: /^https:\/\/api\..*/i,
+                handler: 'CacheFirst',
+                options: {
+                  cacheName: 'api-cache',
+                  expiration: {
+                    maxEntries: 50,
+                    maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+                  },
+                },
+              },
+              {
+                urlPattern: /^https:\/\/.+\.(png|jpg|jpeg|webp|gif|svg|ico|font|woff2?)$/i,
+                handler: 'CacheFirst',
+                options: {
+                  cacheName: 'image-cache',
+                  expiration: {
+                    maxEntries: 100,
+                    maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+                  },
+                },
+              },
+            ],
+          },
+          devOptions: {
+            enabled: false, // Disable in dev to use custom sw.js
+          },
+        }),
+      ],
       build: {
         target: 'esnext',
         minify: 'terser',

@@ -38,7 +38,7 @@ const handler = async (req: VercelRequest, res: VercelResponse) => {
   }
 
   try {
-    const { base64Data, url, model = 'gemini-3-flash-preview', apiKey, thoughtSignature }: AnalysisRequest = req.body || {};
+    const { base64Data, url, model = 'gemini-3.1-pro', apiKey, thoughtSignature }: AnalysisRequest = req.body || {};
 
     if (!apiKey || apiKey.length < 20 || !apiKey.startsWith('AI')) {
       return res.status(401).json({ error: 'API key required' });

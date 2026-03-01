@@ -12,7 +12,7 @@ interface SettingsDrawerProps {
 const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClearHistory }) => {
   const [apiKey, setApiKey] = useState<string>('');
   const [showApiKey, setShowApiKey] = useState(false);
-  const [selectedModel, setSelectedModel] = useState<string>('gemini-3-flash-preview');
+  const [selectedModel, setSelectedModel] = useState<string>('gemini-3.1-pro');
   const [storageStats, setStorageStats] = useState(getStorageStats());
 
   useEffect(() => {
