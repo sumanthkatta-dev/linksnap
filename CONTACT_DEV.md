@@ -1,244 +1,132 @@
-# Contact Developer
+# Contact the LinkSnap Developer – We'd Love to Hear From You
 
-Last Updated: March 3, 2026
-
-## 📬 Get in Touch
-
-We'd love to hear from you! Whether you have questions, feedback, feature requests, or just want to say hi, here's how to reach us.
+**Last Updated:** March 3, 2026
+**App:** LinkSnap – AI-Powered Link Extractor & Bookmark Manager
 
 ---
 
-## 📧 Email Support
+## Get in Touch
 
-**Primary Contact:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-
-- **Response Time:** 24-48 hours
-- **Best For:** 
-  - General inquiries
-  - Partnership opportunities
-  - Feedback and suggestions
-  - Business inquiries
-  - Security concerns
-
-Subject line tips for faster responses:
-- `[BUG] Issue title here`
-- `[FEATURE] Feature request here`
-- `[SUPPORT] Help needed here`
-- `[URGENT] Time-sensitive issue`
+Have a question, a bug to report, a feature idea, or a business proposal? We're always happy to hear from the LinkSnap community. Choose the channel below that best fits your needs and we'll get back to you as soon as possible.
 
 ---
 
-## 🐙 GitHub
+## Email Support
 
-**Repository:** [sumanthkatta-dev/linksnap](https://github.com/sumanthkatta-dev/linksnap)
+**Email:** [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com)
+**Response Time:** 24–48 hours
 
-### Issues
-- [Report Bugs](https://github.com/sumanthkatta-dev/linksnap/issues)
-- [Request Features](https://github.com/sumanthkatta-dev/linksnap/issues)
-- **Best For:** Technical issues, bug reports, feature requests
-- **Response Time:** 48-72 hours
+Email is the best way to reach us for general questions, feedback, partnership proposals, and security concerns. To help us respond faster, use one of the following subject line formats:
 
-### Discussions
-- [Join Community](https://github.com/sumanthkatta-dev/linksnap/discussions)
-- **Best For:** Questions, tips, ideas, general discussion
-- **Community-driven support**
-
-### Star the Repo
-If you love LinkSnap, please ⭐ the repository!
+- `[BUG]` — for bug reports
+- `[FEATURE]` — for feature requests
+- `[SUPPORT]` — for help and troubleshooting
+- `[SECURITY]` — for vulnerability disclosures
+- `[URGENT]` — for time-sensitive issues
 
 ---
 
-## 🔒 Security Issues
+## GitHub – Bug Reports, Features & Community
 
-**IMPORTANT:** Do not post security vulnerabilities publicly.
+**Repository:** [github.com/sumanthkatta-dev/linksnap](https://github.com/sumanthkatta-dev/linksnap)
 
-### Report Security Issues
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **Subject:** `[SECURITY] Vulnerability Report`
-- **Include:**
-  - Description of the vulnerability
-  - Steps to reproduce
-  - Potential impact
-  - Your contact info for follow-up
+GitHub is the fastest and most effective way to report bugs and request new features. Browse open issues, track progress, and contribute directly to the codebase.
 
-**We will:**
-- Acknowledge receipt within 24 hours
-- Investigate promptly
-- Work with you on a fix
-- Credit you in release notes (if desired)
-- Keep the issue confidential until patched
+**GitHub Issues** — [Submit a bug or feature request](https://github.com/sumanthkatta-dev/linksnap/issues)
+Use this for technical bug reports, reproducible errors, and feature suggestions. Response time is typically 48–72 hours.
+
+**GitHub Discussions** — [Join the community](https://github.com/sumanthkatta-dev/linksnap/discussions)
+A great place to ask general questions, share tips, discuss ideas, and connect with other LinkSnap users. Community-driven and open to all.
+
+If LinkSnap has been useful to you, starring the repository on GitHub is a great way to show your support and help others discover the project.
 
 ---
 
-## 💼 Business Inquiries
+## Reporting a Bug
 
-### Partnerships
-Interested in partnering with LinkSnap?
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **Subject:** `[PARTNERSHIP] Your proposal`
-- **Include:** Your company, vision, and proposal details
+To help us fix issues quickly, please include the following when reporting a bug:
 
-### Sponsorship
-Want to sponsor LinkSnap development?
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **Subject:** `[SPONSORSHIP] Your name`
+- A clear description of what you were trying to do
+- The exact error message or unexpected behavior
+- Your browser name and version, and your device type (desktop/mobile)
+- Steps to reproduce the issue
+- A screenshot of the error, if available
 
-### White Label / Custom Development
-Need a custom version of LinkSnap?
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **Subject:** `[CUSTOM] Project description`
+Submit bug reports via [GitHub Issues](https://github.com/sumanthkatta-dev/linksnap/issues) or email [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com).
 
 ---
 
-## 👨‍💻 For Developers
+## Reporting a Security Vulnerability
 
-### Contributing
-Want to contribute to LinkSnap?
-- **Repository:** [GitHub - LinkSnap](https://github.com/sumanthkatta-dev/linksnap)
-- Check [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
-- Fork → Branch → Code → Test → Pull Request
+**Please do not post security vulnerabilities publicly.** Responsible disclosure helps protect all LinkSnap users.
 
-### Development Questions
-- **GitHub Discussions:** [Dev Questions](https://github.com/sumanthkatta-dev/linksnap/discussions/categories/development)
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- Include code snippets and technical details
+To report a security issue, email [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com) with the subject line `[SECURITY] Vulnerability Report`. Please include a description of the vulnerability, steps to reproduce it, and its potential impact.
 
-### Code Review
-- Got a fix or feature? Submit a PR!
-- Provide clear description of changes
-- Include test cases if applicable
-- Reference related issues
+When you report a security vulnerability to us, we will acknowledge your report within 24 hours, investigate it promptly, collaborate with you on a fix, keep the issue confidential until it is patched, and credit you in the release notes if you'd like.
 
 ---
 
-## 📱 Social & Community
+## Business Inquiries
 
-### GitHub
-- **Account:** [@sumanthkatta-dev](https://github.com/sumanthkatta-dev)
-- **Repository:** [linksnap](https://github.com/sumanthkatta-dev/linksnap)
-- **Stars:** [Give us a star!](https://github.com/sumanthkatta-dev/linksnap/stargazers)
+Interested in partnering with, sponsoring, or building on top of LinkSnap? We're open to conversations.
 
-### Share Your Feedback
-Tell us how LinkSnap is helping you:
-- Tweet using `#LinkSnapAI`
-- Share on Product Hunt
-- Tag `@sumanthkatta-dev`
+**Partnerships** — Email [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com) with the subject `[PARTNERSHIP]` and include your company name, vision, and proposal details.
+
+**Sponsorship** — Want to support LinkSnap's ongoing development? Email us with the subject `[SPONSORSHIP]` and we'll discuss options.
+
+**Custom / White-Label Development** — Need a tailored version of LinkSnap for your product or team? Reach out with the subject `[CUSTOM]` and a brief description of your project.
 
 ---
 
-## 📋 Contact Form Template
+## For Developers & Contributors
 
-Copy this template for structured communication:
+LinkSnap is open source and we welcome contributions from the community.
 
-```
-**Name:** [Your Name]
-**Type:** [ ] Bug | [ ] Feature | [ ] Support | [ ] Partnership | [ ] Other
-**Subject:** [Brief title]
+To contribute, fork the repository, create a feature branch, make your changes, and submit a pull request with a clear description of what you've changed. Please reference any related issues and include test cases where applicable. See `CONTRIBUTING.md` in the repository for full guidelines.
 
-**Description:**
-[Detailed explanation of your issue/request]
-
-**Context:**
-- Browser: [e.g., Chrome 120]
-- Device: [e.g., Windows/Mac/Mobile]
-- LinkSnap Version: [e.g., latest]
-
-**To Reproduce (if applicable):**
-1. [Step 1]
-2. [Step 2]
-3. [Step 3]
-
-**Expected Behavior:**
-[What should happen]
-
-**Actual Behavior:**
-[What actually happens]
-
-**Additional Info:**
-[Screenshots, error messages, attachments, etc.]
-
-**Contact Info:**
-- Email: [Your email]
-- GitHub: [Your GitHub username, optional]
-```
+For development questions, use [GitHub Discussions](https://github.com/sumanthkatta-dev/linksnap/discussions) or email [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com) with your code snippets and technical context included.
 
 ---
 
-## ⏰ Response Times
+## Response Times at a Glance
 
-| Channel | Type | Response Time |
-| --- | --- | --- |
-| **Email** | General | 24-48 hours |
-| **Email** | Security | 24 hours |
-| **GitHub Issues** | Bug | 48-72 hours |
-| **GitHub Issues** | Feature Request | 1 week |
-| **GitHub Discussions** | Questions | Community-driven |
-| **GitHub PR** | Code Review | 48-96 hours |
+| Channel | Purpose | Expected Response |
+|---|---|---|
+| Email | General inquiries & feedback | 24–48 hours |
+| Email | Security vulnerabilities | Within 24 hours |
+| GitHub Issues | Bug reports | 48–72 hours |
+| GitHub Issues | Feature requests | Within 1 week |
+| GitHub Discussions | Community questions | Community-driven |
+| GitHub Pull Requests | Code review | 48–96 hours |
 
----
-
-## 🌍 Availability
-
-- **Time Zone:** UTC (Flexible)
-- **Hours:** All times (async communication)
-- **Holidays:** Extended response times during major holidays
-- **Maintenance:** Occasional service windows may occur
+Response times may be extended during major holidays. All communication is handled asynchronously across time zones.
 
 ---
 
-## 📞 Emergency / Urgent Issues
+## What Feedback We Value Most
 
-For critical issues:
-1. Email [contact@linksnap.dev](mailto:contact@linksnap.dev) with `[URGENT]` in subject
-2. Post on [GitHub Issues](https://github.com/sumanthkatta-dev/linksnap/issues) with details
-3. Include your phone/urgent contact in email
-4. We'll prioritize and respond ASAP
+Your input directly shapes the future of LinkSnap. We especially appreciate:
 
----
+- Bug reports with clear reproduction steps
+- Feature ideas that improve everyday link management workflows
+- UX and accessibility improvement suggestions
+- Performance optimization feedback
+- Security recommendations
+- Ideas for integrations with other tools and platforms
 
-## 💡 Feedback We Value Most
-
-We appreciate feedback on:
-- ✅ User experience improvements
-- ✅ New feature ideas
-- ✅ Bug reports with reproduction steps
-- ✅ Performance optimization suggestions
-- ✅ Documentation improvements
-- ✅ Security recommendations
-- ✅ Integrations with other tools
+Every piece of feedback is read and considered. Contributors, bug reporters, feature requesters, and security researchers are acknowledged and credited in our release notes.
 
 ---
 
-## 🎁 Acknowledgments
+## Additional Resources
 
-We credit and thank:
-- All bug reporters
-- Feature requesters who influence our roadmap
-- Code contributors
-- Security researchers
-- Community members
-
----
-
-## 📚 Resources
-
-- [README](README.md) - What is LinkSnap?
-- [PRIVACY.md](PRIVACY.md) - Privacy policy
-- [TERMS.md](TERMS.md) - Terms of service
-- [SUPPORT.md](SUPPORT.md) - FAQ & troubleshooting
-- [SECURITY.md](SECURITY.md) - Security implementation
+- [Privacy Policy](PRIVACY.md) — How LinkSnap handles your data
+- [Terms of Service](TERMS.md) — Usage terms and conditions
+- [Support & FAQ](SUPPORT.md) — Troubleshooting and common questions
+- [SECURITY.md](SECURITY.md) — Technical security documentation
+- [README](README.md) — Product overview and setup guide
 - [GitHub Repository](https://github.com/sumanthkatta-dev/linksnap)
 
 ---
 
-## 🙏 Thank You
-
-Thank you for using LinkSnap and helping us make it better!
-
-**Let's build something awesome together.**
-
----
-
-**Last Updated:** March 3, 2026  
-**Status:** Active  
-**Maintained By:** LinkSnap Development Team
+*Thank you for using LinkSnap. Every message, issue, and suggestion helps make it better for everyone. Let's build something great together.*

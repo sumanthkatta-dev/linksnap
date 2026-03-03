@@ -1,290 +1,159 @@
-# Support & Troubleshooting
+# LinkSnap Support & Troubleshooting Guide
 
-Last Updated: March 3, 2026
-
-## 📚 Getting Help
-
-Welcome to LinkSnap Support! We're here to help you get the most out of our AI-powered link extraction tool.
+**Last Updated:** March 3, 2026
+**App:** LinkSnap – AI-Powered Link Extractor & Bookmark Manager
 
 ---
 
-## ❓ Frequently Asked Questions (FAQ)
+## Welcome to LinkSnap Support
+
+Whether you're just getting started or running into an issue, this guide covers everything you need to get the most out of LinkSnap — the free, privacy-first AI link extraction and bookmark management tool. No account needed. No fluff. Just answers.
+
+---
+
+## Frequently Asked Questions
 
 ### Getting Started
 
-**Q: Do I need to create an account?**
-A: No! LinkSnap requires zero sign-up. Just visit the site and start uploading screenshots. Your data stays on your device.
+**Do I need to create an account to use LinkSnap?**
+No account, no sign-up, no email required. Visit [LinkSnap](https://linksnapai.vercel.app), paste your Gemini API key in Settings, and you're ready to go. Your data stays entirely on your device.
 
-**Q: How do I get started?**
-A: 
-1. Visit [LinkSnap](https://linksnapai.vercel.app)
-2. Paste your Gemini API key in Settings
-3. Upload a screenshot
-4. Boom! Links extracted and categorized automatically
+**How do I get started with LinkSnap?**
+Getting started takes less than two minutes. Visit the LinkSnap web app, open Settings and paste your Google Gemini API key, upload a screenshot, and LinkSnap will instantly extract and categorize all links from the image.
 
-**Q: Is LinkSnap free?**
-A: Yes! LinkSnap is completely free. The only cost is the Google Gemini API usage (free tier available with 60 requests/minute).
+**Is LinkSnap free to use?**
+Yes, LinkSnap is completely free. The only potential cost is your Google Gemini API usage, which includes a generous free tier of 60 requests per minute. Most users will never exceed this.
 
 ---
 
 ### Features & Usage
 
-**Q: What kind of screenshots can LinkSnap analyze?**
-A: LinkSnap works best with screenshots containing:
-- URLs and links
-- Website interfaces
-- Application screenshots
-- Design mockups
-- Text with URLs
+**What types of screenshots work best with LinkSnap?**
+LinkSnap performs best on screenshots that contain visible URLs, website interfaces, app screens, design mockups, or any image with readable text containing links.
 
-**Q: Can LinkSnap extract links from images with text only?**
-A: Yes! LinkSnap can read text in screenshots and extract URLs from it.
+**Can LinkSnap extract links from text-only screenshots?**
+Yes. LinkSnap's AI can read text within images and extract any URLs it finds, even in text-heavy screenshots.
 
-**Q: How accurate is the AI?**
-A: LinkSnap uses Google's Gemini Vision AI, which is highly accurate. However:
-- Always verify extracted URLs before clicking
-- Tech stack detection is best-effort
-- Categories may need manual adjustment
-- Image quality affects accuracy
+**How accurate is the AI link extraction?**
+LinkSnap uses Google's Gemini Vision AI, which delivers high accuracy for most screenshots. That said, always verify extracted URLs before clicking them. Tech stack detection and category suggestions are best-effort and may occasionally need manual adjustment. Image clarity directly affects extraction quality.
 
-**Q: Can I edit extracted links?**
-A: Yes! You can:
-- Edit the URL
-- Change the category
-- Update the description
-- Add or remove tags
+**Can I edit extracted links after they're saved?**
+Yes. You can edit the URL, update the description, change the category, and add or remove tags at any time.
 
-**Q: How much data can I store?**
-A: Unlimited! Storage depends on your browser's available space (typically 5-50MB).
+**How much data can I store in LinkSnap?**
+There is no hard limit set by LinkSnap. Storage capacity depends on your browser's available local storage, which is typically between 5MB and 50MB.
 
-**Q: Can I use LinkSnap offline?**
-A: Partially:
-- ✅ View saved links offline
-- ✅ Search bookmarks offline
-- ❌ Upload new screenshots (requires internet to process)
+**Can I use LinkSnap offline?**
+Partially. You can view and search your saved bookmarks offline. However, uploading new screenshots for AI processing requires an active internet connection.
+
+**Can I export my saved links?**
+Yes! You can export all your saved links and bookmarks as a neatly organized PDF or as a JSON file from the Settings panel — anytime, with no restrictions.
 
 ---
 
-### API & Security
+### API Key Setup & Security
 
-**Q: What's a Gemini API key and how do I get one?**
-A: 
-1. Go to [Google AI Studio](https://aistudio.google.com)
-2. Click "Get API key"
-3. Create a new API key
-4. Copy and paste it in LinkSnap Settings
-5. You're done! You'll get 60 free requests/minute
+**What is a Gemini API key and how do I get one?**
+A Gemini API key gives LinkSnap permission to use Google's AI to analyze your screenshots. To get one: visit [Google AI Studio](https://aistudio.google.com), click "Get API Key," create a new key, then copy and paste it into LinkSnap's Settings. You'll receive 60 free requests per minute on the free tier.
 
-**Q: Is my API key safe?**
-A: Yes! 
-- Your key is stored ONLY in your browser
-- Never sent to LinkSnap servers
-- You can regenerate it anytime in Google Cloud Console
-- We recommend rotating every 3-6 months
+**Is my Gemini API key safe in LinkSnap?**
+Yes. Your API key is stored exclusively in your browser's local storage and is never transmitted to LinkSnap servers. We recommend rotating your key every 3 to 6 months via the Google Cloud Console as a security best practice.
 
-**Q: What if my API key quota is exceeded?**
-A: You'll get an error. Solutions:
-- Wait for your quota to reset (daily)
-- Upgrade to a paid Google Cloud plan for higher limits
-- Use a different API key
+**What happens if I exceed my API quota?**
+You'll see an error message. You can wait for your daily quota to reset, upgrade to a paid Google Cloud plan for higher limits, or use a different API key. LinkSnap itself imposes no usage limits.
 
-**Q: Can I use LinkSnap without an API key?**
-A: No. You must provide your own Gemini API key for the AI to work.
+**Can I use LinkSnap without a Gemini API key?**
+No. A Gemini API key is required for the AI-powered link extraction feature to function.
 
 ---
 
 ### Data & Storage
 
-**Q: Where is my data stored?**
-A: Everywhere you, nowhere else:
-- Stored in your browser's local storage
-- Not on LinkSnap servers
-- Not in the cloud
-- Just on your device
+**Where is my LinkSnap data stored?**
+All your data — bookmarks, categories, tags, and preferences — is stored only in your browser's local storage. It is never uploaded to LinkSnap servers, never stored in the cloud, and never shared with third parties.
 
-**Q: Can I export my bookmarks?**
-A: Yes! In Settings:
-1. Click "Export Data"
-2. A JSON file downloads with all your bookmarks
-3. You can import it on another device
+**How do I export my bookmarks?**
+Go to Settings, click "Export Data," and your bookmarks will download as a PDF or JSON file instantly. We recommend doing this periodically as a backup.
 
-**Q: How do I import data from another device?**
-A: In Settings:
-1. Click "Import Data"
-2. Select the JSON export file
-3. Your bookmarks load instantly
+**How do I import bookmarks on a new device?**
+Go to Settings on your new device, click "Import Data," and select the JSON export file. Your bookmarks will load immediately.
 
-**Q: What happens if I clear my browser cache?**
-A: Your data will be deleted. 
-- **Always export first** if you want to keep it
-- Use Settings → Export Data before clearing cache
-
-**Q: How long is data kept?**
-A: 
-- A: Indefinitely on your device
-- If you don't access LinkSnap for 1+ year and clear cache, data is lost
-- We recommend periodic exports for backup
+**What happens if I clear my browser cache?**
+All LinkSnap data stored in that browser will be permanently deleted. Always export your data before clearing your browser cache or storage.
 
 ---
 
 ### Troubleshooting
 
-**Q: My screenshot wasn't extracted correctly**
-A: Try these fixes:
-1. Ensure the image is clear and readable
-2. Make sure URLs are visible in the screenshot
-3. Check your API key is valid
-4. Try a higher quality screenshot
-5. Verify your API quota isn't exceeded
+**My screenshot wasn't extracted correctly — what should I do?**
+Try the following steps in order: ensure the image is clear and high resolution, confirm that URLs are visible and readable in the screenshot, verify your API key is valid and has not expired, and check that your API quota has not been exceeded.
 
-**Q: I'm getting an "Invalid API Key" error**
-A: 
-- Verify the key is correct (copy from Google AI Studio)
-- Make sure you're not using extra spaces
-- Check if the key has expired
-- Try regenerating a new key in Google Cloud Console
+**I'm seeing an "Invalid API Key" error.**
+Copy your API key directly from Google AI Studio and re-paste it into Settings. Make sure there are no extra spaces before or after the key. If the issue persists, generate a fresh key in the Google Cloud Console.
 
-**Q: My API key gets reset randomly**
-A: 
-- This happens if you clear browser cache
-- Export your settings first
-- Consider using a password manager to save your key
-- Or add it to a private note for safe keeping
+**My API key keeps getting cleared.**
+This happens when your browser cache is cleared, as local storage is wiped at the same time. Export your settings before clearing cache, or save your API key in a secure password manager for easy re-entry.
 
-**Q: LinkSnap is slow/frozen**
-A: 
-- Check your internet connection
-- Verify Gemini API is working (visit Google AI Studio)
-- Try a different browser
-- Clear browser cache and reload
-- Check if you've hit your API quota
+**LinkSnap is running slowly or appears frozen.**
+Check your internet connection, verify that the Gemini API is operational via Google AI Studio, try a different browser, or clear your browser cache and reload. Also confirm you have not hit your daily API quota.
 
-**Q: Categories aren't correct**
-A: 
-- AI can make mistakes! Manually adjust categories
-- Use the category filter to find and fix similar entries
-- More context in screenshots helps AI categorize better
+**Categories assigned to my links are incorrect.**
+AI categorization is a best-effort feature and is not always perfect. You can manually adjust any category by editing the link. Providing clearer, more context-rich screenshots helps the AI categorize links more accurately.
 
-**Q: I can't upload files larger than my quota**
-A: 
-- Cloud storage limits exist for free tier
-- Switch to a private/incognito window to test
-- Check available device storage
-- Try smaller image files
+**I cannot find a link I previously saved.**
+Use the search bar to search by URL or description. Use category filters to narrow down results. If the link is missing, check whether it was accidentally deleted, and if so, restore it from your most recent export file.
 
-**Q: Can't find a link I saved**
-A: 
-- Use the search bar (searches URLs and descriptions)
-- Use category filters to narrow down
-- Check if you accidentally deleted it
-- Import from your export file if available
+**I'm seeing a "QuotaExceededError" in my browser.**
+This means your browser's local storage is full. Export your data first, then delete older or unused bookmarks to free up space, and try again.
 
 ---
 
-### Browser & Compatibility
+### Browser & Device Compatibility
 
-**Q: Which browsers are supported?**
-A: LinkSnap works on:
-- ✅ Chrome/Edge (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-- ✅ Mobile browsers
-- ⚠️ Requires localStorage support
+**Which browsers does LinkSnap support?**
+LinkSnap works on Chrome, Edge, Firefox, and Safari (all latest versions), as well as modern mobile browsers. A browser with localStorage support is required.
 
-**Q: Is LinkSnap a PWA (Progressive Web App)?**
-A: Yes! You can:
-- Install LinkSnap on home screen
-- Use offline features
-- Get notifications (if enabled)
+**Is LinkSnap available as a Progressive Web App (PWA)?**
+Yes. You can install LinkSnap directly to your device's home screen for quick access, use offline features for browsing saved links, and enjoy a native app-like experience — no app store required.
 
-**Q: Can I use LinkSnap on mobile?**
-A: Yes! Full mobile support:
-- Upload screenshots from camera roll
-- Access all features
-- Export data mobile-to-mobile
-
-**Q: What if I get a "QuotaExceededError"?**
-A: Storage limit reached:
-- Export your data first
-- Clear old bookmarks
-- Look for large images to delete
-- Then try again
+**Can I use LinkSnap on mobile?**
+Fully supported. Upload screenshots directly from your camera roll, access all features, and export your data — all from your mobile browser.
 
 ---
 
-## 🐛 Known Issues & Limitations
+## Known Limitations
 
-### Current Limitations
-- Image processing requires internet (for now)
-- URLs must be readable in the screenshot
-- Tech stack detection is best-effort
-- Cannot extract PDFs (screenshots only)
-- Category suggestions may need manual refinement
+LinkSnap is continuously improving. Current known limitations include:
 
-### Temporary Issues
-- Sometimes Gemini API has rate limits
-- Browser storage may behave differently across incognito/normal modes
-- Offline mode doesn't support adding new bookmarks
+- AI image processing requires an active internet connection
+- URLs must be clearly visible and legible in the screenshot for accurate extraction
+- Tech stack detection is best-effort and may not always be accurate
+- PDFs cannot be directly analyzed — take a screenshot of the content instead
+- Category suggestions may require manual refinement in some cases
+- Browser storage behavior may differ between normal and private/incognito modes
 
 ---
 
-## 💬 Still Need Help?
+## Contact Support
 
-### Ways to Get Support
+**GitHub Issues — Best for Bug Reports & Feature Requests**
+Report a bug or request a new feature at [github.com/sumanthkatta-dev/linksnap/issues](https://github.com/sumanthkatta-dev/linksnap/issues). Include a description of what happened, the expected behavior, your browser and device info, and a screenshot of any error if available.
 
-1. **GitHub Issues** (Fastest Response)
-   - [Report a bug](https://github.com/sumanthkatta-dev/linksnap/issues)
-   - [Request a feature](https://github.com/sumanthkatta-dev/linksnap/issues)
-   - Includes code for developers
+**Email Support — General Questions & Feedback**
+Reach us at [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com) for general questions, feedback, or non-technical inquiries. Typical response time is 24 to 48 hours. For urgent issues, include "URGENT:" in the subject line.
 
-2. **Email Support**
-   - [contact@linksnap.dev](mailto:contact@linksnap.dev)
-   - Response time: 24-48 hours
-   - For general questions and feedback
-
-3. **GitHub Discussions**
-   - [Ask questions](https://github.com/sumanthkatta-dev/linksnap/discussions)
-   - Community-driven support
-   - Share tips and tricks
-
-4. **Documentation**
-   - [README.md](README.md) - Product overview
-   - [SECURITY.md](SECURITY.md) - Security details
-   - [PRIVACY.md](PRIVACY.md) - Privacy & data handling
+**GitHub Discussions — Community Help & Tips**
+Join the community at [github.com/sumanthkatta-dev/linksnap/discussions](https://github.com/sumanthkatta-dev/linksnap/discussions) to ask questions, share workflows, and discover tips from other LinkSnap users.
 
 ---
 
-## 🔧 Reporting a Bug
+## Additional Resources
 
-Found an issue? Help us fix it!
-
-**Include:**
-- What you were trying to do
-- What happened (error message)
-- Expected behavior
-- Browser / Device info
-- Screenshot of the error (if applicable)
-
-**Report on GitHub:** [linksnap/issues](https://github.com/sumanthkatta-dev/linksnap/issues)
+- **README.md** — Full product overview and setup guide
+- **SECURITY.md** — Technical security documentation
+- **Privacy Policy** — How LinkSnap handles your data
+- **Terms of Service** — Usage terms and conditions
 
 ---
 
-## 📢 Provide Feedback
-
-We love hearing from you!
-- Feature requests: [GitHub Issues](https://github.com/sumanthkatta-dev/linksnap/issues)
-- General feedback: [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- Follow updates: [GitHub ⭐](https://github.com/sumanthkatta-dev/linksnap)
-
----
-
-## 🆘 Emergency Contact
-
-For urgent issues:
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **Mention:** "URGENT:" in subject
-- **Response:** Within 24 hours
-
----
-
-**Remember:** LinkSnap is built for you. We're here to help you succeed!
+*LinkSnap is built to make managing links effortless and private. If something isn't working as expected, we want to know. Your feedback makes LinkSnap better for everyone.*

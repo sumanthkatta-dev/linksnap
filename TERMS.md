@@ -1,215 +1,215 @@
-# Terms of Service
+# LinkSnap Terms of Service – Simple, Fair & Transparent
 
-**Last Updated:** March 3, 2026  
+**Last Updated:** March 3, 2026
 **Effective Date:** March 3, 2026
-
-## 1. Agreement to Terms
-
-By accessing and using LinkSnap ("the Service"), you agree to be bound by these Terms of Service. If you do not agree to abide by any part of these terms, please do not use this Service.
+**App:** LinkSnap – AI-Powered Link Extractor & Bookmark Manager
 
 ---
 
-## 2. Use License
+## Terms at a Glance
 
-LinkSnap grants you a limited, non-exclusive, non-transferable license to use this Service for personal, non-commercial purposes, subject to the restrictions in these Terms.
-
-### You May:
-- ✅ Use LinkSnap to extract links from screenshots
-- ✅ Store and organize bookmarks on your device
-- ✅ Export your data
-- ✅ Access all free features
-
-### You May Not:
-- ❌ Use automated bots or scrapers (except for personal backups)
-- ❌ Attempt to reverse-engineer or access our servers
-- ❌ Use LinkSnap to extract links for commercial resale
-- ❌ Share your API key with others to bypass service limits
-- ❌ Access LinkSnap through any means other than the official interface
+LinkSnap is a free, privacy-first tool that lets you extract, organize, and export links from screenshots using AI. These Terms of Service govern your use of the LinkSnap web app and Progressive Web App (PWA). By using LinkSnap, you agree to these terms. If you do not agree, please discontinue use of the Service.
 
 ---
 
-## 3. User Responsibilities
+## 1. Who Can Use LinkSnap
+
+LinkSnap is available to anyone, anywhere — no account, no registration, and no sign-in required. By accessing the Service, you confirm that you are using it lawfully and in accordance with these Terms.
+
+---
+
+## 2. License to Use LinkSnap
+
+LinkSnap grants you a limited, non-exclusive, non-transferable license to use this Service for **personal, non-commercial purposes**. This license is subject to the restrictions outlined below.
+
+### What You Can Do
+
+- Use LinkSnap to extract links and URLs from screenshots using AI
+- Save, organize, and categorize bookmarks locally on your device
+- Export your saved links and bookmarks as a neatly organized PDF or JSON file
+- Access all free features of the LinkSnap web app and PWA
+- Fork and modify the open-source code for personal use (subject to the LICENSE file)
+
+### What You Cannot Do
+
+- Use automated bots, scrapers, or scripts against LinkSnap infrastructure
+- Attempt to reverse-engineer, decompile, or gain unauthorized access to LinkSnap servers
+- Extract and resell links or data for commercial purposes
+- Share your Gemini API key with others to bypass service limitations
+- Access LinkSnap through any unauthorized interface or method
+- Interfere with or disrupt the operation of the Service
+
+---
+
+## 3. Your Responsibilities as a User
 
 ### API Key Management
-- You are responsible for keeping your Gemini API key confidential
-- You are liable for all activities using your API key
-- You agree to comply with [Google's Terms of Service](https://policies.google.com/terms) for Gemini API usage
-- Google may impose rate limits or charges based on your usage
 
-### Content
-- You own all content (screenshots, extracted data) you upload
-- You are responsible for ensuring you have rights to any content you upload
-- LinkSnap may delete abandoned data (no access for 1+ year)
+To use AI-powered link extraction, you supply your own Google Gemini API key. You are solely responsible for:
+
+- Keeping your API key confidential and secure
+- All activities and API usage conducted under your key
+- Complying with [Google's Terms of Service](https://policies.google.com/terms) for the Gemini API
+- Any charges or rate limits Google may apply based on your usage
+
+LinkSnap never stores, accesses, or transmits your API key to our servers.
+
+### Your Uploaded Content
+
+- You retain full ownership of all screenshots and data you upload
+- You are responsible for ensuring you have the right to use any content you upload
+- Do not upload content that infringes on third-party copyrights or intellectual property rights
 
 ---
 
 ## 4. Acceptable Use Policy
 
-You agree NOT to use LinkSnap to:
-- Upload copyrighted content without authorization
-- Extract and redistribute links for commercial purposes
-- Harass, defame, or threaten others
-- Spread malware or harmful content
-- Engage in illegal activities
-- Circumvent service limitations or security measures
-- Interfere with Service operation or infrastructure
+LinkSnap is built to help you work smarter — not to be misused. You agree not to use LinkSnap to:
+
+- Upload or process copyrighted content without proper authorization
+- Extract, compile, or redistribute links for unlawful or commercial resale
+- Spread malware, harmful scripts, or malicious content
+- Harass, defame, threaten, or harm any individual or group
+- Engage in any activity that violates applicable local, national, or international law
+- Circumvent security measures, rate limits, or service restrictions
+- Interfere with or damage LinkSnap's infrastructure or other users' experience
+
+Violations of this policy may result in loss of access to the Service and, where applicable, legal action.
 
 ---
 
-## 5. Intellectual Property Rights
+## 5. Intellectual Property
 
-### LinkSnap
-- LinkSnap source code is open-source (see LICENSE file)
-- UI/UX design and branding are proprietary
-- You may fork and modify the code for personal use (per license)
+### LinkSnap's Property
 
-### Your Data
-- You retain all rights to your uploaded content and extracted data
-- LinkSnap may use anonymized, aggregated data for service improvement
+LinkSnap's source code is open-source (see the LICENSE file in the repository). However, LinkSnap's UI/UX design, branding, logo, and visual identity are proprietary and may not be reproduced or used without explicit permission.
 
----
+### Your Property
 
-## 6. No Warranty
-
-The Service is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied.
-
-We do not guarantee:
-- ⚠️ Uninterrupted service availability
-- ⚠️ Accuracy of AI-extracted data
-- ⚠️ Data persistence or recovery
-- ⚠️ Compatibility with all browsers or devices
-
-**You understand that extracted links may require verification before use.**
+You retain all rights to your uploaded content and extracted data. LinkSnap does not claim ownership over anything you create, upload, or export using the Service.
 
 ---
 
-## 7. Limitation of Liability
+## 6. AI-Powered Link Extraction – Accuracy Disclaimer
 
-To the fullest extent permitted by law, LinkSnap and its creators are not liable for:
-- Direct, indirect, incidental, or consequential damages
-- Lost profits, data loss, or business interruption
+LinkSnap uses Google's Gemini Vision API to extract links and data from screenshots. While we strive for the best possible results, AI extraction is not perfect. Please be aware:
+
+- Extracted URLs may occasionally be incomplete, incorrect, or missing
+- Tech stack detection and link categorization are best-effort estimates, not guaranteed results
+- AI-generated categories may not always reflect accurate classification
+
+**You are responsible for reviewing and verifying all extracted links and data before use.** LinkSnap is not liable for any decisions made based on AI-extracted information.
+
+---
+
+## 7. Third-Party Services
+
+LinkSnap integrates with the following third-party services to deliver its core functionality:
+
+**Google Gemini API** — Powers AI-based image analysis and link extraction. Subject to [Google's Terms of Service](https://policies.google.com/terms) and [Google's Privacy Policy](https://policies.google.com/privacy). LinkSnap is not responsible for Google API outages, rate limits, policy changes, or any charges incurred through your API usage.
+
+**Vercel** — Provides hosting and content delivery infrastructure for LinkSnap. Subject to [Vercel's Terms of Service](https://vercel.com/legal/terms). LinkSnap is not responsible for hosting-related disruptions.
+
+---
+
+## 8. No Warranty
+
+LinkSnap is provided **"AS IS"** and **"AS AVAILABLE"** without warranties of any kind, express or implied. We do not warrant or guarantee:
+
+- Uninterrupted or error-free availability of the Service
+- Accuracy or completeness of AI-extracted data
+- Compatibility with all browsers, operating systems, or devices
+- Persistence or recoverability of locally stored data
+
+Use of LinkSnap is entirely at your own risk.
+
+---
+
+## 9. Limitation of Liability
+
+To the maximum extent permitted by applicable law, LinkSnap and its creators shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from your use of or inability to use the Service. This includes, but is not limited to:
+
+- Data loss or corruption
+- Business interruption or lost productivity
 - Errors in AI-extracted content
-- Third-party service failures (Google Gemini API)
-- Security breaches or unauthorized access
+- Third-party service failures (e.g., Google Gemini API outages)
+- Security breaches or unauthorized access to your device
 
-### Our Liability Cap
-Our total liability to you shall not exceed $0 (the amount you paid to use LinkSnap).
-
----
-
-## 8. Google Gemini API
-
-- LinkSnap uses Google's Gemini Vision API for image analysis
-- You agree to [Google's Terms of Service](https://policies.google.com/terms)
-- Google may charge for API usage based on your quota
-- LinkSnap is not responsible for:
-  - Google API rate limits or outages
-  - API cost overages
-  - Changes to Google's policies
+Since LinkSnap is offered free of charge, our total aggregate liability to you shall not exceed zero dollars ($0.00).
 
 ---
 
-## 9. Third-Party Services
+## 10. Service Modifications & Discontinuation
 
-LinkSnap integrates with:
-- **Google Gemini API** - Image analysis and link extraction
-- **Vercel** - Hosting and CDN
+We reserve the right to modify, suspend, or discontinue any part of LinkSnap at any time, with or without prior notice. This includes adding, changing, or removing features. LinkSnap is not liable for any consequences resulting from service changes or discontinuation.
 
-We are not responsible for third-party service failures or policy changes.
+We recommend regularly exporting your data as a PDF or JSON file to avoid any potential data loss.
 
 ---
 
-## 10. Disclaimer of AI Accuracy
+## 12. Data Storage & Deletion
 
-**LinkSnap uses AI to extract information from screenshots.** AI is not perfect.
+All your data is stored locally in your browser. LinkSnap does not maintain copies of your data on any server. Key points:
 
-- ⚠️ Extracted URLs may be incomplete or incorrect
-- ⚠️ Tech stack detection is best-effort, not guaranteed
-- ⚠️ Categories may be inaccurate
-- ⚠️ Always verify extracted data before clicking links
-
-**You are responsible for validating all extracted information.**
+- You can export your data at any time as a PDF or JSON file
+- You can permanently delete all your data from the Settings panel
+- Local data deletion is irreversible — we cannot recover it because we never held it
+- Clearing your browser storage or cache will also remove all LinkSnap data
 
 ---
 
-## 11. Service Modifications
+## 13. Privacy
 
-We may modify, suspend, or discontinue LinkSnap at any time, with or without notice. We are not liable for any consequences of:
-- Feature changes
-- Service discontinuation
-- Data loss from service shutdown
+Your use of LinkSnap is also governed by our [Privacy Policy](https://linksnap.app/privacy). We encourage you to read it in full. By using LinkSnap, you consent to the data practices described therein.
 
 ---
 
-## 12. Data Retention & Deletion
+## 14. Termination of Access
 
-- Your data is stored locally in your browser
-- You can export data anytime
-- You can delete data anytime
-- Deleting local data is permanent and cannot be recovered
-- We do not retain your data on servers
+We reserve the right to restrict or terminate your access to LinkSnap if you:
 
----
-
-## 13. Privacy & Data Protection
-
-Use of LinkSnap is governed by our [Privacy Policy](PRIVACY.md). By using LinkSnap, you consent to our privacy practices.
-
----
-
-## 14. Prohibited Activities
-
-Violation of these terms may result in:
-- Inability to access LinkSnap
-- Removal of your API key from our records
-- Legal action if applicable
+- Violate any provision of these Terms of Service
+- Engage in prohibited or unlawful activity
+- Repeatedly misuse or abuse the Service
+- Intentionally interfere with the Service's infrastructure or operation
 
 ---
 
 ## 15. Governing Law
 
-These Terms are governed by the laws of the jurisdiction where LinkSnap is hosted, without regard to conflict of law principles.
+These Terms of Service are governed by the laws of the jurisdiction in which LinkSnap is operated, without regard to conflict of law principles. You agree to submit to the exclusive jurisdiction of the applicable courts for resolution of any disputes not resolved through the process below.
 
 ---
 
 ## 16. Dispute Resolution
 
-### Informal Resolution
-Before taking formal action, contact us at [contact@linksnap.dev](mailto:contact@linksnap.dev) to resolve disputes.
+### Step 1 – Informal Resolution
+If you have a dispute or concern regarding these Terms or the Service, please contact us first at [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com). We will make a good-faith effort to resolve the issue within a reasonable timeframe.
 
-### Arbitration
-Any legal dispute shall be resolved through binding arbitration rather than court proceedings.
-
----
-
-## 17. Termination
-
-We may terminate your access to LinkSnap if you:
-- Violate these Terms of Service
-- Engage in prohibited activities
-- Repeatedly misuse the Service
-- Interfere with service operation
+### Step 2 – Arbitration
+If informal resolution is not successful, any unresolved legal dispute shall be settled through binding arbitration rather than through court proceedings, to the extent permitted by applicable law.
 
 ---
 
-## 18. Severability
+## 17. Severability
 
-If any provision of these Terms is found invalid, the remaining provisions remain in effect.
+If any provision of these Terms is found to be invalid, unlawful, or unenforceable by a court of competent jurisdiction, that provision will be modified to the minimum extent necessary or severed entirely. All remaining provisions will continue in full force and effect.
+
+---
+
+## 18. Changes to These Terms
+
+We may update these Terms of Service periodically to reflect changes in the Service or applicable law. When changes are made, the "Last Updated" date at the top of this page will be revised. Your continued use of LinkSnap following any updates constitutes your acceptance of the revised Terms. We encourage you to review this page from time to time.
 
 ---
 
 ## 19. Contact Us
 
-For questions about these Terms:
-- **Email:** [contact@linksnap.dev](mailto:contact@linksnap.dev)
-- **GitHub:** [sumanthkatta-dev/linksnap](https://github.com/sumanthkatta-dev/linksnap)
+For questions, concerns, or feedback about these Terms of Service:
+
+- **Email:** [linksnap.ai@gmail.com](mailto:linksnap.ai@gmail.com)
+- **GitHub:** [github.com/sumanthkatta-dev/linksnap](https://github.com/sumanthkatta-dev/linksnap)
 
 ---
 
-## 20. Changes to Terms
-
-We may update these Terms at any time. Your continued use after changes means you accept the new Terms. Check this page for the latest version.
-
----
-
-**By using LinkSnap, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.**
+*By using LinkSnap, you confirm that you have read, understood, and agree to be bound by these Terms of Service. Thank you for trusting LinkSnap to manage your links — privately, efficiently, and without compromise.*
