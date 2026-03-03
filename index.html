@@ -34,7 +34,6 @@
           window.addEventListener('load', async () => {
             try {
               const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
-              console.log('✓ Service Worker registered successfully');
               
               // Handle updates - auto-refresh on new version
               registration.addEventListener('updatefound', () => {
@@ -42,7 +41,6 @@
                 if (newWorker) {
                   newWorker.addEventListener('statechange', () => {
                     if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                      console.log('📦 New version available');
                       newWorker.postMessage({ type: 'SKIP_WAITING' });
                     }
                   });
@@ -50,7 +48,6 @@
               });
               
               navigator.serviceWorker.addEventListener('controllerchange', () => {
-                console.log('🔄 Reloading app with new service worker...');
                 window.location.reload();
               });
               
@@ -65,13 +62,11 @@
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
           deferredPrompt = e;
-          console.log('📱 Install prompt ready');
           // You can now show a custom install button
           window.dispatchEvent(new CustomEvent('pwa:installable', { detail: true }));
         });
         
         window.addEventListener('appinstalled', () => {
-          console.log('✅ PWA installed');
           deferredPrompt = null;
         });
         
@@ -80,7 +75,6 @@
           if (deferredPrompt) {
             deferredPrompt.prompt();
             const { outcome } = await deferredPrompt.userChoice;
-            console.log(`User response to install prompt: ${outcome}`);
             deferredPrompt = null;
           }
         };

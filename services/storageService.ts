@@ -108,7 +108,6 @@ const cleanupOldData = () => {
       // Keep only the most recent 50 items (removes old entries)
       const trimmed = history.slice(0, 50);
       localStorage.setItem(historyKey, JSON.stringify(trimmed));
-      console.log('Cleaned up old history entries');
     }
   } catch (error) {
     console.error('Cleanup error:', error);
