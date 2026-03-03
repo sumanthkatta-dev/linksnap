@@ -1,0 +1,60 @@
+
+import { AnalysisResult, GroundingSource } from "../types";
+import { getFromStorage } from "./storageService";
+
+export const AVAILABLE_MODELS = [
+  { id: "gemini-3.1-pro", name: "Gemini 3.1 Pro", tier: "paid", description: "🚀 NEW Flagship model with enhanced coding & long-context analysis – Default" },
+  { id: "gemini-3-flash", name: "Gemini 3 Flash", tier: "free", description: "Fast, latest generation with advanced reasoning" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Highly capable with 2M token context window" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Ultra-fast workhorse (10 RPM / 250 RPD free)" },
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", tier: "free", description: "High-volume efficiency (15 RPM / 1K RPD free) – Best for high-frequency tasks" },
+];
+
+/**
+ * Use Vercel API route backend proxy for better limits and security
+ */
+export const analyzeResource = async (input: { base64Data?: string, url?: string }): Promise<AnalysisResult> => {
+  // Always use /api/analyze - works in both dev (with user key) and production (with env key)
+  const backendUrl = '/api/analyze';
+  
+  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-3.1-pro" };
+  const model = modelConfig.model;
+
+  const userKey = getFromStorage<{ key: string }>("user_api_key")?.key;
+
+  try {
+    const response = await fetch(backendUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        base64Data: input.base64Data,
+        url: input.url,
+        model: model,
+        apiKey: userKey,
+      }),
+    });
+
+    const text = await response.text();
+
+    if (!response.ok) {
+      let message = `Backend error: ${response.status}`;
+      try {
+        const parsed = text ? JSON.parse(text) : null;
+        if (parsed?.error) message = parsed.error;
+      } catch {
+        /* ignore parse errors */
+      }
+      throw new Error(message);
+    }
+
+    try {
+      return JSON.parse(text) as AnalysisResult;
+    } catch (err) {
+      console.error('Analysis Error: invalid JSON response', text);
+      throw new Error('Invalid JSON from backend');
+    }
+  } catch (error) {
+    console.error("Analysis Error:", error);
+    throw error;
+  }
+};
