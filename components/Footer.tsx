@@ -23,27 +23,8 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer className="border-t border-white/10 bg-black/50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 md:px-8 py-6 md:py-8">
-        {/* Top Section - Documentation Links */}
-        <div className="mb-6 md:mb-8 pb-6 md:pb-8 border-b border-white/10">
-          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
-            {links.map((link, index) => (
-              <React.Fragment key={link.key}>
-                <button
-                  onClick={() => handleLinkClick(link.key)}
-                  className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border border-white/30 px-3 md:px-4 py-2 hover:border-nt-red hover:text-nt-red hover:shadow-[0_0_15px_#D71921] transition-all cursor-pointer bg-transparent"
-                >
-                  [{link.label}]
-                </button>
-                {index < links.length - 1 && (
-                  <span className="text-white/20">•</span>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom Section - Credits */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
+        {/* Top Section - Credits */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 mb-6 md:mb-8 pb-6 md:pb-8 border-b border-white/10">
           {/* Left Side */}
           <div className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em]">
             DEV: <span className="text-nt-red">SUMANTH KATTA</span>
@@ -65,6 +46,23 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               [GITHUB]
             </a>
           </div>
+        </div>
+
+        {/* Bottom Section - Documentation Links */}
+        <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6">
+          {links.map((link, index) => (
+            <React.Fragment key={link.key}>
+              <button
+                onClick={() => handleLinkClick(link.key)}
+                className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border border-white/30 px-3 md:px-4 py-2 hover:border-nt-red hover:text-nt-red hover:shadow-[0_0_15px_#D71921] transition-all cursor-pointer bg-transparent"
+              >
+                [{link.label}]
+              </button>
+              {index < links.length - 1 && (
+                <span className="text-white/20">•</span>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </footer>
