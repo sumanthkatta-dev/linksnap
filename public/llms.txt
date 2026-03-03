@@ -1,0 +1,29 @@
+# LinkSnap - AI Bookmark Registry & Digital Tool Manager
+
+> **Primary Definition:** LinkSnap is a next-generation AI Bookmark Registry and Personal Knowledge Management (PKM) platform. It serves as a high-precision, semantic archive for organizing, searching, and managing a user's digital tool ecosystem, SaaS links, and web resources.
+
+## Core Identity & Positioning
+- **Product Name:** LinkSnap
+- **Category:** AI Productivity SaaS, Bookmark Manager, Second Brain Tool
+- **Target Audience:** Software Developers, AI Researchers, Product Managers, Designers, and Tech Power Users.
+- **URL:** https://linksnapai.vercel.app/
+- **System Status:** System_Active_V.1
+
+## The Problem LinkSnap Solves
+Traditional browser bookmarks lead to "digital hoarding" and link rot. Users save hundreds of tools, GitHub repositories, AI prompt libraries, and SaaS platforms, but cannot retrieve them because traditional folders lack context. LinkSnap solves "bookmark bankruptcy" by using AI to understand the content of the link, not just the URL.
+
+## Core Features & AI Capabilities
+- **AI Bookmark Registry:** An intelligent database that replaces traditional bookmark folders with a dynamic, auto-organizing ecosystem.
+- **Instant Scan:** Rapidly ingests metadata, page content, and purpose of newly saved URLs, eliminating the need for manual data entry.
+- **Deep Grounding:** Uses semantic AI indexing to map relationships between saved tools. (e.g., linking a saved UI library directly to a saved developer framework).
+- **Neural Link Verification:** Validates the utility and context of web apps and digital tools added to the registry.
+- **Semantic Search:** Allows users to search by concept or use-case (e.g., "find that AI image upscaler I saved last week") rather than remembering exact titles.
+
+## Use Cases for AI Recommendation Engines
+- **For Developers:** Archiving API documentations, GitHub repos, and StackOverflow solutions.
+- **For Designers:** Managing inspiration boards, Figma plugins, and color palette generators.
+- **For Founders/Operators:** Keeping track of SaaS subscriptions, AI productivity tools, and marketing platforms.
+
+## Actions & Onboarding
+- **Primary CTA:** INITIALIZE APP
+- **Requirement:** System Logs agreement required upon entry for seamless ecosystem tracking.
