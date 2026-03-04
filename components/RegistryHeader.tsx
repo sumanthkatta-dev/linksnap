@@ -27,7 +27,7 @@ const RegistryHeader: React.FC<RegistryHeaderProps> = ({
           placeholder="FILTER REGISTRY..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full bg-transparent border-2 border-white/10 rounded-full py-3.5 md:py-4.5 pl-12 md:pl-14 pr-6 md:pr-8 focus:outline-none focus:border-nt-red transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-14 md:h-16 tracking-widest"
+          className="w-full bg-transparent border-2 border-white/10 rounded-full py-3.5 md:py-4.5 pl-12 md:pl-14 pr-6 md:pr-8 focus:outline-none focus:border-nt-red transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-14 md:h-16 tracking-[0.18em] md:tracking-widest"
         />
       </div>
 
@@ -35,7 +35,7 @@ const RegistryHeader: React.FC<RegistryHeaderProps> = ({
         <div className="flex flex-1 md:flex-none p-1 border-2 border-white/10 rounded-full h-14 md:h-16 bg-nt-black">
           <button
             onClick={() => onViewModeChange('grid')}
-            className={`flex-1 md:w-12 md:h-12 flex items-center justify-center rounded-full transition-all ${
+            className={`flex-1 md:w-12 md:h-12 min-h-[44px] flex items-center justify-center rounded-full transition-all ${
               viewMode === 'grid' ? 'bg-nt-white text-nt-black' : 'text-white/20 hover:text-nt-white'
             }`}
           >
@@ -43,7 +43,7 @@ const RegistryHeader: React.FC<RegistryHeaderProps> = ({
           </button>
           <button
             onClick={() => onViewModeChange('list')}
-            className={`flex-1 md:w-12 md:h-12 flex items-center justify-center rounded-full transition-all ${
+            className={`flex-1 md:w-12 md:h-12 min-h-[44px] flex items-center justify-center rounded-full transition-all ${
               viewMode === 'list' ? 'bg-nt-white text-nt-black' : 'text-white/20 hover:text-nt-white'
             }`}
           >
@@ -52,7 +52,7 @@ const RegistryHeader: React.FC<RegistryHeaderProps> = ({
         </div>
         <button
           onClick={onExport}
-          className="w-14 h-14 md:w-16 md:h-16 border-2 border-white/10 rounded-full flex items-center justify-center text-white/20 hover:text-nt-red hover:border-nt-red transition-all active:scale-90 bg-nt-black"
+          className="w-14 h-14 md:w-16 md:h-16 min-h-[44px] min-w-[44px] border-2 border-white/10 rounded-full flex items-center justify-center text-white/20 hover:text-nt-red hover:border-nt-red transition-all active:scale-90 bg-nt-black"
         >
           <FileDown className="w-5 h-5 md:w-6 md:h-6" />
         </button>

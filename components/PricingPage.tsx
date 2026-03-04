@@ -131,13 +131,13 @@ const PricingPage: React.FC<PricingPageProps> = ({ onClose }) => {
     <div ref={containerRef} className="fixed inset-0 z-50 bg-black overflow-y-auto">
       {/* Header */}
       <div className="sticky top-0 z-10 backdrop-blur-xl bg-black/80 border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between mobile-page-padding">
           <h1 className="text-xl font-bold">
             Link<span className="text-nt-red">Snap</span> Pricing
           </h1>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="w-11 h-11 p-2 hover:bg-white/10 rounded-lg transition-colors"
             aria-label="Close pricing page"
           >
             <X className="w-6 h-6" />
@@ -146,7 +146,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ onClose }) => {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-6 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-10 md:py-16 mobile-page-padding">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">

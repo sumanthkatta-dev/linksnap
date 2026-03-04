@@ -58,7 +58,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
   return (
     <div className="space-y-6">
       <div
-        className={`relative h-[320px] md:h-[400px] squircle transition-all duration-500 flex flex-col items-center justify-center glass-nothing overflow-hidden group border-2 ${
+        className={`relative h-[52vh] min-h-[300px] md:h-[400px] squircle transition-all duration-500 flex flex-col items-center justify-center glass-nothing overflow-hidden group border-2 ${
           dragActive ? 'border-nt-red bg-nt-red/5' : 'border-white/10'
         } hover:border-white/30`}
         aria-busy={isProcessing}
@@ -70,13 +70,13 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
         <div className="absolute inset-0 nothing-grid opacity-20 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110 pointer-events-none"></div>
         
         {!isProcessing && !previewImage ? (
-          <div className="flex flex-col items-center text-center px-8 md:px-12 cursor-pointer relative z-10 w-full h-full justify-center">
+          <div className="flex flex-col items-center text-center px-6 md:px-12 cursor-pointer relative z-10 w-full h-full justify-center">
             <div className="w-20 h-20 md:w-24 md:h-24 rounded-full border-2 border-white/10 flex items-center justify-center mb-6 group-hover:border-nt-red transition-all duration-500 group-hover:scale-110 relative bg-white/[0.02]">
               <Plus className="w-8 h-8 md:w-10 md:h-10 text-nt-white group-hover:rotate-90 transition-transform duration-500" />
               <div className="absolute inset-0 border border-nt-red/0 group-hover:border-nt-red/50 rounded-full animate-ping"></div>
             </div>
-            <h3 className="text-xl md:text-2xl font-dot tracking-wider text-nt-white mb-2 uppercase group-hover:tracking-[0.2em] transition-all duration-500">Drop Visual</h3>
-            <p className="text-white/40 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] md:tracking-[0.4em]">Screenshot or Media File</p>
+            <h3 className="text-lg md:text-2xl font-dot tracking-[0.14em] md:tracking-wider text-nt-white mb-2 uppercase group-hover:tracking-[0.2em] transition-all duration-500">Drop Visual</h3>
+            <p className="text-white/40 text-[10px] md:text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.4em]">Screenshot or Media File</p>
             <input
               type="file"
               className="absolute inset-0 opacity-0 cursor-pointer h-full w-full"
@@ -91,7 +91,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
               <img
                 src={previewImage}
                 alt="Preview"
-                className={`w-full h-full object-cover rounded-[20px] md:rounded-[24px] border border-white/5 transition-all duration-1000 group-hover:scale-105 ${
+                className={`w-full h-full object-contain md:object-cover rounded-[16px] md:rounded-[24px] border border-white/5 transition-all duration-1000 group-hover:scale-105 mobile-preview-image ${
                   isProcessing ? 'grayscale blur-md opacity-30' : 'opacity-90 group-hover:opacity-100'
                 }`}
               />
@@ -120,7 +120,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
                   onClick={(e) => { e.stopPropagation(); onRefresh(); }}
                   disabled={isProcessing}
                   aria-label="Refresh preview analysis"
-                  className="action-btn fixed bottom-20 right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="action-btn mobile-action-btn fixed bottom-24 md:bottom-20 right-4 md:right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   <RefreshCw className={`w-5 h-5 action-btn-icon ${isProcessing ? 'animate-spin' : ''}`} />
                 </button>
@@ -132,7 +132,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
                 <button
                   onClick={(e) => { e.stopPropagation(); onClear(); }}
                   aria-label="Clear uploaded preview"
-                  className="action-btn fixed bottom-6 right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all"
+                  className="action-btn mobile-action-btn fixed bottom-8 md:bottom-6 right-4 md:right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all"
                 >
                   <X className="w-5 h-5 action-btn-icon" />
                 </button>
@@ -144,38 +144,40 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
 
       <div className="animate-ios" style={{ animationDelay: '0.1s' }}>
         <form onSubmit={handleSubmitUrl} className="relative group">
-          <div className="absolute left-6 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-nt-red transition-colors">
-            <Link2 className="w-5 h-5" />
+          <div className="relative">
+            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-white/20 group-focus-within:text-nt-red transition-colors pointer-events-none">
+              <Link2 className="w-5 h-5" />
+            </div>
+            <input
+              type="url"
+              placeholder="PASTE REMOTE LINK_ADDR..."
+              value={url}
+              onChange={(e) => {
+                const nextValue = e.target.value;
+                setUrl(nextValue);
+                if (urlError && (!nextValue.trim() || sanitizeUrlInput(nextValue))) {
+                  setUrlError(null);
+                }
+              }}
+              onBlur={() => {
+                if (url.trim() && !sanitizeUrlInput(url)) {
+                  setUrlError('Use a valid URL starting with http:// or https://');
+                }
+              }}
+              disabled={isProcessing}
+              inputMode="url"
+              autoComplete="url"
+              aria-label="Paste a link to analyze"
+              aria-invalid={hasUrlInput && !isUrlValid}
+              aria-describedby={urlError ? 'url-error' : undefined}
+              className="w-full bg-nt-gray border-2 border-white/10 rounded-2xl py-5 pl-14 pr-4 sm:pr-24 focus:outline-none focus:border-nt-red focus:ring-2 focus:ring-nt-red/20 transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/20 h-16 tracking-[0.1em] md:tracking-widest disabled:opacity-50"
+            />
           </div>
-          <input
-            type="url"
-            placeholder="PASTE REMOTE LINK_ADDR..."
-            value={url}
-            onChange={(e) => {
-              const nextValue = e.target.value;
-              setUrl(nextValue);
-              if (urlError && (!nextValue.trim() || sanitizeUrlInput(nextValue))) {
-                setUrlError(null);
-              }
-            }}
-            onBlur={() => {
-              if (url.trim() && !sanitizeUrlInput(url)) {
-                setUrlError('Use a valid URL starting with http:// or https://');
-              }
-            }}
-            disabled={isProcessing}
-            inputMode="url"
-            autoComplete="url"
-            aria-label="Paste a link to analyze"
-            aria-invalid={hasUrlInput && !isUrlValid}
-            aria-describedby={urlError ? 'url-error' : undefined}
-            className="w-full bg-nt-gray border-2 border-white/10 rounded-2xl py-5 pl-14 pr-24 focus:outline-none focus:border-nt-red focus:ring-2 focus:ring-nt-red/20 transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-16 tracking-widest disabled:opacity-50"
-          />
           <button
             type="submit"
             disabled={isProcessing || !isUrlValid}
             aria-label="Analyze pasted URL"
-            className="absolute right-3 top-1/2 -translate-y-1/2 h-10 px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-widest disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 group/btn transition-transform hover:scale-[0.98] active:scale-95"
+            className="mt-3 w-full sm:mt-0 sm:w-auto sm:absolute sm:right-3 sm:top-1/2 sm:-translate-y-1/2 h-11 min-h-[44px] px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-[0.18em] md:tracking-widest disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 group/btn transition-transform hover:scale-[0.98] active:scale-95"
           >
             Map <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
           </button>
@@ -185,9 +187,9 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
             {urlError}
           </p>
         )}
-        <div className="mt-3 flex items-center gap-2 px-6">
+        <div className="mt-3 flex items-center gap-2 px-2 sm:px-6">
           <div className="w-1 h-1 bg-nt-red rounded-full"></div>
-          <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.4em]">Protocol: Direct_Neural_Mapping</span>
+          <span className="text-[9px] md:text-[8px] font-bold text-white/20 uppercase tracking-[0.2em] md:tracking-[0.4em]">Protocol: Direct_Neural_Mapping</span>
         </div>
       </div>
       

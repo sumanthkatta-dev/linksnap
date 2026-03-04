@@ -29,11 +29,11 @@ const DocumentPage: React.FC<DocumentPageProps & { title: string; content: strin
       
       {/* Header */}
       <div className="sticky top-0 z-40 backdrop-blur-xl bg-black/80 border-b border-white/10">
-        <div className="max-w-5xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between mobile-page-padding">
           <div className="flex items-center gap-4">
             <button
               onClick={onClose}
-              className="flex items-center gap-2 text-sm text-white/60 hover:text-nt-red transition-colors group"
+              className="flex items-center gap-2 min-h-[44px] text-sm text-white/60 hover:text-nt-red transition-colors group"
               aria-label="Go back"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -46,7 +46,7 @@ const DocumentPage: React.FC<DocumentPageProps & { title: string; content: strin
           </div>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="w-11 h-11 p-2 hover:bg-white/10 rounded-lg transition-colors"
             aria-label="Close"
           >
             <X className="w-5 h-5" />
@@ -55,7 +55,7 @@ const DocumentPage: React.FC<DocumentPageProps & { title: string; content: strin
       </div>
 
       {/* Content */}
-      <main className="relative z-10 max-w-4xl mx-auto px-6 md:px-8 py-12 md:py-20">
+      <main className="relative z-10 max-w-4xl mx-auto px-4 md:px-8 py-10 md:py-20 mobile-page-padding">
         {/* Document Header */}
         <div className="mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white via-white to-white/70 bg-clip-text text-transparent">

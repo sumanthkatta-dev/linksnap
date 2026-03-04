@@ -9,7 +9,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenSettings }) => {
   const [logoFailed, setLogoFailed] = useState(false);
 
   return (
-    <nav className="glass-nothing h-20 sticky top-0 z-50 flex items-center border-b border-white/10 px-8">
+    <nav className="glass-nothing h-20 sticky top-0 z-50 flex items-center border-b border-white/10 px-4 md:px-8 mobile-page-padding">
       <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
         <div className="flex items-center gap-4 group cursor-pointer active:scale-95 transition-transform duration-200">
           {!logoFailed ? (
@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ onOpenSettings }) => {
             </div>
           )}
           <div className="flex flex-col">
-            <span className="text-xl font-dot tracking-widest text-nt-white uppercase leading-none">
+            <span className="text-lg md:text-xl font-dot tracking-[0.14em] md:tracking-widest text-nt-white uppercase leading-none">
               LINKSNAP
             </span>
           </div>

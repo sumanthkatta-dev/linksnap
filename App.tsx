@@ -326,9 +326,9 @@ const App: React.FC = () => {
 
       {/* Batch Delete Confirmation Modal */}
       {showBatchDeleteConfirm && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-6">
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-6">
           <div className="absolute inset-0 bg-nt-black/80 backdrop-blur-md animate-in fade-in duration-300" onClick={() => setShowBatchDeleteConfirm(false)} />
-          <div className="relative glass-nothing squircle p-10 max-w-sm w-full text-center space-y-8 animate-ios border-nt-red/30 shadow-[0_0_80px_rgba(215,25,33,0.15)]">
+          <div className="relative glass-nothing squircle p-6 md:p-10 max-w-sm w-full text-center space-y-6 md:space-y-8 animate-ios border-nt-red/30 shadow-[0_0_80px_rgba(215,25,33,0.15)]">
              <div className="w-16 h-16 bg-nt-red/10 border border-nt-red rounded-full flex items-center justify-center mx-auto mb-4">
                 <Trash2 className="w-8 h-8 text-nt-red" />
              </div>
@@ -341,13 +341,13 @@ const App: React.FC = () => {
              <div className="flex flex-col gap-3 pt-4">
                <button 
                  onClick={executeBatchDelete}
-                 className="w-full h-14 bg-nt-red text-nt-white font-dot uppercase tracking-[0.3em] text-[10px] glitch-btn shadow-xl"
+                 className="w-full min-h-[44px] h-14 bg-nt-red text-nt-white font-dot uppercase tracking-[0.24em] md:tracking-[0.3em] text-[10px] glitch-btn shadow-xl"
                >
                  Confirm Deletion
                </button>
                <button 
                  onClick={() => setShowBatchDeleteConfirm(false)}
-                 className="w-full h-14 border border-white/10 text-white/40 font-dot uppercase tracking-[0.3em] text-[10px] hover:text-nt-white transition-colors"
+                 className="w-full min-h-[44px] h-14 border border-white/10 text-white/40 font-dot uppercase tracking-[0.24em] md:tracking-[0.3em] text-[10px] hover:text-nt-white transition-colors"
                >
                  Abort Mission
                </button>
@@ -356,16 +356,16 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <main className="max-w-7xl mx-auto px-6 md:px-8 mt-12 md:mt-20 space-y-16 md:space-y-28">
+      <main className="max-w-7xl mx-auto px-4 md:px-8 mt-10 md:mt-20 space-y-14 md:space-y-28 mobile-page-padding">
         <header className="text-left space-y-4 md:space-y-6 max-w-3xl animate-ios">
           <div className="flex items-center gap-4 mb-2">
             <div className="dot-pulse"></div>
-            <span className="text-[9px] md:text-[10px] font-bold text-nt-red tracking-[0.5em] uppercase">{APP_BADGE_VERSION}</span>
+            <span className="text-[9px] md:text-[10px] font-bold text-nt-red tracking-[0.4em] md:tracking-[0.5em] uppercase mobile-badge-text">{APP_BADGE_VERSION}</span>
           </div>
-          <h1 className="text-5xl md:text-9xl font-dot tracking-widest text-nt-white uppercase leading-[0.9] border-l-4 border-nt-red pl-6 md:pl-8">
+          <h1 className="text-5xl md:text-9xl font-dot tracking-[0.08em] md:tracking-widest text-nt-white uppercase leading-[0.9] border-l-4 border-nt-red pl-4 md:pl-8 mobile-hero-title">
             LINKSNAP
           </h1>
-          <p className="text-white/30 text-xs md:text-base font-bold uppercase tracking-[0.4em] max-w-xl">
+          <p className="text-white/30 text-xs md:text-base font-bold uppercase tracking-[0.24em] md:tracking-[0.4em] max-w-xl mobile-hero-sub">
             The smartest way to save links. Powered by visual intelligence.
           </p>
         </header>
@@ -464,21 +464,21 @@ const App: React.FC = () => {
 
       {selectedIds.size > 0 && (
         <div className="fixed bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-xl animate-ios pb-safe">
-          <div className="bg-nt-white p-4 md:p-7 rounded-full flex items-center justify-between border-[4px] md:border-[6px] border-nt-black shadow-[0_0_60px_rgba(215,25,33,0.3)]">
-            <div className="flex items-center gap-4 md:gap-8 pl-4 md:pl-8">
+          <div className="bg-nt-white p-3 md:p-7 rounded-3xl md:rounded-full flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-0 border-[4px] md:border-[6px] border-nt-black shadow-[0_0_60px_rgba(215,25,33,0.3)]">
+            <div className="flex items-center gap-4 md:gap-8 pl-2 sm:pl-4 md:pl-8">
               <span className="text-nt-black font-dot text-xl md:text-2xl">{selectedIds.size}</span>
-              <span className="text-[9px] md:text-[11px] font-bold text-nt-black uppercase tracking-[0.2em] md:tracking-[0.4em]">Objects_Marked</span>
+              <span className="text-[9px] md:text-[11px] font-bold text-nt-black uppercase tracking-[0.18em] md:tracking-[0.4em]">Objects_Marked</span>
             </div>
             <div className="flex gap-2 md:gap-4">
                <button
                 onClick={() => setSelectedIds(new Set())}
-                className="bg-nt-black text-nt-white px-5 md:px-8 py-3 md:py-4 rounded-full text-[8px] md:text-[10px] font-dot uppercase tracking-widest hover:bg-nt-gray transition-all"
+                className="bg-nt-black text-nt-white px-5 md:px-8 py-3 md:py-4 min-h-[44px] rounded-full text-[9px] md:text-[10px] font-dot uppercase tracking-[0.18em] md:tracking-widest hover:bg-nt-gray transition-all"
               >
                 Abort
               </button>
               <button
                 onClick={() => setShowBatchDeleteConfirm(true)}
-                className="bg-nt-red text-nt-white px-6 md:px-10 py-3 md:py-4 rounded-full text-[8px] md:text-[10px] font-dot uppercase tracking-[0.2em] md:tracking-[0.3em] hover:invert transition-all"
+                className="bg-nt-red text-nt-white px-6 md:px-10 py-3 md:py-4 min-h-[44px] rounded-full text-[9px] md:text-[10px] font-dot uppercase tracking-[0.2em] md:tracking-[0.3em] hover:invert transition-all"
               >
                 Execute
               </button>

@@ -98,6 +98,81 @@ body {
 .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
 .pt-safe { padding-top: env(safe-area-inset-top); }
 
+.mobile-page-padding {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+@media (max-width: 768px) {
+    .mobile-settings-panel {
+        width: 100vw;
+        max-width: 100vw;
+        height: 100dvh;
+    }
+
+    .mobile-settings-scroll {
+        padding-bottom: calc(env(safe-area-inset-bottom) + 96px);
+        scroll-padding-bottom: calc(env(safe-area-inset-bottom) + 160px);
+    }
+
+    .mobile-settings-panel:focus-within .mobile-settings-scroll {
+        padding-bottom: calc(env(safe-area-inset-bottom) + 240px);
+    }
+
+    .mobile-touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .mobile-badge-text {
+        font-size: clamp(9px, 2.6vw, 10px);
+        letter-spacing: 0.22em;
+    }
+
+    .mobile-hero-title {
+        font-size: clamp(2.2rem, 14vw, 4.3rem);
+        line-height: 0.95;
+    }
+
+    .mobile-hero-sub {
+        font-size: clamp(0.72rem, 2.8vw, 0.95rem);
+        letter-spacing: 0.22em;
+    }
+
+    .mobile-preview-image {
+        object-fit: contain;
+    }
+
+    .mobile-action-btn {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-page-padding {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .mobile-badge-text {
+        letter-spacing: 0.18em;
+    }
+
+    .mobile-hero-title {
+        font-size: clamp(2rem, 13vw, 3.3rem);
+    }
+
+    .mobile-hero-sub {
+        letter-spacing: 0.16em;
+    }
+
+    .mobile-action-btn {
+        width: 52px;
+        height: 52px;
+    }
+}
+
 input, textarea {
     font-size: 16px !important;
 }

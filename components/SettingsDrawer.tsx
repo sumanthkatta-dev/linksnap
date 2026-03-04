@@ -153,6 +153,14 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
     input.click();
   };
 
+  const handleApiKeyFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (window.innerWidth <= 768) {
+      requestAnimationFrame(() => {
+        event.currentTarget.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      });
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -161,21 +169,21 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
         className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
         onClick={onClose}
       />
-      <div className="relative w-full max-w-md h-full glass-nothing border-l border-white/10 animate-in slide-in-from-right duration-500 flex flex-col pt-safe">
-        <div className="p-8 flex items-center justify-between border-b border-white/5">
+      <div className="relative w-full lg:max-w-md h-[100dvh] glass-nothing border-l border-white/10 animate-in slide-in-from-right duration-500 flex flex-col pt-safe mobile-settings-panel">
+        <div className="p-4 md:p-8 flex items-center justify-between border-b border-white/5">
           <div className="flex items-center gap-4">
             <div className="w-2 h-2 bg-nt-red rounded-full animate-pulse"></div>
-            <h2 className="text-xl font-dot tracking-[0.2em] text-nt-white uppercase">System_Config</h2>
+            <h2 className="text-base md:text-xl font-dot tracking-[0.14em] md:tracking-[0.2em] text-nt-white uppercase">System_Config</h2>
           </div>
           <button 
             onClick={onClose}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+            className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors mobile-touch-target"
           >
             <X className="w-6 h-6 text-white/40" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-8 space-y-12 no-scrollbar">
+        <div className="flex-1 overflow-y-auto overscroll-contain p-4 md:p-8 space-y-8 md:space-y-12 no-scrollbar mobile-settings-scroll">
           {/* Unified Model + API Settings */}
           <section className="space-y-6">
             <div className="flex items-center gap-3">
@@ -183,7 +191,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
               <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Model + API Settings</span>
             </div>
             
-            <div className="p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-6">
+            <div className="p-4 md:p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-6">
               <div className="flex items-center gap-3">
                 <Cpu className="w-4 h-4 text-nt-red" />
                 <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Model Selection</span>
@@ -193,20 +201,20 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                 Choose a Gemini model. Free models offer great value for most use cases.
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {AVAILABLE_MODELS.map((model) => (
-                  <label key={model.id} className="flex items-start gap-3 p-3 border border-white/10 rounded-lg hover:border-white/20 cursor-pointer transition-all">
+                  <label key={model.id} className="flex items-start gap-4 p-4 min-h-[56px] border border-white/10 rounded-lg hover:border-white/20 cursor-pointer transition-all mobile-touch-target">
                     <input
                       type="radio"
                       name="model"
                       value={model.id}
                       checked={selectedModel === model.id}
                       onChange={(e) => handleModelChange(e.target.value)}
-                      className="w-4 h-4 mt-0.5 accent-nt-red"
+                      className="w-5 h-5 mt-0.5 accent-nt-red"
                     />
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-bold text-white uppercase">{model.name}</span>
+                        <span className="text-[11px] md:text-[10px] font-bold text-white uppercase">{model.name}</span>
                         <span className={`text-[8px] font-bold px-2 py-1 rounded ${
                           model.tier === 'free' 
                             ? 'bg-green-500/20 text-green-400' 
@@ -215,7 +223,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                           {model.tier.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-[8px] text-white/40 mt-1">{model.description}</p>
+                      <p className="text-[10px] md:text-[8px] text-white/40 mt-1 leading-relaxed">{model.description}</p>
                     </div>
                   </label>
                 ))}
@@ -242,13 +250,14 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                       setApiKeyDraft(e.target.value);
                       setHasApiKeyDraftChanges(true);
                     }}
+                    onFocus={handleApiKeyFocus}
                     placeholder="AIzaSy... (get from aistudio.google.com/apikey)"
-                    className="w-full px-4 py-3 pr-10 bg-white/5 border border-white/20 rounded-lg text-[10px] text-nt-white placeholder:text-white/30 focus:outline-none focus:border-nt-red focus:ring-1 focus:ring-nt-red/50 font-mono"
+                    className="w-full min-h-[44px] px-4 py-3 pr-24 bg-white/5 border border-white/20 rounded-lg text-[12px] md:text-[10px] text-nt-white placeholder:text-white/30 focus:outline-none focus:border-nt-red focus:ring-1 focus:ring-nt-red/50 font-mono"
                   />
                   <button
                     type="button"
                     onClick={() => setShowApiKey(!showApiKey)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 text-white/60 hover:text-white/80 z-10"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 h-9 min-w-[58px] px-3 rounded-md text-[11px] font-bold text-white/70 hover:text-white hover:bg-white/10 transition-all z-10 mobile-touch-target"
                   >
                     {showApiKey ? 'Hide' : 'Show'}
                   </button>
@@ -278,7 +287,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                   href="https://aistudio.google.com/apikey" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between text-[9px] font-bold text-nt-red uppercase tracking-widest hover:underline"
+                  className="min-h-[44px] flex items-center justify-between text-[10px] md:text-[9px] font-bold text-nt-red uppercase tracking-widest hover:underline"
                 >
                   <span>Get API Key</span>
                   <ExternalLink className="w-3 h-3" />
@@ -287,19 +296,21 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                   href="https://ai.google.dev/gemini-api/docs/billing" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between text-[9px] font-bold text-nt-red uppercase tracking-widest hover:underline"
+                  className="min-h-[44px] flex items-center justify-between text-[10px] md:text-[9px] font-bold text-nt-red uppercase tracking-widest hover:underline"
                 >
                   <span>Pricing Info</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
 
-                <button
-                  onClick={handleApplySettings}
-                  className="w-full h-12 bg-nt-red text-nt-white font-dot uppercase tracking-[0.3em] text-[10px] hover:bg-nt-white hover:text-nt-black transition-all rounded-lg shadow-lg"
-                >
-                  Apply Settings
-                </button>
+                <div className="pt-4">
+                  <button
+                    onClick={handleApplySettings}
+                    className="w-full min-h-[48px] h-12 bg-nt-red text-nt-white font-dot uppercase tracking-[0.22em] md:tracking-[0.3em] text-[10px] hover:bg-nt-white hover:text-nt-black transition-all rounded-lg shadow-lg mobile-touch-target"
+                  >
+                    Apply Settings
+                  </button>
+                </div>
               </div>
             </div>
           </section>
@@ -311,7 +322,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
               <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Neural Archive</span>
             </div>
             
-            <div className="p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-4">
+            <div className="p-4 md:p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-4">
               <div className="space-y-2">
                 <p className="text-[9px] text-white/40 uppercase tracking-widest">Storage Usage</p>
                 <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
@@ -328,13 +339,13 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
               <div className="grid grid-cols-2 gap-3 pt-4">
                 <button 
                   onClick={handleBackupData}
-                  className="h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.2em] text-[8px] transition-all flex items-center justify-center gap-2"
+                  className="min-h-[44px] h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.15em] text-[10px] md:text-[8px] transition-all flex items-center justify-center gap-2 mobile-touch-target"
                 >
                   <Download className="w-3 h-3" /> Backup
                 </button>
                 <button 
                   onClick={handleRestoreData}
-                  className="h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.2em] text-[8px] transition-all flex items-center justify-center gap-2"
+                  className="min-h-[44px] h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.15em] text-[10px] md:text-[8px] transition-all flex items-center justify-center gap-2 mobile-touch-target"
                 >
                   <Upload className="w-3 h-3" /> Restore
                 </button>
@@ -347,7 +358,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                     onClose();
                   }
                 }}
-                className="w-full h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-3 mt-3"
+                className="w-full min-h-[44px] h-12 border border-white/10 hover:border-nt-red hover:text-nt-red text-white/40 font-dot uppercase tracking-[0.22em] md:tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-3 mt-3 mobile-touch-target"
               >
                 <Trash2 className="w-4 h-4" /> Purge Local Registry
               </button>
@@ -365,7 +376,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
           </section>
         </div>
 
-        <div className="p-8 border-t border-white/5 bg-black/20">
+        <div className="p-4 md:p-8 border-t border-white/5 bg-black/20">
           <p className="text-[9px] text-white/20 font-bold uppercase tracking-[0.4em] text-center">
             Secured via Encrypted Neural Link
           </p>

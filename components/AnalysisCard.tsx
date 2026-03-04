@@ -17,44 +17,44 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({ result, onDiscard, onKeep }
   }, [result]);
 
   return (
-    <div className="glass-nothing squircle p-10 flex flex-col gap-10 h-full shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-white/20 relative overflow-hidden group animate-ios">
+    <div className="glass-nothing squircle p-5 md:p-10 flex flex-col gap-6 md:gap-10 h-full shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border-white/20 relative overflow-hidden group animate-ios">
       <div className="absolute top-0 left-0 w-full h-1 bg-nt-red"></div>
       
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <div className="w-14 h-14 rounded-full border-2 border-nt-red flex items-center justify-center text-nt-red shadow-lg shadow-nt-red/10">
-            <ShieldCheck className="w-8 h-8" />
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 md:gap-5">
+          <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-nt-red flex items-center justify-center text-nt-red shadow-lg shadow-nt-red/10">
+            <ShieldCheck className="w-6 h-6 md:w-8 md:h-8" />
           </div>
           <div className="flex flex-col">
-            <h2 className="text-[16px] font-dot text-nt-white uppercase tracking-[0.4em]">Scan Complete</h2>
-            <span className="text-[10px] text-nt-red font-bold uppercase tracking-widest mt-1">Grounding Verified</span>
+            <h2 className="text-[13px] md:text-[16px] font-dot text-nt-white uppercase tracking-[0.2em] md:tracking-[0.4em]">Scan Complete</h2>
+            <span className="text-[10px] text-nt-red font-bold uppercase tracking-[0.2em] md:tracking-widest mt-1">Grounding Verified</span>
           </div>
         </div>
         <button 
           onClick={() => setIsEditing(!isEditing)}
-          className={`w-14 h-14 rounded-full flex items-center justify-center transition-all glitch-btn ${isEditing ? 'bg-nt-red text-nt-white' : 'border border-white/10 text-white/40 hover:text-nt-white'}`}
+          className={`w-12 h-12 md:w-14 md:h-14 min-h-[44px] min-w-[44px] rounded-full flex items-center justify-center transition-all glitch-btn ${isEditing ? 'bg-nt-red text-nt-white' : 'border border-white/10 text-white/40 hover:text-nt-white'}`}
         >
-          {isEditing ? <Save className="w-6 h-6" /> : <Edit3 className="w-6 h-6" />}
+          {isEditing ? <Save className="w-5 h-5 md:w-6 md:h-6" /> : <Edit3 className="w-5 h-5 md:w-6 md:h-6" />}
         </button>
       </div>
 
-      <div className="space-y-10 flex-1 overflow-y-auto no-scrollbar">
+      <div className="space-y-6 md:space-y-10 flex-1 overflow-y-auto no-scrollbar">
         <div className="space-y-3">
-          <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.5em] block">Resource Identity</label>
+          <label className="text-[10px] font-bold text-white/30 uppercase tracking-[0.25em] md:tracking-[0.5em] block">Resource Identity</label>
           {isEditing ? (
             <input 
               type="text" 
               value={edited.url}
               onChange={(e) => setEdited({...edited, url: e.target.value})}
-              className="w-full bg-transparent border-b-2 border-nt-red py-3 text-2xl font-dot outline-none uppercase tracking-widest text-nt-white"
+              className="w-full bg-transparent border-b-2 border-nt-red py-3 text-lg md:text-2xl font-dot outline-none uppercase tracking-[0.08em] md:tracking-widest text-nt-white"
             />
           ) : (
             <div className="flex items-center justify-between group/title">
-               <h3 className="text-4xl font-dot text-nt-white break-all leading-tight uppercase tracking-wider">{edited.url}</h3>
+               <h3 className="text-2xl md:text-4xl font-dot text-nt-white break-all leading-tight uppercase tracking-[0.06em] md:tracking-wider">{edited.url}</h3>
                <a 
                 href={edited.url.startsWith('http') ? edited.url : `https://${edited.url}`}
                 target="_blank"
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-nt-red text-nt-white opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100"
+                className="w-11 h-11 md:w-12 md:h-12 min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full bg-nt-red text-nt-white opacity-0 group-hover:opacity-100 transition-all scale-75 group-hover:scale-100"
                >
                  <Globe className="w-6 h-6" />
                </a>
@@ -62,15 +62,15 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({ result, onDiscard, onKeep }
           )}
         </div>
 
-        <div className="grid grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-10">
           <div className="space-y-3">
-            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.5em] block">Taxonomy</span>
+            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.25em] md:tracking-[0.5em] block">Taxonomy</span>
             <div className="px-5 py-3 border border-white/10 inline-block font-dot text-sm text-nt-white uppercase tracking-widest">
               {edited.category}
             </div>
           </div>
           <div className="space-y-3">
-            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.5em] block">Licensing</span>
+            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.25em] md:tracking-[0.5em] block">Licensing</span>
             <div className="px-5 py-3 border border-nt-red/40 text-nt-red inline-block font-dot text-sm uppercase tracking-widest">
               {edited.pricing || 'FREE_MOD'}
             </div>
@@ -80,7 +80,7 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({ result, onDiscard, onKeep }
         <div className="space-y-4">
           <div className="flex items-center gap-3">
             <Info className="w-3.5 h-3.5 text-nt-red" />
-            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.5em] block">Summary Brief</span>
+            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.25em] md:tracking-[0.5em] block">Summary Brief</span>
           </div>
           {isEditing ? (
             <textarea 
@@ -97,7 +97,7 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({ result, onDiscard, onKeep }
 
         {edited.sources && edited.sources.length > 0 && (
           <div className="pt-6 space-y-5">
-            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.5em] block">System Verification Logs</span>
+            <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] md:tracking-[0.5em] block">System Verification Logs</span>
             <div className="grid grid-cols-1 gap-3">
               {edited.sources.slice(0, 3).map((source, idx) => (
                 <a 
@@ -118,18 +118,18 @@ const AnalysisCard: React.FC<AnalysisCardProps> = ({ result, onDiscard, onKeep }
         )}
       </div>
 
-      <div className="flex gap-5 pt-10 border-t border-white/10">
+      <div className="flex gap-3 md:gap-5 pt-6 md:pt-10 border-t border-white/10">
         <button
           onClick={() => onKeep(edited)}
-          className="flex-1 h-20 bg-nt-white text-nt-black font-dot uppercase tracking-[0.6em] text-sm hover:bg-nt-red hover:text-nt-white transition-all glitch-btn shadow-2xl"
+          className="flex-1 min-h-[44px] h-14 md:h-20 bg-nt-white text-nt-black font-dot uppercase tracking-[0.22em] md:tracking-[0.6em] text-[10px] md:text-sm hover:bg-nt-red hover:text-nt-white transition-all glitch-btn shadow-2xl"
         >
           Archive Entry
         </button>
         <button
           onClick={onDiscard}
-          className="w-20 h-20 flex items-center justify-center border-2 border-white/10 text-white/20 hover:text-nt-red hover:border-nt-red transition-all glitch-btn rounded-full"
+          className="w-14 h-14 md:w-20 md:h-20 min-h-[44px] min-w-[44px] flex items-center justify-center border-2 border-white/10 text-white/20 hover:text-nt-red hover:border-nt-red transition-all glitch-btn rounded-full"
         >
-          <Trash2 className="w-7 h-7" />
+          <Trash2 className="w-5 h-5 md:w-7 md:h-7" />
         </button>
       </div>
     </div>

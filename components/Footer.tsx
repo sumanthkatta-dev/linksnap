@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   return (
     <footer className="border-t border-white/10 bg-black/50">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 md:px-12 py-12 md:py-16 mobile-page-padding">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12">
           {/* Left Column - Brand & CTA */}
@@ -196,9 +196,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/50">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/50 text-center md:text-left">
             <p>© {new Date().getFullYear()} LinkSnap. All rights reserved.</p>
-            <p className="flex items-center gap-1">
+            <p className="flex items-center gap-1 flex-wrap justify-center">
               Built with <span className="text-nt-red">❤️</span> using React · Tailwind · Vite · Hosted on Vercel
             </p>
             <p>Powered by Google Gemini AI</p>
