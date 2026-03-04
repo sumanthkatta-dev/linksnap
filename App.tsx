@@ -18,8 +18,11 @@ import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
 import SupportPage from './components/SupportPage';
 import ContactPage from './components/ContactPage';
+import PricingPage from './components/PricingPage';
+import SecurityPage from './components/SecurityPage';
+import { APP_BADGE_VERSION } from './version';
 
-type PageType = 'privacy' | 'terms' | 'support' | 'contact' | null;
+type PageType = 'privacy' | 'terms' | 'support' | 'contact' | 'pricing' | 'security' | null;
 
 const App: React.FC = () => {
   const [history, setHistory] = useState<ScanResult[]>([]);
@@ -66,6 +69,20 @@ const App: React.FC = () => {
   useEffect(() => {
     saveToStorage('history', history);
   }, [history]);
+
+  // Always reset scroll when switching to a full-page view
+  useEffect(() => {
+    if (!currentPage) return;
+
+    const resetScroll = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+
+    resetScroll();
+    requestAnimationFrame(resetScroll);
+  }, [currentPage]);
 
   const handleError = (err: any) => {
     const msg = err?.message || String(err);
@@ -127,6 +144,31 @@ const App: React.FC = () => {
         id: crypto.randomUUID(),
         ...result,
         timestamp: Date.now(),
+      };
+      setLastAnalyzed(newEntry);
+    } catch (err) {
+      handleError(err);
+    } finally {
+      setIsProcessing(false);
+      setScanStep('');
+    }
+  };
+
+  const handleRefreshPreview = async () => {
+    if (!previewImage) return;
+
+    setIsProcessing(true);
+    setScanStep('RELOADING_NEURAL_LINK...');
+    setError(null);
+    setLastAnalyzed(null);
+
+    try {
+      const result = await analyzeResource({ base64Data: previewImage });
+      const newEntry: ScanResult = {
+        id: crypto.randomUUID(),
+        ...result,
+        timestamp: Date.now(),
+        imageData: previewImage,
       };
       setLastAnalyzed(newEntry);
     } catch (err) {
@@ -265,6 +307,12 @@ const App: React.FC = () => {
   if (currentPage === 'contact') {
     return <ContactPage onClose={() => setCurrentPage(null)} />;
   }
+  if (currentPage === 'pricing') {
+    return <PricingPage onClose={() => setCurrentPage(null)} />;
+  }
+  if (currentPage === 'security') {
+    return <SecurityPage onClose={() => setCurrentPage(null)} />;
+  }
 
   return (
     <div className="min-h-screen pb-48 pt-safe">
@@ -312,7 +360,7 @@ const App: React.FC = () => {
         <header className="text-left space-y-4 md:space-y-6 max-w-3xl animate-ios">
           <div className="flex items-center gap-4 mb-2">
             <div className="dot-pulse"></div>
-            <span className="text-[9px] md:text-[10px] font-bold text-nt-red tracking-[0.5em] uppercase">Version_1.0</span>
+            <span className="text-[9px] md:text-[10px] font-bold text-nt-red tracking-[0.5em] uppercase">{APP_BADGE_VERSION}</span>
           </div>
           <h1 className="text-5xl md:text-9xl font-dot tracking-widest text-nt-white uppercase leading-[0.9] border-l-4 border-nt-red pl-6 md:pl-8">
             LINKSNAP
@@ -339,6 +387,7 @@ const App: React.FC = () => {
               previewImage={previewImage}
               scanStep={scanStep}
               onClear={() => { setPreviewImage(null); setLastAnalyzed(null); }}
+              onRefresh={handleRefreshPreview}
             />
           </div>
           {(isProcessing || lastAnalyzed) && (

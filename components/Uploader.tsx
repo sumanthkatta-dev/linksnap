@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { X, Loader2, Plus, Link2, ArrowRight } from 'lucide-react';
+import { X, Loader2, Plus, Link2, ArrowRight, RefreshCw } from 'lucide-react';
 
 interface UploaderProps {
   onUpload: (file: File) => void;
@@ -9,11 +9,13 @@ interface UploaderProps {
   previewImage: string | null;
   scanStep?: string;
   onClear: () => void;
+  onRefresh: () => void;
 }
 
-const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing, previewImage, scanStep, onClear }) => {
+const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing, previewImage, scanStep, onClear, onRefresh }) => {
   const [dragActive, setDragActive] = useState(false);
   const [url, setUrl] = useState('');
+  const [urlError, setUrlError] = useState<string | null>(null);
 
   const sanitizeUrlInput = (value: string): string => {
     const cleaned = value.replace(/<[^>]*>/g, '').replace(/[\u0000-\u001F\u007F]/g, '').trim();
@@ -25,6 +27,10 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
       return '';
     }
   };
+
+  const sanitizedUrl = sanitizeUrlInput(url);
+  const hasUrlInput = url.trim().length > 0;
+  const isUrlValid = sanitizedUrl.length > 0;
 
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
@@ -43,6 +49,9 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
     if (sanitized) {
       onUrlSubmit(sanitized);
       setUrl('');
+      setUrlError(null);
+    } else if (url.trim()) {
+      setUrlError('Use a valid URL starting with http:// or https://');
     }
   };
 
@@ -52,6 +61,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
         className={`relative h-[320px] md:h-[400px] squircle transition-all duration-500 flex flex-col items-center justify-center glass-nothing overflow-hidden group border-2 ${
           dragActive ? 'border-nt-red bg-nt-red/5' : 'border-white/10'
         } hover:border-white/30`}
+        aria-busy={isProcessing}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
         onDragOver={handleDrag}
@@ -71,6 +81,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
               type="file"
               className="absolute inset-0 opacity-0 cursor-pointer h-full w-full"
               accept="image/*"
+              aria-label="Upload screenshot or image"
               onChange={(e) => e.target.files?.[0] && onUpload(e.target.files[0])}
             />
           </div>
@@ -87,7 +98,7 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
             )}
             
             {isProcessing && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center z-30 bg-nt-black/40 backdrop-blur-sm">
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30 bg-nt-black/40 backdrop-blur-sm" role="status" aria-live="polite" aria-atomic="true">
                 <div className="scan-line absolute top-0 left-0 w-full"></div>
                 <div className="mb-6">
                   <Loader2 className="w-12 h-12 text-nt-red animate-spin" strokeWidth={1.5} />
@@ -103,13 +114,29 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
               </div>
             )}
             
+            {previewImage && (
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onRefresh(); }}
+                  disabled={isProcessing}
+                  aria-label="Refresh preview analysis"
+                  className="action-btn fixed bottom-20 right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  <RefreshCw className={`w-5 h-5 action-btn-icon ${isProcessing ? 'animate-spin' : ''}`} />
+                </button>
+              </>
+            )}
+
             {!isProcessing && (
-              <button
-                onClick={(e) => { e.stopPropagation(); onClear(); }}
-                className="absolute top-4 right-4 w-10 h-10 bg-nt-black/80 rounded-full text-nt-white border border-white/20 shadow-2xl hover:bg-nt-red transition-all z-40 flex items-center justify-center glitch-btn"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <>
+                <button
+                  onClick={(e) => { e.stopPropagation(); onClear(); }}
+                  aria-label="Clear uploaded preview"
+                  className="action-btn fixed bottom-6 right-6 bg-nt-black/80 text-nt-white border border-white/20 shadow-2xl transition-all"
+                >
+                  <X className="w-5 h-5 action-btn-icon" />
+                </button>
+              </>
             )}
           </div>
         )}
@@ -124,18 +151,40 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
             type="url"
             placeholder="PASTE REMOTE LINK_ADDR..."
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={(e) => {
+              const nextValue = e.target.value;
+              setUrl(nextValue);
+              if (urlError && (!nextValue.trim() || sanitizeUrlInput(nextValue))) {
+                setUrlError(null);
+              }
+            }}
+            onBlur={() => {
+              if (url.trim() && !sanitizeUrlInput(url)) {
+                setUrlError('Use a valid URL starting with http:// or https://');
+              }
+            }}
             disabled={isProcessing}
-            className="w-full bg-nt-gray border-2 border-white/10 rounded-2xl py-5 pl-14 pr-24 focus:outline-none focus:border-nt-red transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-16 tracking-widest disabled:opacity-50"
+            inputMode="url"
+            autoComplete="url"
+            aria-label="Paste a link to analyze"
+            aria-invalid={hasUrlInput && !isUrlValid}
+            aria-describedby={urlError ? 'url-error' : undefined}
+            className="w-full bg-nt-gray border-2 border-white/10 rounded-2xl py-5 pl-14 pr-24 focus:outline-none focus:border-nt-red focus:ring-2 focus:ring-nt-red/20 transition-all text-xs md:text-sm font-dot text-nt-white placeholder:text-white/10 h-16 tracking-widest disabled:opacity-50"
           />
           <button
             type="submit"
-            disabled={isProcessing || !url.trim()}
-            className="absolute right-3 top-1/2 -translate-y-1/2 h-10 px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-widest disabled:opacity-0 flex items-center gap-2 group/btn transition-transform hover:scale-[0.98] active:scale-95"
+            disabled={isProcessing || !isUrlValid}
+            aria-label="Analyze pasted URL"
+            className="absolute right-3 top-1/2 -translate-y-1/2 h-10 px-6 bg-nt-white text-nt-black rounded-xl font-dot text-[10px] uppercase tracking-widest disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 group/btn transition-transform hover:scale-[0.98] active:scale-95"
           >
             Map <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
           </button>
         </form>
+        {urlError && (
+          <p id="url-error" className="mt-2 px-2 text-[10px] text-nt-red font-bold uppercase tracking-[0.2em]">
+            {urlError}
+          </p>
+        )}
         <div className="mt-3 flex items-center gap-2 px-6">
           <div className="w-1 h-1 bg-nt-red rounded-full"></div>
           <span className="text-[8px] font-bold text-white/20 uppercase tracking-[0.4em]">Protocol: Direct_Neural_Mapping</span>
@@ -146,6 +195,33 @@ const Uploader: React.FC<UploaderProps> = ({ onUpload, onUrlSubmit, isProcessing
         @keyframes loading-bar {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(400%); }
+        }
+
+        .action-btn {
+          width: 44px;
+          height: 44px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+        }
+
+        .action-btn:hover:not(:disabled) {
+          background-color: #D71921;
+        }
+
+        .action-btn .action-btn-icon {
+          color: #FFFFFF;
+          stroke: #FFFFFF;
+          fill: none;
+          transition: color 0.2s ease, stroke 0.2s ease, fill 0.2s ease;
+        }
+
+        .action-btn:hover:not(:disabled) .action-btn-icon {
+          color: #000000;
+          stroke: #000000;
+          fill: #000000;
         }
       `}</style>
     </div>

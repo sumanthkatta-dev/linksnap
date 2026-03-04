@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Key, Trash2, ExternalLink, Shield, Zap, Download, Upload, Cpu } from 'lucide-react';
 import { getFromStorage, saveToStorage, backupData, restoreFromBackup, getStorageStats } from '../services/storageService';
 import { AVAILABLE_MODELS } from '../services/geminiService';
+import { SYSTEM_VERSION } from '../version';
 
 interface SettingsDrawerProps {
   isOpen: boolean;
@@ -10,19 +11,44 @@ interface SettingsDrawerProps {
 }
 
 const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClearHistory }) => {
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKeyDraft, setApiKeyDraft] = useState<string>('');
+  const [hasApiKeyDraftChanges, setHasApiKeyDraftChanges] = useState(false);
+  const [storedApiKey, setStoredApiKey] = useState<string>('');
   const [showApiKey, setShowApiKey] = useState(false);
   const [selectedModel, setSelectedModel] = useState<string>('gemini-3.1-pro');
   const [storageStats, setStorageStats] = useState(getStorageStats());
 
+  const maskApiKey = (key: string): string => {
+    if (key.length <= 10) return key;
+    return key.substring(0, 5) + '*'.repeat(Math.max(0, key.length - 10)) + key.substring(key.length - 5);
+  };
+
+  const getStoredApiKey = (): string => {
+    return getFromStorage<{ key: string }>("user_api_key")?.key || '';
+  };
+
+  const hasApiKeyUnsavedChanges = (draft: string, savedKey: string): boolean => {
+    const normalizedSavedValue = savedKey ? maskApiKey(savedKey) : '';
+    return draft !== normalizedSavedValue;
+  };
+
   useEffect(() => {
     if (isOpen) {
-      const stored = getFromStorage<{ key: string }>("user_api_key");
-      if (stored?.key) {
-        // Show masked version
-        setApiKey(stored.key.substring(0, 5) + '*'.repeat(Math.max(0, stored.key.length - 10)) + stored.key.substring(stored.key.length - 5));
+      const persistedApiKey = getStoredApiKey();
+      const shouldPreserveDraft = hasApiKeyDraftChanges && hasApiKeyUnsavedChanges(apiKeyDraft, persistedApiKey);
+
+      if (persistedApiKey) {
+        setStoredApiKey(persistedApiKey);
+        if (!shouldPreserveDraft) {
+          setApiKeyDraft(maskApiKey(persistedApiKey));
+          setHasApiKeyDraftChanges(false);
+        }
       } else {
-        setApiKey('');
+        setStoredApiKey('');
+        if (!shouldPreserveDraft) {
+          setApiKeyDraft('');
+          setHasApiKeyDraftChanges(false);
+        }
       }
       
       // Get selected model from storage
@@ -33,35 +59,62 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
     }
   }, [isOpen]);
 
-  const handleSaveModel = () => {
-    try {
-      saveToStorage("model_config", { model: selectedModel });
-      alert(`✅ Model switched to ${AVAILABLE_MODELS.find(m => m.id === selectedModel)?.name}!`);
-    } catch (err) {
-      alert('❌ Failed to save model selection');
+  const showUnsavedApiKeyHint = hasApiKeyUnsavedChanges(apiKeyDraft, storedApiKey);
+
+  const handleModelChange = (modelId: string) => {
+    setSelectedModel(modelId);
+    if (!apiKeyDraft.trim()) {
+      const persistedApiKey = getStoredApiKey();
+      if (persistedApiKey) {
+        setStoredApiKey(persistedApiKey);
+        setApiKeyDraft(maskApiKey(persistedApiKey));
+        setHasApiKeyDraftChanges(false);
+      }
     }
   };
 
-  const handleSaveApiKey = async () => {
-    if (!apiKey || apiKey.includes('*')) {
+  const commitApiKeyIfChanged = () => {
+    const trimmedApiKey = apiKeyDraft.trim();
+    const isStoredMaskedValue = !!storedApiKey && trimmedApiKey === maskApiKey(storedApiKey);
+
+    if (trimmedApiKey && !isStoredMaskedValue && trimmedApiKey.length < 20) {
       alert('Please enter a valid API key');
+      return false;
+    }
+
+    if (trimmedApiKey && !isStoredMaskedValue) {
+      saveToStorage("user_api_key", { key: trimmedApiKey });
+      setStoredApiKey(trimmedApiKey);
+      setApiKeyDraft(maskApiKey(trimmedApiKey));
+      setHasApiKeyDraftChanges(false);
+    }
+
+    return true;
+  };
+
+  const handleApplySettings = () => {
+    const apiKeySaved = commitApiKeyIfChanged();
+    if (!apiKeySaved) {
       return;
     }
 
     try {
-      saveToStorage("user_api_key", { key: apiKey });
-      alert('✅ API Key saved successfully!');
-      setApiKey(apiKey.substring(0, 5) + '*'.repeat(Math.max(0, apiKey.length - 10)) + apiKey.substring(apiKey.length - 5));
+      saveToStorage("model_config", { model: selectedModel });
+
+      const selectedModelName = AVAILABLE_MODELS.find(m => m.id === selectedModel)?.name || selectedModel;
+      alert(`✅ Settings applied! Model: ${selectedModelName}`);
       onClose();
     } catch (err) {
-      alert('❌ Failed to save API key');
+      alert('❌ Failed to apply settings');
     }
   };
 
   const handleClearKey = () => {
     if (confirm("Remove stored API key?")) {
       saveToStorage("user_api_key", null);
-      setApiKey('');
+      setStoredApiKey('');
+      setApiKeyDraft('');
+      setHasApiKeyDraftChanges(false);
       alert('API Key removed');
     }
   };
@@ -123,14 +176,19 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
         </div>
 
         <div className="flex-1 overflow-y-auto p-8 space-y-12 no-scrollbar">
-          {/* Model Selection Section */}
+          {/* Unified Model + API Settings */}
           <section className="space-y-6">
             <div className="flex items-center gap-3">
               <Cpu className="w-4 h-4 text-nt-red" />
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Model Selection</span>
+              <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Model + API Settings</span>
             </div>
             
-            <div className="p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-4">
+            <div className="p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-6">
+              <div className="flex items-center gap-3">
+                <Cpu className="w-4 h-4 text-nt-red" />
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Model Selection</span>
+              </div>
+
               <p className="text-[11px] font-medium text-white/60 leading-relaxed uppercase tracking-widest">
                 Choose a Gemini model. Free models offer great value for most use cases.
               </p>
@@ -143,7 +201,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                       name="model"
                       value={model.id}
                       checked={selectedModel === model.id}
-                      onChange={(e) => setSelectedModel(e.target.value)}
+                      onChange={(e) => handleModelChange(e.target.value)}
                       className="w-4 h-4 mt-0.5 accent-nt-red"
                     />
                     <div className="flex-1">
@@ -163,23 +221,12 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                 ))}
               </div>
 
-              <button
-                onClick={handleSaveModel}
-                className="w-full h-12 bg-nt-red text-nt-white font-dot uppercase tracking-[0.3em] text-[10px] hover:bg-nt-white hover:text-nt-black transition-all rounded-lg shadow-lg mt-4"
-              >
-                ✓ Apply Model
-              </button>
-            </div>
-          </section>
+              <div className="pt-4 border-t border-white/5 space-y-6">
+                <div className="flex items-center gap-3">
+                  <Key className="w-4 h-4 text-nt-red" />
+                  <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Google Gemini API</span>
+                </div>
 
-          {/* API Key Section */}
-          <section className="space-y-6">
-            <div className="flex items-center gap-3">
-              <Key className="w-4 h-4 text-nt-red" />
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">Google Gemini API</span>
-            </div>
-            
-            <div className="p-6 border border-white/10 rounded-3xl bg-white/[0.02] space-y-6">
               <p className="text-[11px] font-medium text-white/60 leading-relaxed uppercase tracking-widest">
                 Add your personal Google Gemini API key. Your quota, your control. Never shared.
               </p>
@@ -190,15 +237,18 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                 <div className="relative">
                   <input 
                     type={showApiKey ? "text" : "password"}
-                    value={apiKey}
-                    onChange={(e) => setApiKey(e.target.value)}
+                    value={apiKeyDraft}
+                    onChange={(e) => {
+                      setApiKeyDraft(e.target.value);
+                      setHasApiKeyDraftChanges(true);
+                    }}
                     placeholder="AIzaSy... (get from aistudio.google.com/apikey)"
-                    className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-[10px] text-nt-white placeholder:text-white/30 focus:outline-none focus:border-nt-red focus:ring-1 focus:ring-nt-red/50 font-mono"
+                    className="w-full px-4 py-3 pr-10 bg-white/5 border border-white/20 rounded-lg text-[10px] text-nt-white placeholder:text-white/30 focus:outline-none focus:border-nt-red focus:ring-1 focus:ring-nt-red/50 font-mono"
                   />
                   <button
                     type="button"
                     onClick={() => setShowApiKey(!showApiKey)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-white/40 hover:text-white/60"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-white/60 hover:text-white/80 z-10"
                   >
                     {showApiKey ? 'Hide' : 'Show'}
                   </button>
@@ -206,18 +256,15 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                 <p className="text-[8px] text-white/30 uppercase tracking-[0.2em]">
                   🔒 Stored securely in your browser only. Never sent to our servers.
                 </p>
+                {showUnsavedApiKeyHint && (
+                  <p className="text-[8px] text-nt-red uppercase tracking-[0.2em]">
+                    Unsaved API key changes. Click Apply Settings to save.
+                  </p>
+                )}
               </div>
 
-              {/* Save Button */}
-              <button 
-                onClick={handleSaveApiKey}
-                className="w-full h-12 bg-nt-red text-nt-white font-dot uppercase tracking-[0.3em] text-[10px] hover:bg-nt-white hover:text-nt-black transition-all rounded-lg shadow-lg"
-              >
-                ✓ Save API Key
-              </button>
-
               {/* Clear Button */}
-              {apiKey && !apiKey.includes('*') === false && (
+              {(storedApiKey || apiKeyDraft.trim()) && (
                 <button 
                   onClick={handleClearKey}
                   className="w-full h-11 border border-nt-red/50 text-nt-red font-dot uppercase tracking-[0.3em] text-[9px] hover:bg-nt-red/10 transition-all rounded-lg"
@@ -245,6 +292,14 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
                   <span>Pricing Info</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
+              </div>
+
+                <button
+                  onClick={handleApplySettings}
+                  className="w-full h-12 bg-nt-red text-nt-white font-dot uppercase tracking-[0.3em] text-[10px] hover:bg-nt-white hover:text-nt-black transition-all rounded-lg shadow-lg"
+                >
+                  Apply Settings
+                </button>
               </div>
             </div>
           </section>
@@ -305,7 +360,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
               <span className="text-[10px] font-bold text-white/40 uppercase tracking-[0.4em]">System Version</span>
             </div>
             <div className="text-[10px] font-dot text-white/20 tracking-[0.5em] uppercase px-2">
-              LinkSnap_OS_V.1.0.4_BETA
+              {SYSTEM_VERSION}
             </div>
           </section>
         </div>

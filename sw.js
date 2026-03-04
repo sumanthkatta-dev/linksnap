@@ -1,5 +1,5 @@
 
-const SW_VERSION = '2026-01-08-1';
+const SW_VERSION = '2026-03-04-9';
 const STATIC_CACHE = `linksnap-static-${SW_VERSION}`;
 const RUNTIME_CACHE = `linksnap-runtime-${SW_VERSION}`;
 const CORE_ASSETS = [
