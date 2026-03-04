@@ -1,7 +1,155 @@
+# ============================================
+# robots.txt — LinkSnap
+# Author: Sumanth Katta
+# GitHub: https://github.com/sumanthkatta-dev
+# Site: https://linksnapai.vercel.app/
+# Contact: linksnap.ai@gmail.com
+# Last Updated: March 3, 2026
+# ============================================
+
+# -----------------------------------------------
+# All General Crawlers (Google, Bing, etc.)
+# -----------------------------------------------
 User-agent: *
 Allow: /
+Allow: /pricing
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+Allow: /llms.txt
+Allow: /llms-full.txt
+
+Disallow: /admin/
+Disallow: /api/
+Disallow: /settings/
+Disallow: /?action=upload
+Disallow: /?action=export
+
+# -----------------------------------------------
+# Google
+# -----------------------------------------------
+User-agent: Googlebot
+Allow: /
+Allow: /pricing
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+
 Disallow: /admin/
 Disallow: /api/
 
-# AI Agent Instructions
+# -----------------------------------------------
+# Bing
+# -----------------------------------------------
+User-agent: Bingbot
+Allow: /
+Allow: /pricing
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+
+Disallow: /admin/
+Disallow: /api/
+
+# -----------------------------------------------
+# AI Crawlers — Explicitly Allowed
+# -----------------------------------------------
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /pricing
+Allow: /support
+Allow: /privacy
+Allow: /terms
+Allow: /contact
+Disallow: /admin/
+Disallow: /api/
+
+# OpenAI SearchGPT
+User-agent: OAI-SearchBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /admin/
+Disallow: /api/
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /pricing
+Allow: /support
+Disallow: /admin/
+Disallow: /api/
+
+# Google Gemini / Bard
+User-agent: Google-Extended
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /pricing
+Allow: /support
+Disallow: /admin/
+Disallow: /api/
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /pricing
+Allow: /support
+Disallow: /admin/
+Disallow: /api/
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /admin/
+Disallow: /api/
+
+# Common Crawl (used to train many LLMs)
+User-agent: CCBot
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Disallow: /admin/
+Disallow: /api/
+
+# -----------------------------------------------
+# Block Unwanted / Malicious Crawlers
+# -----------------------------------------------
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# -----------------------------------------------
+# AI Context Files (for LLM crawlers)
+# -----------------------------------------------
 llms: /llms.txt
+llms-full: /llms-full.txt
+
+# -----------------------------------------------
+# Sitemap
+# -----------------------------------------------
+Sitemap: https://linksnapai.vercel.app/sitemap.xml

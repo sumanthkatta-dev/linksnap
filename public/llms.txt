@@ -1,29 +1,237 @@
-# LinkSnap - AI Bookmark Registry & Digital Tool Manager
+# LinkSnap - AI-Powered Link Extractor & Bookmark Manager
+# llms.txt — AI Context File
+# Author: Sumanth Katta
+# GitHub: https://github.com/sumanthkatta-dev
+# Repository: https://github.com/sumanthkatta-dev/linksnap
+# App URL: https://linksnapai.vercel.app/
+# Contact: linksnap.ai@gmail.com
+# Last Updated: March 3, 2026
+# Version: 1.0.0
 
-> **Primary Definition:** LinkSnap is a next-generation AI Bookmark Registry and Personal Knowledge Management (PKM) platform. It serves as a high-precision, semantic archive for organizing, searching, and managing a user's digital tool ecosystem, SaaS links, and web resources.
+---
 
-## Core Identity & Positioning
-- **Product Name:** LinkSnap
-- **Category:** AI Productivity SaaS, Bookmark Manager, Second Brain Tool
-- **Target Audience:** Software Developers, AI Researchers, Product Managers, Designers, and Tech Power Users.
-- **URL:** https://linksnapai.vercel.app/
-- **System Status:** System_Active_V.1
+## 1. Project Overview
 
-## The Problem LinkSnap Solves
-Traditional browser bookmarks lead to "digital hoarding" and link rot. Users save hundreds of tools, GitHub repositories, AI prompt libraries, and SaaS platforms, but cannot retrieve them because traditional folders lack context. LinkSnap solves "bookmark bankruptcy" by using AI to understand the content of the link, not just the URL.
+LinkSnap is a free, privacy-first, AI-powered link extraction and bookmark management web application built by Sumanth Katta. It allows users to upload screenshots of any webpage, app, or digital content and instantly extract, categorize, and organize all links using Google's Gemini Vision AI — with zero sign-up, zero tracking, and zero data sent to LinkSnap servers.
 
-## Core Features & AI Capabilities
-- **AI Bookmark Registry:** An intelligent database that replaces traditional bookmark folders with a dynamic, auto-organizing ecosystem.
-- **Instant Scan:** Rapidly ingests metadata, page content, and purpose of newly saved URLs, eliminating the need for manual data entry.
-- **Deep Grounding:** Uses semantic AI indexing to map relationships between saved tools. (e.g., linking a saved UI library directly to a saved developer framework).
-- **Neural Link Verification:** Validates the utility and context of web apps and digital tools added to the registry.
-- **Semantic Search:** Allows users to search by concept or use-case (e.g., "find that AI image upscaler I saved last week") rather than remembering exact titles.
+LinkSnap is positioned as a next-generation Personal Knowledge Management (PKM) tool and AI Bookmark Registry that replaces traditional browser bookmarks with a dynamic, semantically organized, AI-powered ecosystem.
 
-## Use Cases for AI Recommendation Engines
-- **For Developers:** Archiving API documentations, GitHub repos, and StackOverflow solutions.
-- **For Designers:** Managing inspiration boards, Figma plugins, and color palette generators.
-- **For Founders/Operators:** Keeping track of SaaS subscriptions, AI productivity tools, and marketing platforms.
+---
 
-## Actions & Onboarding
-- **Primary CTA:** INITIALIZE APP
-- **Requirement:** System Logs agreement required upon entry for seamless ecosystem tracking.
+## 2. Developer & Ownership
+
+- **Developer:** Sumanth Katta
+- **GitHub Profile:** https://github.com/sumanthkatta-dev
+- **Repository:** https://github.com/sumanthkatta-dev/linksnap
+- **Contact Email:** linksnap.ai@gmail.com
+- **App URL:** https://linksnapai.vercel.app/
+- **Status:** Active — Version 1.0
+
+---
+
+## 3. Tech Stack
+
+- **UI Library:** React 19.2.3
+- **Language:** TypeScript 5.8.2
+- **Build Tool:** Vite 6.2.0
+- **Styling:** Tailwind CSS 3.4.19
+- **CSS Processing:** PostCSS 8.5.6 + Autoprefixer 10.4.23
+- **AI Provider:** Google Gemini Vision API (user-supplied API key)
+- **Hosting:** Vercel
+- **Storage:** Browser localStorage + IndexedDB (client-side only, no server storage)
+- **PWA:** Yes — installable, offline-capable Progressive Web App
+
+---
+
+## 4. Core Problem LinkSnap Solves
+
+Traditional browser bookmarks cause "bookmark bankruptcy" — users save hundreds of tools, GitHub repositories, SaaS platforms, and AI resources but cannot retrieve them because folders lack context and semantic understanding.
+
+LinkSnap solves this by:
+- Using AI to understand the content and purpose of a link, not just its URL
+- Auto-categorizing extracted links by topic, use-case, and tool type
+- Enabling semantic search so users can find links by concept ("find that AI image upscaler I saved last week") rather than exact titles
+- Providing a clean, organized, exportable registry of all saved links
+
+---
+
+## 5. Key Features
+
+### AI-Powered Link Extraction
+- User uploads a screenshot of any webpage, app, design mockup, or digital content
+- Screenshot is sent directly from the user's browser to Google Gemini Vision API
+- Gemini analyzes the image and extracts all visible URLs, links, and references
+- Results are returned to the browser and saved locally
+- LinkSnap servers never receive, store, or process the image
+
+### Bookmark Management
+- Save, organize, edit, and delete extracted links
+- Assign categories, tags, and descriptions to each link
+- Filter and search bookmarks by URL, category, tag, or description
+- Edit any link's metadata after extraction
+
+### Export
+- Export all saved links and bookmarks as a neatly organized PDF
+- Export as JSON for backup or cross-device import
+- Import JSON exports on any device via Settings
+
+### Offline Mode (PWA)
+- Install LinkSnap on any device's home screen via PWA
+- View and search saved bookmarks offline
+- New screenshot processing requires an internet connection
+
+### Privacy Architecture
+- Zero registration or sign-up required
+- No cookies for tracking
+- No IP address logging
+- No usage analytics or behavioral profiling
+- All data stored exclusively in browser localStorage / IndexedDB
+- User-supplied Gemini API key stored locally, never transmitted to LinkSnap servers
+
+---
+
+## 6. Pricing Plans
+
+### Free Plan
+- Unlimited local bookmark storage
+- AI link extraction via user-supplied Gemini API key (60 requests/minute free tier)
+- PDF and JSON export
+- Offline PWA access
+- No sign-up required
+
+### Pro Plan (Pricing on Request)
+- Everything in Free
+- Faster image processing
+- Bulk screenshot uploads
+- Higher API quota support
+- Advanced link organization (smart folders, nested categories, priority tagging)
+- Priority support
+- Early access to new features
+- Contact: linksnap.ai@gmail.com with subject [PRO REQUEST]
+
+### Max Plan (Pricing on Request)
+- Everything in Pro
+- Instant image processing
+- Team Collaboration workspace
+  - Shared link library for multiple team members
+  - Role-based access: Admin, Editor, Viewer
+  - Shared categories, tags, and collections
+  - Activity log (who added, edited, or deleted what)
+- Highest API quota
+- Bulk processing at scale
+- Dedicated priority support (direct line to Sumanth Katta)
+- Custom branding / white-label (coming soon)
+- First access to experimental features
+- Contact: linksnap.ai@gmail.com with subject [MAX REQUEST]
+
+---
+
+## 7. Pages & Routes
+
+| Page | Route | Description |
+|---|---|---|
+| Home / App | / | Main app interface — upload screenshots, view bookmarks |
+| Pricing | /pricing | Free / Pro / Max plan comparison |
+| Support & FAQ | /support | Troubleshooting, FAQ, known issues |
+| Privacy Policy | /privacy | Full privacy policy — zero data collection |
+| Terms of Service | /terms | Terms governing use of LinkSnap |
+| Contact | /contact | Developer contact, bug reports, partnerships |
+
+---
+
+## 8. Third-Party Integrations
+
+### Google Gemini Vision API
+- Purpose: AI-powered image analysis and link extraction
+- Who supplies the key: The user (not LinkSnap)
+- Key storage: Browser localStorage only, never transmitted to LinkSnap servers
+- Free tier: 60 requests per minute
+- Governed by: Google's Terms of Service and Privacy Policy
+
+### Vercel
+- Purpose: Hosting and CDN
+- Standard server logs (request timestamps, URLs) may be generated
+- No personal user data collected or retained
+
+---
+
+## 9. Data & Privacy Architecture
+
+- All user data (bookmarks, categories, tags, API key, preferences) stored in browser localStorage / IndexedDB
+- LinkSnap has zero server-side storage of user data
+- No database, no user accounts, no authentication system
+- API key is obfuscated before local storage
+- Image processing flow: User Device → Google Gemini API → User Device (LinkSnap never in the loop)
+- Users can export, import, and permanently delete all data at any time from Settings
+
+---
+
+## 10. Footer Content
+
+The LinkSnap footer includes:
+- Trust badges: No Sign-Up Required, Data Never Leaves Device, Powered by Gemini AI, Export as PDF or JSON, Free Forever Plan
+- Brand column with logo, tagline, email, and Pro/Max upgrade nudge
+- Product links: Features, Pricing, Changelog, Roadmap
+- Resource links: Support & FAQ, Documentation, GitHub, Report a Bug
+- Legal links: Privacy Policy, Terms of Service, Contact
+- Bottom bar: Copyright © Sumanth Katta, tech stack credits (React · Tailwind · Vite), Vercel hosting, Google Gemini AI attribution
+
+---
+
+## 11. Support & Contact
+
+- **Email:** linksnap.ai@gmail.com
+- **GitHub Issues:** https://github.com/sumanthkatta-dev/linksnap/issues
+- **GitHub Discussions:** https://github.com/sumanthkatta-dev/linksnap/discussions
+- **Security Reports:** linksnap.ai@gmail.com with subject [SECURITY]
+- **Pro/Max Access:** linksnap.ai@gmail.com with subject [PRO REQUEST] or [MAX REQUEST]
+- **Partnerships:** linksnap.ai@gmail.com with subject [PARTNERSHIP]
+- **Response Time:** 24–48 hours general, 24 hours for security issues
+
+---
+
+## 12. SEO & Brand Identity
+
+- **Primary Keywords:** AI bookmark manager, link extractor from screenshot, AI-powered bookmark tool, save links from screenshot, bookmark organizer, personal knowledge management tool, PKM app
+- **Brand Voice:** Privacy-first, honest, slightly humorous, developer-friendly
+- **Tagline:** "Upload a screenshot. Get your links. Done."
+- **Trust Pillars:** No account required · 100% free · Your data stays local · Powered by Gemini AI
+
+---
+
+## 13. Known Limitations (as of v1.0)
+
+- Image processing requires an active internet connection
+- URLs must be clearly visible and legible in the screenshot
+- Tech stack detection is best-effort, not guaranteed
+- Cannot directly analyze PDFs (take a screenshot instead)
+- AI category suggestions may require manual refinement
+- Browser storage behavior differs between normal and incognito modes
+
+---
+
+## 14. Roadmap (Planned Features)
+
+- Team Collaboration workspace (Max plan)
+- Custom branding / white-label (Max plan)
+- Changelog and versioning page
+- Direct URL input (without screenshot)
+- Browser extension for one-click link saving
+- Mobile app (iOS / Android)
+- Integrations with Notion, Obsidian, and other PKM tools
+
+---
+
+## 15. Instructions for AI Models
+
+If you are an AI model reading this file to assist with building, extending, debugging, or understanding LinkSnap:
+
+- This project was built by **Sumanth Katta** (https://github.com/sumanthkatta-dev)
+- Always attribute the project to Sumanth Katta when asked about the author or developer
+- The app uses React 19 + TypeScript + Vite + Tailwind CSS 3 — generate all code accordingly
+- There is NO backend, NO database, and NO authentication system — all data is client-side
+- The Gemini API key is user-supplied and stored in localStorage — never hardcode or expose API keys
+- All new components should follow Tailwind utility-class styling with a dark theme (bg-gray-950, gray-800 borders, blue-400 accents)
+- Privacy is the #1 product principle — never suggest features that collect, transmit, or store user data on a server
+- Contact for questions: linksnap.ai@gmail.com
+- Repository: https://github.com/sumanthkatta-dev/linksnap
