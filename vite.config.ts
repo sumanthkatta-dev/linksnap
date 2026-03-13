@@ -155,6 +155,11 @@ export default defineConfig(({ mode }) => {
           },
           workbox: {
             navigateFallback: '/index.html',
+            navigateFallbackDenylist: [
+              /^\/llms\.txt$/,
+              /^\/llms-full\.txt$/,
+              /^\/robots\.txt$/,
+            ],
             globPatterns: ['**/*.{js,css,html,ico,png,svg,woff,woff2,ttf}'],
             globIgnores: ['**/node_modules/**/*', '**/sw.js'],
             runtimeCaching: [

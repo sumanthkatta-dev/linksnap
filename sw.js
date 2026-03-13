@@ -1,5 +1,5 @@
 
-const SW_VERSION = '2026-03-04-10';
+const SW_VERSION = '2026-03-13-01';
 const STATIC_CACHE = `linksnap-static-${SW_VERSION}`;
 const RUNTIME_CACHE = `linksnap-runtime-${SW_VERSION}`;
 const CORE_ASSETS = [
@@ -12,6 +12,10 @@ const CORE_ASSETS = [
 const isNavigation = request => request.mode === 'navigate';
 const isStatic = request => ['style', 'script', 'image', 'font'].includes(request.destination);
 const isApi = request => request.url.includes('/api/') || request.url.includes('/analyze');
+const isTextContextFile = request => {
+  const { pathname } = new URL(request.url);
+  return pathname === '/llms.txt' || pathname === '/llms-full.txt' || pathname === '/robots.txt';
+};
 
 self.addEventListener('install', event => {
   event.waitUntil((async () => {
@@ -51,6 +55,12 @@ self.addEventListener('fetch', event => {
   // Network-only for API or non-GET to avoid caching sensitive data
   if (request.method !== 'GET' || isApi(request)) {
     event.respondWith(fetch(request));
+    return;
+  }
+
+  // Never return app shell for crawler context files.
+  if (isTextContextFile(request)) {
+    event.respondWith(fetch(request).catch(() => caches.match(request)));
     return;
   }
 
