@@ -17,14 +17,14 @@ Allow: /support
 Allow: /privacy
 Allow: /terms
 Allow: /contact
+Allow: /llms.txt
+Allow: /llms-full.txt
 
 Disallow: /admin/
 Disallow: /api/
 Disallow: /settings/
 Disallow: /?action=upload
 Disallow: /?action=export
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # -----------------------------------------------
 # Google
@@ -61,6 +61,8 @@ Disallow: /api/
 # OpenAI / ChatGPT
 User-agent: GPTBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Allow: /pricing
 Allow: /support
 Allow: /privacy
@@ -68,62 +70,60 @@ Allow: /terms
 Allow: /contact
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # OpenAI SearchGPT
 User-agent: OAI-SearchBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # Anthropic Claude
 User-agent: ClaudeBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Allow: /pricing
 Allow: /support
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # Google Gemini / Bard
 User-agent: Google-Extended
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Allow: /pricing
 Allow: /support
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # Perplexity AI
 User-agent: PerplexityBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Allow: /pricing
 Allow: /support
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # Meta AI
 User-agent: Meta-ExternalAgent
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # Common Crawl (used to train many LLMs)
 User-agent: CCBot
 Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
 Disallow: /admin/
 Disallow: /api/
-Disallow: /llms.txt
-Disallow: /llms-full.txt
 
 # -----------------------------------------------
 # Block Unwanted / Malicious Crawlers
@@ -142,6 +142,12 @@ Disallow: /
 
 User-agent: BLEXBot
 Disallow: /
+
+# -----------------------------------------------
+# AI Context Files (for LLM crawlers)
+# -----------------------------------------------
+llms: /llms.txt
+llms-full: /llms-full.txt
 
 # -----------------------------------------------
 # Sitemap
