@@ -15,7 +15,7 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
   const [hasApiKeyDraftChanges, setHasApiKeyDraftChanges] = useState(false);
   const [storedApiKey, setStoredApiKey] = useState<string>('');
   const [showApiKey, setShowApiKey] = useState(false);
-  const [selectedModel, setSelectedModel] = useState<string>('gemini-3.1-pro');
+  const [selectedModel, setSelectedModel] = useState<string>('gemini-2.5-flash-lite');
   const [storageStats, setStorageStats] = useState(getStorageStats());
 
   const maskApiKey = (key: string): string => {
@@ -78,12 +78,26 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
     const isStoredMaskedValue = !!storedApiKey && trimmedApiKey === maskApiKey(storedApiKey);
 
     if (trimmedApiKey && !isStoredMaskedValue && trimmedApiKey.length < 20) {
-      alert('Please enter a valid API key');
+      alert('❌ Invalid API key. Keys must be at least 20 characters.');
       return false;
     }
 
     if (trimmedApiKey && !isStoredMaskedValue) {
-      saveToStorage("user_api_key", { key: trimmedApiKey });
+      // Check if localStorage is available
+      try {
+        localStorage.setItem('_linksnap_test', 'test');
+        localStorage.removeItem('_linksnap_test');
+      } catch (e) {
+        alert('❌ Storage is not available. Please check browser privacy settings.');
+        return false;
+      }
+
+      const saved = saveToStorage("user_api_key", { key: trimmedApiKey });
+      if (!saved) {
+        alert('❌ Failed to save API key. Please try again or check browser storage settings.');
+        return false;
+      }
+      
       setStoredApiKey(trimmedApiKey);
       setApiKeyDraft(maskApiKey(trimmedApiKey));
       setHasApiKeyDraftChanges(false);
@@ -99,23 +113,32 @@ const SettingsDrawer: React.FC<SettingsDrawerProps> = ({ isOpen, onClose, onClea
     }
 
     try {
-      saveToStorage("model_config", { model: selectedModel });
+      const modelConfigSaved = saveToStorage("model_config", { model: selectedModel });
+      if (!modelConfigSaved) {
+        alert('⚠️ Settings saved but model config could not be persisted. Check browser storage.');
+        return;
+      }
 
       const selectedModelName = AVAILABLE_MODELS.find(m => m.id === selectedModel)?.name || selectedModel;
       alert(`✅ Settings applied! Model: ${selectedModelName}`);
       onClose();
     } catch (err) {
-      alert('❌ Failed to apply settings');
+      console.error('Settings error:', err);
+      alert('❌ Failed to apply settings. Check console for details.');
     }
   };
 
   const handleClearKey = () => {
     if (confirm("Remove stored API key?")) {
-      saveToStorage("user_api_key", null);
+      const cleared = saveToStorage("user_api_key", null);
+      if (!cleared) {
+        alert('⚠️ Could not remove API key. Check browser storage settings.');
+        return;
+      }
       setStoredApiKey('');
       setApiKeyDraft('');
       setHasApiKeyDraftChanges(false);
-      alert('API Key removed');
+      alert('✅ API Key removed');
     }
   };
 

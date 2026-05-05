@@ -3,11 +3,9 @@ import { AnalysisResult, GroundingSource } from "../types";
 import { getFromStorage } from "./storageService";
 
 export const AVAILABLE_MODELS = [
-  { id: "gemini-3.1-pro", name: "Gemini 3.1 Pro", tier: "paid", description: "🚀 NEW Flagship model with enhanced coding & long-context analysis – Default" },
-  { id: "gemini-3-flash", name: "Gemini 3 Flash", tier: "free", description: "Fast, latest generation with advanced reasoning" },
-  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Highly capable with 2M token context window" },
-  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Ultra-fast workhorse (10 RPM / 250 RPD free)" },
-  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", tier: "free", description: "High-volume efficiency (15 RPM / 1K RPD free) – Best for high-frequency tasks" },
+  { id: "gemini-2.5-flash-lite", name: "Gemini 2.5 Flash-Lite", tier: "free", description: "🚀 Fastest and most budget-friendly – Default (Recommended)" },
+  { id: "gemini-2.5-flash", name: "Gemini 2.5 Flash", tier: "free", description: "Fast workhorse model with advanced reasoning" },
+  { id: "gemini-2.5-pro", name: "Gemini 2.5 Pro", tier: "paid", description: "Most advanced model for complex tasks and coding" },
 ];
 
 /**
@@ -17,7 +15,7 @@ export const analyzeResource = async (input: { base64Data?: string, url?: string
   // Always use /api/analyze - works in both dev (with user key) and production (with env key)
   const backendUrl = '/api/analyze';
   
-  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-3.1-pro" };
+  const modelConfig = getFromStorage<{ model: string }>("model_config") || { model: "gemini-2.5-flash-lite" };
   const model = modelConfig.model;
 
   const userKey = getFromStorage<{ key: string }>("user_api_key")?.key;
