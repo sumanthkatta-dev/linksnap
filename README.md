@@ -1,78 +1,59 @@
 # LinkSnap
 
-### *The Smartest Way to Save Links - Powered by Visual Intelligence*
+Turn screenshots of tools, sites and articles into a searchable, categorized library of links.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-linksnap.vercel.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
-[![GitHub Stars](https://img.shields.io/github/stars/sumanthkatta-dev/linksnap?style=for-the-badge&color=D71921)](https://github.com/sumanthkatta-dev/linksnap)
-[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-D71921?style=for-the-badge)](CONTRIBUTING.md)
-![Privacy](https://img.shields.io/badge/Privacy-No_Sign--In_Required-green?style=for-the-badge)
-![AI](https://img.shields.io/badge/Intelligence-Gemini_Vision_AI-blue?style=for-the-badge)
+**Live app:** [linksnapai.vercel.app](https://linksnapai.vercel.app) · no sign-up needed · installable as a PWA
 
+## Why I built it
 
-> **The "Second Brain" for your screenshots.**
-> Turn dead pixels into live, searchable links instantly using AI.
+I screenshot useful tools and articles all the time, then never find them again. A gallery can't search them, and retyping a URL from an image is slow. LinkSnap reads the screenshot, works out what the product is, and saves it as a link you can actually search.
 
-## Try It Now
-### [**Click Here to Launch LinkSnap**](https://linksnapai.vercel.app/)
-*(No Account Needed. No Login. Just instant productivity.)*
+## Features
 
----
+- **Screenshot or URL in, structured entry out:** name, official URL, category, description, pricing and platforms
+- **Search and filter** your saved items by category
+- **Local-first:** your library lives in your browser's storage, with no account and no server-side database
+- **Bring your own Gemini API key:** the key stays on your device and is only sent to the analysis endpoint for each request
+- **Installable PWA** with offline viewing of saved items
+- **Export** your library to PDF
 
-## See It In Action
-![LinkSnap Interface](./mock.png)
+## How it works
 
----
+```
+Browser (React PWA) ──image / URL + your API key──▶ /api/analyze (Vercel function) ──▶ Gemini 2.5 Flash-Lite
+        ▲                                                                                     │
+        └──────────────────────── structured JSON (name, url, category, …) ◀──────────────────┘
+```
 
-## The Problem vs. The Solution
+- `api/analyze.ts` is a Vercel serverless function. It validates the request, strips HTML and control characters from input, only accepts `http`/`https` URLs, and asks Gemini for a JSON response with a fixed schema.
+- `services/storageService.ts` persists the library in `localStorage`. Nothing is stored server-side.
 
-| The Old Way (Dead Screenshots)  | The LinkSnap Way (AI Vision)  |
-| :--- | :--- |
-| You take a screenshot of a cool tool or article. | You upload the screenshot to LinkSnap. |
-| It gets buried in your gallery forever. | **AI extracts the URL, Name, and Tech Stack.** |
-| You can't search for it later. | It becomes **searchable** and **categorized**. |
-| You have to type the link manually to visit it. | One click to **visit the site** or **copy the link**. |
+## Tech stack
 
----
+React 19 · TypeScript · Vite · Tailwind CSS · Gemini API (`@google/generative-ai`) · Vercel serverless functions · vite-plugin-pwa · jsPDF
 
-##  Why You'll Love It ("All Good Things")
-
-### No Sign-In Required
-We believe in privacy and speed. You don't need to create an account, give us your email, or remember another password.
-* **Your Data:** Stored 100% locally on your device (browser storage).
-* **Your Keys:** You control your own API key. Nothing is stored on our servers.
-
-###  Smarter Than Your Gallery
-LinkSnap doesn't just save images; it **understands** them using Google's Gemini AI.
-* **Auto-Categorization:** It knows if a screenshot is a *Developer Tool*, *Design Inspiration*, or an *Article*.
-* **Tech Detective:** It can identify if a website was built with React, Tailwind, or Python just by looking at the screenshot.
-
-###  "Nothing" Aesthetic & PWA
-* **Cyberpunk UI:** Designed with the Retro-Futuristic "Nothing OS" style (Dot Matrix fonts, Red accents).
-* **Works Offline:** Install it as an app on your phone or desktop. It works even without internet access (for viewing saved items).
-
----
-
-##  How It Works (3 Steps)
-1.  **Snap:** Take a screenshot of any website, software, or resource.
-2.  **Drop:** Open LinkSnap and drop the image.
-3.  **Discover:** The AI instantly fills in the Title, URL, Description, and Tags.
-
----
-
-##  Run It Locally (For Developers)
-
-If you want to contribute or run your own version:
+## Running locally
 
 ```bash
-# 1. Clone the repo
-git clone [https://github.com/sumanthkatta-dev/linksnap.git](https://github.com/sumanthkatta-dev/linksnap.git)
-
-# 2. Install dependencies
+git clone https://github.com/sumanthkatta-dev/linksnap.git
+cd linksnap
 npm install
-
-# 3. Start the app
 npm run dev
+```
 
-Built by Sumanth Katta
+Open the app, paste a Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey) in Settings, and drop in a screenshot.
 
+## Project structure
 
+```
+api/analyze.ts        Serverless endpoint that calls Gemini
+components/           UI (uploader, bookmark list, filters, settings, docs pages)
+services/             Gemini client, API-key handling, local storage
+public/               PWA manifest, icons, robots.txt, llms.txt
+```
+
+## Roadmap
+
+- Bulk import of a whole screenshots folder
+- Optional sync across devices
+- Full-text search across descriptions and tags
