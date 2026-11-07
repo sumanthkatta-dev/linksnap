@@ -1,8 +1,8 @@
-# 🔗 LinkSnap
+# LinkSnap
 
 ### *The Smartest Way to Save Links - Powered by Visual Intelligence*
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-linksnap.vercel.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-linksnap.vercel.app-D71921?style=for-the-badge)](https://linksnapai.vercel.app)
 [![GitHub Stars](https://img.shields.io/github/stars/sumanthkatta-dev/linksnap?style=for-the-badge&color=D71921)](https://github.com/sumanthkatta-dev/linksnap)
 [![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-D71921?style=for-the-badge)](CONTRIBUTING.md)
 ![Privacy](https://img.shields.io/badge/Privacy-No_Sign--In_Required-green?style=for-the-badge)
@@ -13,7 +13,7 @@
 > Turn dead pixels into live, searchable links instantly using AI.
 
 ## Try It Now
-### [**🔗 Click Here to Launch LinkSnap**](https://linksnapai.vercel.app/)
+### [**Click Here to Launch LinkSnap**](https://linksnapai.vercel.app/)
 *(No Account Needed. No Login. Just instant productivity.)*
 
 ---
@@ -73,6 +73,6 @@ npm install
 # 3. Start the app
 npm run dev
 
-Built with ❤️ by Sumanth Katta
+Built by Sumanth Katta
 
 
